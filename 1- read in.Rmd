@@ -1,0 +1,44 @@
+---
+title: "1- read in"
+output: html_notebook
+---
+
+##Function for as_factor()
+```{r}
+factor_country <- function(filename) {
+  country_merged <- read_dta(filename)
+  country_factor <- as_factor(country_merged)
+  return(country_factor)
+}
+```
+
+```{r}
+##Loading in Countries
+
+library(haven)
+argentina <- factor_country("1326054827Argentina LAPOP merge 2008-2014 v3.0_W_dta.zip")
+bolivia <- factor_country("1500779614Bolivia LAPOP merge 2004-2014 v3.0_W_dta.zip")
+brazil <- factor_country("1058457654Brazil LAPOP merge 2007-2014 v3.0_W_dta.zip")
+belize <- factor_country("1866361808Belize LAPOP merge 2008-2014 v3.0_W_dta.zip")
+canada <- factor_country("257165704Canada LAPOP merge 2006-2014 v3.0_W_dta.zip")
+chile <- factor_country("1651690880Chile LAPOP merge 2006-2014 v3.0_W_dta.zip")
+colombia <- factor_country("26761406Colombia LAPOP merge 2004-2014 v3.0_W_dta.zip")
+costa <- factor_country("312640706CostaRica LAPOP merge 2004-2014 v3.0_W_dta.zip")
+ecuador <- factor_country("1562314955Ecuador LAPOP merge 2004-2014 v3.0_W_dta.zip")
+elsalvador <- factor_country("71618678ElSalvador LAPOP merge 2004-2014 v3.0_W_dta.zip")
+guatemala <- factor_country("833541857Guatemala LAPOP merge 2004-2014 v3.0_W_dta.zip")
+guyana <- factor_country("1293237393Guyana LAPOP merge 2006-2014 v3.0_W_dta.zip")
+paraguay <- factor_country("450650714Paraguay LAPOP merge 2006-2014 v3.0_W_dta.zip")
+honduras <- factor_country("125162980Honduras LAPOP merge 2004-2014 v3.0_W_dta.zip")
+jamaica <- factor_country("1518553693Jamaica LAPOP merge 2006-2014 v3.0_W_dta.zip")
+mexico <- factor_country("1467358429Mexico LAPOP merge 2004-2014 v3.0_W_dta.zip")
+nicaragua <- factor_country("420919900Nicaragua LAPOP merge 2004-2014 v3.0_W_dta.zip")
+panama <- factor_country("1909860951Panama LAPOP merge 2004-2014 v3.0_W_dta.zip")
+peru <- factor_country("897206140Peru LAPOP merge 2006-2014 v3.0_W_dta.zip")
+suriname <- factor_country("2028239474Suriname LAPOP merge 2010-2014 v3.0_W_dta.zip")
+usa <- factor_country("1355754260UnitedStates LAPOP merge 2006-2014 v3.0_W_dta.zip")
+uruguay <- factor_country("1222977998Uruguay LAPOP merge 2007-2014 v3.0_W_dta.zip")
+venezuela <- factor_country("1165310382Venezuela LAPOP merge 2007-2014 v3.0_W_dta.zip")
+
+```
+

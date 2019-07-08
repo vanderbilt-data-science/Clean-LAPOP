@@ -1,0 +1,38 @@
+---
+title: "5-creating NA"
+output: html_notebook
+---
+
+```{r}
+library(sjmisc)
+
+#Replaces the columns that have "No se le preguntó en este país o año" and others with NA
+turn_to_NA <- function(country){
+  country <- set_na(country, na = c("No se le preguntó en este país o año", "Not asked in this country or year","No Aplica"), as.tag = TRUE)
+}
+
+
+argentina <- turn_to_NA(argentina)
+belize <- turn_to_NA(belize)
+bolivia <- turn_to_NA(bolivia)
+brazil <- turn_to_NA(brazil)
+canada <- turn_to_NA(canada)
+chile <- turn_to_NA(chile)
+colombia <- turn_to_NA(colombia)
+costa <- turn_to_NA(costa)
+ecuador <- turn_to_NA(ecuador)
+elsalvador <- turn_to_NA(elsalvador)
+guatemala <- turn_to_NA(guatemala)
+#guyana <- turn_to_NA(guyana)
+honduras <- turn_to_NA(honduras)
+#jamaica <- turn_to_NA(jamaica)
+mexico <- turn_to_NA(mexico)
+nicaragua <- turn_to_NA(nicaragua)
+panama <- turn_to_NA(panama)
+paraguay <- turn_to_NA(paraguay)
+peru <- turn_to_NA(peru)
+suriname <- turn_to_NA(suriname)
+usa <- turn_to_NA(usa)
+uruguay <- turn_to_NA(uruguay)
+venezuela<- turn_to_NA(venezuela)
+```
