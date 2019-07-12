@@ -1,0 +1,47 @@
+---
+title: "3-combining vb11_12 and vb11_10"
+output: html_notebook
+---
+
+```{r}
+library(labelled)
+
+vb_combine <- function(country) {
+  country <- country %>% #
+  #Converting the columns from factors to characters
+  mutate_at(vars(vb11_10, vb11_12), as.character) %>% 
+  #Creating new column that is vb_combined
+  mutate(vb_combined = ifelse(is.na(vb11_10), vb11_12, vb11_10))
+
+  var_label(country$vb_combined) <- "¿Con cuál partido político simpatiza usted?"
+  
+  return(country)
+}
+```
+
+
+```{r}
+argentina <- vb_combine(argentina)
+belize <- vb_combine(belize)
+bolivia <- vb_combine(bolivia)
+brazil <- vb_combine(brazil)
+canada <- vb_combine(canada)
+chile <- vb_combine(chile)
+colombia <- vb_combine(colombia)
+costa <- vb_combine(costa)
+ecuador <- vb_combine(ecuador)
+elsalvador <- vb_combine(elsalvador)
+guatemala <- vb_combine(guatemala)
+#guyana <- vb_combine(guyana) Commented out because it is English-only
+honduras <- vb_combine(honduras)
+#jamaica <- vb_combine(jamaica) Commented out because it is English-only
+mexico <- vb_combine(mexico)
+nicaragua <- vb_combine(nicaragua)
+panama <- vb_combine(panama)
+paraguay <- vb_combine(paraguay)
+peru <- vb_combine(peru)
+suriname <- vb_combine(suriname)
+usa <- vb_combine(usa)
+uruguay <- vb_combine(uruguay)
+venezuela <- vb_combine(venezuela)
+```
