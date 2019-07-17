@@ -2,42 +2,73 @@
 title: "1- read in"
 output: html_notebook
 ---
-
-##Function for as_factor()
+Load all libraries
 ```{r}
+library(labelled)
+library(sjmisc)
+library(tidyr)
+library(tidyverse)
+library(dplyr)
+library(haven)
+```
+
+The first step is to read in the data, split it up into what needs to be factored vs what doesn't, and then return the new data set of the combined unfactored and factored version
+```{r}
+#function used to factor the data frame
 factor_country <- function(country) {
   country_factor <- as_factor(country)
   return(country_factor)
 }
 
-factor <- rep(NA, 152)
+#makes list that will then store column names to factor
+factor <- rep(NA, 900)
 i <- 1
 x <- 1
 factor_unfactor_combine <- function(filename){
+  #reads in the data
   country <- read_dta(filename)
+  #makes a list of all the columns that are present in the country
   columns <- attributes(country)$names
+  #creates a dataframe that the unfactored data can be held in
   unfactor <- data_frame('extra' = country$pais)
+  #loops throuh each of the columns determining if it needs to be factored or not
+  pais <- as_factor(country %>% select(pais))
+  country <- country %>% select(-pais)
+  country <- cbind(country, pais)
   while(x <= length(columns)){
+    #stores one of the columns in d, have to use !!! syms because columns is in a string list format
     d <- (country %>% select(!!! syms(columns[x])))
-    if(6 %in% d[[unlist(columns[x])]] || 7 %in% d[[unlist(columns[x])]] || 8 %in% d[[unlist(columns[x])]] || 9 %in% d[[unlist(columns[x])]] || 10 %in% d[[unlist(columns[x])]]){
+    #if 6,7,8,9, or 10 are in d
+    if((6 %in% d[[unlist(columns[x])]] || 7 %in% d[[unlist(columns[x])]] || 8 %in% d[[unlist(columns[x])]] || 9 %in% d[[unlist(columns[x])]] || 10 %in% d[[unlist(columns[x])]])){
+      #if it is then add to the dataframe created earlier
       unfactor <- cbind(unfactor, d)
     }
     else{
+      #if it isn't then add the column name to a list factor
       factor[i] <- unlist(columns[x])
       i <- i + 1
     }
     x <-  x + 1
   }
+  #remove "extra" the column originally used to create the dataframe
   unfactor <- unfactor %>% select(-extra)
+  #select the columns that should be factored, shrink country down to just those columns and factor it
   factor <- factor[!is.na(factor)]
   country <- country[factor]
   factored_country <- factor_country(country)
+  #combine unfactored and factored together
   full_country <- cbind(factored_country, unfactor)
+  
   return(full_country)
 }
 ```
 
+Panama was removing pais column from data because it is "7" so because of this changed the previous or statements to and statements, but need to change other things so that it actually works properly.....
+
+
 ```{r}
+
+panama <- factor_unfactor_combine("1909860951Panama LAPOP merge 2004-2014 v3.0_W_dta.zip")
 argentina <- factor_unfactor_combine("1326054827Argentina LAPOP merge 2008-2014 v3.0_W_dta.zip")
 bolivia <- factor_unfactor_combine("1500779614Bolivia LAPOP merge 2004-2014 v3.0_W_dta.zip")
 brazil <- factor_unfactor_combine("1058457654Brazil LAPOP merge 2007-2014 v3.0_W_dta.zip")
@@ -55,11 +86,39 @@ honduras <- factor_unfactor_combine("125162980Honduras LAPOP merge 2004-2014 v3.
 jamaica <- factor_unfactor_combine("1518553693Jamaica LAPOP merge 2006-2014 v3.0_W_dta.zip")
 mexico <- factor_unfactor_combine("1467358429Mexico LAPOP merge 2004-2014 v3.0_W_dta.zip")
 nicaragua <- factor_unfactor_combine("420919900Nicaragua LAPOP merge 2004-2014 v3.0_W_dta.zip")
-panama <- factor_unfactor_combine("1909860951Panama LAPOP merge 2004-2014 v3.0_W_dta.zip")
 peru <- factor_unfactor_combine("897206140Peru LAPOP merge 2006-2014 v3.0_W_dta.zip")
 suriname <- factor_unfactor_combine("2028239474Suriname LAPOP merge 2010-2014 v3.0_W_dta.zip")
 usa <- factor_unfactor_combine("1355754260UnitedStates LAPOP merge 2006-2014 v3.0_W_dta.zip")
 uruguay <- factor_unfactor_combine("1222977998Uruguay LAPOP merge 2007-2014 v3.0_W_dta.zip")
 venezuela <- factor_unfactor_combine("1165310382Venezuela LAPOP merge 2007-2014 v3.0_W_dta.zip")
 ```
+
+
+Just used this to test somethings out
+```{r}
+panamab <- read_dta("1909860951Panama LAPOP merge 2004-2014 v3.0_W_dta.zip")
+argentinab <- read_dta("1326054827Argentina LAPOP merge 2008-2014 v3.0_W_dta.zip")
+boliviab <- read_dta("1500779614Bolivia LAPOP merge 2004-2014 v3.0_W_dta.zip")
+brazilb <- read_dta("1058457654Brazil LAPOP merge 2007-2014 v3.0_W_dta.zip")
+belizeb<- read_dta("1866361808Belize LAPOP merge 2008-2014 v3.0_W_dta.zip")
+canadab <- read_dta("257165704Canada LAPOP merge 2006-2014 v3.0_W_dta.zip")
+chileb <- read_dta("1651690880Chile LAPOP merge 2006-2014 v3.0_W_dta.zip")
+colombiab <- read_dta("26761406Colombia LAPOP merge 2004-2014 v3.0_W_dta.zip")
+costab <- read_dta("312640706CostaRica LAPOP merge 2004-2014 v3.0_W_dta.zip")
+ecuadorb <- read_dta("1562314955Ecuador LAPOP merge 2004-2014 v3.0_W_dta.zip")
+elsalvadorb <- read_dta("71618678ElSalvador LAPOP merge 2004-2014 v3.0_W_dta.zip")
+guatemalab <- read_dta("833541857Guatemala LAPOP merge 2004-2014 v3.0_W_dta.zip")
+guyanab <- read_dta("1293237393Guyana LAPOP merge 2006-2014 v3.0_W_dta.zip")
+paraguayb <- read_dta("450650714Paraguay LAPOP merge 2006-2014 v3.0_W_dta.zip")
+hondurasb <- read_dta("125162980Honduras LAPOP merge 2004-2014 v3.0_W_dta.zip")
+jamaicab <- read_dta("1518553693Jamaica LAPOP merge 2006-2014 v3.0_W_dta.zip")
+mexicob <- read_dta("1467358429Mexico LAPOP merge 2004-2014 v3.0_W_dta.zip")
+nicaraguab <- read_dta("420919900Nicaragua LAPOP merge 2004-2014 v3.0_W_dta.zip")
+perub <- read_dta("897206140Peru LAPOP merge 2006-2014 v3.0_W_dta.zip")
+surinameb <- read_dta("2028239474Suriname LAPOP merge 2010-2014 v3.0_W_dta.zip")
+usab <- read_dta("1355754260UnitedStates LAPOP merge 2006-2014 v3.0_W_dta.zip")
+uruguayb <- read_dta("1222977998Uruguay LAPOP merge 2007-2014 v3.0_W_dta.zip")
+venezuelab <- read_dta("1165310382Venezuela LAPOP merge 2007-2014 v3.0_W_dta.zip")
+```
+
 

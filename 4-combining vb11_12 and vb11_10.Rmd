@@ -1,10 +1,9 @@
 ---
-title: "3-combining vb11_12 and vb11_10"
+title: "4-combining vb11_12 and vb11_10"
 output: html_notebook
 ---
-
+Only do if are doing countries individually, because vb11_12 and vb11_10 aren't brought over because don't match
 ```{r}
-library(labelled)
 
 vb_combine <- function(country) {
   country <- country %>% #
@@ -21,27 +20,27 @@ vb_combine <- function(country) {
 
 
 ```{r}
-argentina <- vb_combine(argentina)
-belize <- vb_combine(belize)
-bolivia <- vb_combine(bolivia)
-brazil <- vb_combine(brazil)
-canada <- vb_combine(canada)
-chile <- vb_combine(chile)
-colombia <- vb_combine(colombia)
-costa <- vb_combine(costa)
-ecuador <- vb_combine(ecuador)
-elsalvador <- vb_combine(elsalvador)
-guatemala <- vb_combine(guatemala)
-#guyana <- vb_combine(guyana) Commented out because it is English-only
-honduras <- vb_combine(honduras)
-#jamaica <- vb_combine(jamaica) Commented out because it is English-only
-mexico <- vb_combine(mexico)
-nicaragua <- vb_combine(nicaragua)
-panama <- vb_combine(panama)
-paraguay <- vb_combine(paraguay)
-peru <- vb_combine(peru)
-suriname <- vb_combine(suriname)
-usa <- vb_combine(usa)
-uruguay <- vb_combine(uruguay)
-venezuela <- vb_combine(venezuela)
+argentina_vb <- vb_combine(argentina_shrink)
+belize_vb <- vb_combine(belize_shrink)
+bolivia_vb <- vb_combine(bolivia_shrink)
+brazil_vb <- vb_combine(brazil_shrink)
+canada_vb <- vb_combine(canada_shrink)
+chile_vb <- vb_combine(chile_shrink)
+colombia_vb <- vb_combine(colombia_shrink)
+costa_vb <- vb_combine(costa_shrink)
+ecuador_vb <- vb_combine(ecuador_shrink)
+elsalvador_vb <- vb_combine(elsalvador_shrink)
+guatemala_vb <- vb_combine(guatemala_shrink)
+#guyana_vb <- vb_combine(guyana_shrink) Commented out because it is English-only
+honduras_vb <- vb_combine(honduras_shrink)
+#jamaica_vb <- vb_combine(jamaica_shrink) Commented out because it is English-only
+mexico_vb <- vb_combine(mexico_shrink)
+nicaragua_vb <- vb_combine(nicaragua_shrink)
+panama_vb <- vb_combine(panama_shrink)
+paraguay_vb <- vb_combine(paraguay_shrink)
+peru_vb <- vb_combine(peru_shrink)
+suriname_vb <- vb_combine(suriname_shrink)
+usa_vb <- vb_combine(usa_shrink)
+uruguay_vb <- vb_combine(uruguay_shrink)
+venezuela_vb <- vb_combine(venezuela_shrink)
 ```

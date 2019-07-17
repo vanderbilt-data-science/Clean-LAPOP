@@ -1,0 +1,61 @@
+---
+title: "creating merge"
+output: html_notebook
+---
+
+lots of problems..... trying to create merge based off of specific countries
+```{r}
+bind <- c(argentina_wide, brazil_wide, belize_wide)
+
+
+combine <- function(countries){
+  all <- bind_rows(countries[1], countries[2])
+  x <- 3
+  while(x <= length(countries)){
+    all <- bind_rows(all, countries[x])
+    x <- x + 1
+  }
+  return(all)
+}
+
+all <- combine(bind)
+
+new <- bind_rows(argentina_wide, brazil_wide)
+
+test1 <- bind_rows(argentina_wide, belize_wide)
+
+```
+
+
+```{r}
+first <- bind_rows(argentina, bolivia)
+second <- bind_rows(first, brazil)
+third <- bind_rows(second, belize)
+fourth <- bind_rows(third, canada)
+fifth <- bind_rows(fourth, chile)
+sixth <- bind_rows(fifth, colombia)
+seven <- bind_rows(sixth, costa)
+eigth <- bind_rows(seven, ecuador)
+nine <- bind_rows(eigth, elsalvador)
+ten <- bind_rows(nine, guatemala)
+eleven <- bind_rows(ten, guyana)
+twelve <- bind_rows(eleven, paraguay)
+thirteen <- bind_rows(twelve, honduras)
+fourteen <- bind_rows(thirteen, jamaica)
+fifteen <- bind_rows(fourteen, mexico)
+sixteen <- bind_rows(fifteen, nicaragua)
+seventeen <- bind_rows(sixteen, panama)
+eighteen <- bind_rows(seventeen, peru)
+nineteen <- bind_rows(eighteen, suriname)
+twenty <- bind_rows(nineteen, usa)
+twen_one <- bind_rows(twenty, uruguay)
+last_combine <- bind_rows(twen_one, venezuela)
+
+write_csv(last_combine, "combined_tidy.csv")
+```
+
+```{r}
+write_csv(new, "argentina_brazil_wide.csv")
+```
+
+

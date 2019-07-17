@@ -113,3 +113,182 @@ twenty <- list_and_factor(nineteen, usa)
 twen_one <- list_and_factor(twenty, uruguay)
 all_common_col <- list_and_factor(twen_one, venezuela)
 ```
+
+
+Need to compare all common questions not just column names, because there are different questions for the column names
+
+making list of common column questions
+
+```{r}
+questions1 <- function(country){
+  i <- 1
+  column <- length(attributes(country)$names)
+  new_list <- rep(NA, column)
+#Replaces original column names with readable version
+			  while(i <= length(new_list)){
+			    #Isolates original column names
+			    original <- attributes(country)$names[i]
+			    #Replaces with label
+			    new <- attributes(country[[original]])$label
+			    #Adds object to list
+			    new_list[i] <- new
+			    #Moves to next item
+			    i <- i + 1
+			  }
+			  new_list
+}
+```
+
+```{r}
+questions <- function(country){
+  i <- 1
+  x <- 1
+  column <- length(attributes(country)$names)
+  new_list <- rep(NA, column)
+			  while(i <= length(new_list)){
+			    original <- attributes(country)$names[i]
+			    new <- attributes(country[[original]])$label
+			    if(is.null(new) == FALSE){
+			      new_list[x] <- new
+			      x <- x + 1
+			    }
+			    i <- i + 1
+			  }
+			  new_list
+}
+```
+
+
+```{r}
+argentina_questions <- questions(argentina)
+belize_questions  <- questions(belize)
+bolivia_questions  <- questions(bolivia)
+brazil_questions  <- questions(brazil)
+canada_questions  <- questions(canada)
+chile_questions  <- questions(chile)
+colombia_questions  <- questions(colombia)
+costa_questions <- questions(costa)
+ecuador_questions <- questions(ecuador)
+elsalvador_questions <- questions(elsalvador)
+guatemala_questions <- questions(guatemala)
+#guyana_questions <- questions(guyana) #Commented out because it is English-only
+honduras_questions <- questions(honduras)
+#jamaica_questions <- questions(jamaica) #Commented out because it is English-only
+mexico_questions <- questions(mexico)
+nicaragua_questions <- questions(nicaragua)
+panama_questions <- questions(panama)
+paraguay_questions <- questions(paraguay)
+peru_questions <- questions(peru)
+suriname_questions <- questions(suriname)
+usa_questions <- questions(usa)
+uruguay_questions <- questions(uruguay)
+venezuela_questions <- questions(venezuela)
+```
+
+
+Comparing all lists together 
+
+```{r}
+list_and_list <- function(country1, country2) {
+  #Collects names of each column from their respective data set
+  first <- country1
+  second <- country2
+	  
+			  
+  #Initializing list
+  firstlist <- vector("list", 800)
+  l <- vector("list", 25)
+
+  i <- 1
+  n <- 0
+  k <- 1
+  x <- 1
+
+  #Looping through both column names to find similarities
+  for (name1 in first) {
+      if (name1 %in% second) {
+        firstlist[[i]] <- name1
+        i <- i + 1
+      }
+  }
+
+
+  #Getting rid of NULL values
+  for(x in firstlist){
+    if(is.null(x) == FALSE) {
+     n <- n + 1
+    }
+  }
+ 
+  final <- vector("list", n)
+
+  for(x in firstlist) {
+    final[[k]] <- x
+    k <- k + 1
+  }
+
+  #Print result
+  return(final)
+}
+```
+
+```{r}
+firstlist <- vector("list", 800)
+l <- vector("list", 25)
+
+  i <- 1
+  n <- 0
+  k <- 1
+  x <- 1
+
+  #Looping through both column names to find similarities
+  for (name1 in argentina_questions) {
+      if (name1 %in% belize_questions) {
+        firstlist[[i]] <- name1
+        i <- i + 1
+      }
+    else{
+      l[[x]] <- name1
+      x <-  x + 1
+    }
+  }
+```
+
+
+At the end it was really important to makes sure that unique was added because there were a couple of duplicate columns that repeated themselves
+```{r}
+first <- list_and_list(argentina_questions, bolivia_questions)
+second <- list_and_list(first, brazil_questions)
+third <- list_and_list(second, belize_questions)
+fourth <- list_and_list(third, venezuela_questions)
+fifth <- list_and_list(fourth, chile_questions)
+sixth <- list_and_list(fifth, colombia_questions)
+seven <- list_and_list(sixth, costa_questions)
+eigth <- list_and_list(seven, ecuador_questions)
+nine <- list_and_list(eigth, elsalvador_questions)
+ten <- list_and_list(nine, guatemala_questions)
+#eleven <- list_and_list(ten, guyana_questions)
+twelve <- list_and_list(ten, paraguay_questions)
+thirteen <- list_and_list(twelve, honduras_questions)
+#fourteen <- list_and_list(thirteen, jamaica_questions)
+fifteen <- list_and_list(thirteen, mexico_questions)
+sixteen <- list_and_list(fifteen, nicaragua_questions)
+seventeen <- list_and_list(sixteen, panama_questions)
+eighteen <- list_and_list(seventeen, peru_questions)
+nineteen <- list_and_list(eighteen, suriname_questions)
+twenty <- list_and_list(nineteen, usa_questions)
+twen_one <- list_and_list(twenty, uruguay_questions)
+common_questions <- (list_and_list(twen_one, canada_questions))
+unique_questions <- unique(common_questions)
+unlist_questions <- (unlist(common_questions))
+```
+
+
+
+
+
+
+
+
+
+
