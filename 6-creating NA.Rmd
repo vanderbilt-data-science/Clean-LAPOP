@@ -7,7 +7,7 @@ output: html_notebook
 
 #Replaces the columns that have "No se le preguntó en este país o año" and others with NA
 turn_to_NA <- function(country){
-  country <- set_na(country, na = c("No se le preguntó en este país o año", "Not asked in this country or year","No Aplica", "No Sabe"), as.tag = TRUE)
+  country <- set_na(country, na = c("No se le preguntó en este país o año", "Not asked in this country or year","No Aplica", "No Sabe", "No responde"), as.tag = TRUE)
 }
 
 

@@ -28,7 +28,7 @@ lengthen <- function(country) {
 			  country_before <- country
 			  country <- country %>%
  #These are excluded because they are repeated
-			  select(-strata,-sex, -vb11_10, -vb11_12) %>%
+			  select(-sex, -vb11_10, -vb11_12) %>%
 			  #Brings together the following columns
 			  gather(column_name, answer, estratopri:vb_combined)
 #Takes length of column_name and arguments from long_questions
@@ -52,6 +52,7 @@ tidy_spread <- function(x){
 ```
 
 ```{r}
+argentina_long <- lengthen(argentina_na)
 argentina_wide <- tidy_spread(lengthen(argentina_na))
 belize_wide <- tidy_spread(lengthen(belize_na))
 brazil_wide <- tidy_spread(lengthen(brazil_na))
@@ -153,13 +154,141 @@ usa_widex <- tidy_spread(lengthen2(usa_nax))
 
 belize: * 226617, 617081 
 
+NEW
+
 ```{r}
-argentina_widex <- tidy_spread(lengthen2(argentina_nax))
-belize_widex <- tidy_spread(lengthen2(belize_nax))
-brazx_long <- lengthen2(brazil_nax)
-brazil_widex <- tidy_spread(lengthen2(brazil_nax))
-chile_widex <- tidy_spread(lengthen2(chile_nax))
-panama_widex <- tidy_spread(lengthen2(panama_nax))
+library(tidyr)
+library(tidyverse)
+long_questions <- function(country, country_before, column){
+			  #Starting at index 1
+			  i <- 1
+number_for_dupID <- rep(NA, column)
+new_list <- rep(NA, column)
+#Replaces original column names with readable version
+			  while(i <= column){
+			    #Isolates original column names
+			    original <- (country$column_name)[i]
+			    #Replaces with label
+			    new <- attributes(country_before[[original]])$label
+			    new <- paste(new, "factor", sep = "-")
+			    #Adds object to list
+			    new_list[i] <- new
+			    #Moves to next item
+			    i <- i + 1
+			  }
+			  new_list
+			}
+lengthen_factor <- function(country) {
+			  country_before <- country
+			  country <- country %>%
+ #These are excluded because they are repeated
+			  select(-`sex-factor`, -`vb11_10-factor`, -`vb11_12-factor`) %>%
+			  #Brings together the following columns
+			  gather(column_name, answer, `estratopri-factor`:`vb_combined-factor`)
+#Takes length of column_name and arguments from long_questions
+			  column <- length(country$column_name)
+			  questions <- long_questions(country, country_before, column)
+ country <- country %>% 
+			    mutate(questions)
+country <- country %>% 
+			    select(`pais-factor`, `year-factor`, unique_id, column_name, answer, questions, extra_id)
+			  return(country)
+			}
+
 ```
+
+```{r}
+library(tidyr)
+library(tidyverse)
+long_questions <- function(country, country_before, column){
+			  #Starting at index 1
+			  i <- 1
+number_for_dupID <- rep(NA, column)
+new_list <- rep(NA, column)
+#Replaces original column names with readable version
+			  while(i <= column){
+			    #Isolates original column names
+			    original <- (country$column_name)[i]
+			    #Replaces with label
+			    new <- attributes(country_before[[original]])$label
+			    #Adds object to list
+			    new_list[i] <- new
+			    #Moves to next item
+			    i <- i + 1
+			  }
+			  new_list
+			}
+lengthen <- function(country) {
+			  country_before <- country
+			  country <- country %>%
+ #These are excluded because they are repeated
+			  select(-sex, -vb11_10, -vb11_12) %>%
+			  #Brings together the following columns
+			  gather(column_name, answer, estratopri:vb_combined)
+#Takes length of column_name and arguments from long_questions
+			  column <- length(country$column_name)
+			  questions <- long_questions(country, country_before, column)
+ country <- country %>% 
+			    mutate(questions)
+country <- country %>% 
+			    select(pais, year, unique_id, column_name, answer, questions, extra_id)
+			  return(country)
+			}
+
+```
+
+
+```{r}
+argentina_test <- lengthen_factor(argentina_unique_factor)
+argentina_wide_factor <- tidy_spread(lengthen_factor(argentina_unique_factor))
+belize_wide_factor <- tidy_spread(lengthen_factor(belize_unique_factor))
+brazil_wide_factor <- tidy_spread(lengthen_factor(brazil_unique_factor))
+chile_wide_factor <- tidy_spread(lengthen_factor(chile_unique_factor))
+panama_wide_factor <- tidy_spread(lengthen_factor(panama_unique_factor))
+paraguay_wide_factor <- tidy_spread(lengthen_factor(paraguay_unique_factor))
+peru_wide_factor <- tidy_spread(lengthen_factor(peru_unique_factor))
+#suriname_wide_factor <- tidy_spread(lengthen_factor(suriname_unique_factor)) - says that no unique combination, but the combination seems unique...
+uruguay_wide_factor <- tidy_spread(lengthen_factor(uruguay_unique_factor))
+venezuela_wide_factor <- tidy_spread(lengthen_factor(venezuela_unique_factor))
+bolivia_wide_factor <- tidy_spread(lengthen_factor(bolivia_unique_factor))
+canada_wide_factor <- tidy_spread(lengthen_factor(canada_unique_factor))
+colombia_wide_factor <- tidy_spread(lengthen_factor(colombia_unique_factor))
+costa_wide_factor <- tidy_spread(lengthen_factor(costa_unique_factor))
+ecuador_wide_factor <- tidy_spread(lengthen_factor(ecuador_unique_factor))
+elsalvador_wide_factor <- tidy_spread(lengthen_factor(elsalvador_unique_factor))
+guatemala_wide_factor <- tidy_spread(lengthen_factor(guatemala_unique_factor))
+honduras_wide_factor <- tidy_spread(lengthen_factor(honduras_unique_factor))
+mexico_wide_factor <- tidy_spread(lengthen_factor(mexico_unique_factor))
+nicaragua_wide_factor <- tidy_spread(lengthen_factor(nicaragua_unique_factor))
+usa_wide_factor <- tidy_spread(lengthen_factor(usa_unique_factor))
+```
+
+```{r}
+arg <- lengthen(argentina_unique_unfactor)
+argentina_wide_unfactor <- tidy_spread(lengthen(argentina_unique_unfactor))
+belize_wide_unfactor <- tidy_spread(lengthen(belize_unique_unfactor))
+brazil_wide_unfactor <- tidy_spread(lengthen(brazi_unique_unfactor))
+chile_wide_unfactor <- tidy_spread(lengthen(chile_unique_unfactor))
+panama_wide_unfactor <- tidy_spread(lengthen(panama_unique_unfactor))
+paraguay_wide_unfactor <- tidy_spread(lengthen(paraguay_unique_unfactor))
+peru_wide_unfactor <- tidy_spread(lengthen(peru_unique_unfactor))
+#suriname_wide_unfactor <- tidy_spread(lengthen(suriname__unique_unfactor)) - says that no unique combination, but the combination seems unique...
+uruguay_wide_unfactor <- tidy_spread(lengthen(uruguay_unique_unfactor))
+venezuela_wide_unfactor <- tidy_spread(lengthen(venezuela_unique_unfactor))
+bolivia_wide_unfactor <- tidy_spread(lengthen(bolivia_unique_unfactor))
+canada_wide_unfactor <- tidy_spread(lengthen(canada_unique_unfactor))
+colombia_wide_unfactor <- tidy_spread(lengthen(colombia_unique_unfactor))
+costa_wide_unfactor <- tidy_spread(lengthen(costa_unique_unfactor))
+ecuador_wide_unfactor <- tidy_spread(lengthen(ecuador_unique_unfactor))
+elsalvador_wide_unfactor <- tidy_spread(lengthen(elsalvador_unique_unfactor))
+guatemala_wide_unfactor <- tidy_spread(lengthen(guatemala_unique_unfactor))
+honduras_wide_unfactor <- tidy_spread(lengthen(honduras_unique_unfactor))
+mexico_wide_unfactor <- tidy_spread(lengthen(mexico_unique_unfactor))
+nicaragua_wide_unfactor <- tidy_spread(lengthen(nicaragua_unique_unfactor))
+usa_wide_unfactor <- tidy_spread(lengthen(usa_unique_unfactor))
+```
+
+
+652, 6572
 
 

@@ -2,7 +2,7 @@
 title: "3-shrinking to common columns"
 output: html_notebook
 ---
-Use this shrink if going to look at each country individually
+Only really need to run these next two chunks
 ```{r}
 new_col <- unlist(all_common_col)
 
@@ -43,6 +43,86 @@ uruguay_shrink <- shrink(uruguay)
 venezuela_shrink <- shrink(venezuela)
 ```
 
+
+NEW!!!!!
+
+```{r}
+new_col <- unlist(common_unfactor)
+
+shrink_unfactor <- function(country){
+  country <- country[, new_col]
+  return(country)
+}
+```
+
+```{r}
+argentina_shrink_unfactor  <- shrink_unfactor(argentina_unfactor)
+belize_shrink_unfactor  <- shrink_unfactor(belize_unfactor)
+bolivia_shrink_unfactor  <- shrink_unfactor(bolivia_unfactor)
+brazil_shrink_unfactor  <- shrink_unfactor(brazil_unfactor)
+canada_shrink_unfactor  <- shrink_unfactor(canada_unfactor)
+chile_shrink_unfactor <- shrink_unfactor(chile_unfactor)
+colombia_shrink_unfactor  <- shrink_unfactor(colombia_unfactor)
+costa_shrink_unfactor <- shrink_unfactor(costa_unfactor)
+ecuador_shrink_unfactor <- shrink_unfactor(ecuador_unfactor)
+elsalvador_shrink_unfactor <- shrink_unfactor(elsalvador_unfactor)
+guatemala_shrink_unfactor <- shrink_unfactor(guatemala_unfactor)
+#guyana_shrink_unfactor <- shrink_unfactor(guyana_unfactor) Commented out because it is English-only
+honduras_shrink_unfactor <- shrink_unfactor(honduras_unfactor)
+#jamaica_shrink_unfactor <- shrink_unfactor(jamaica_unfactor) Commented out because it is English-only
+mexico_shrink_unfactor <- shrink_unfactor(mexico_unfactor)
+nicaragua_shrink_unfactor <- shrink_unfactor(nicaragua_unfactor)
+panama_shrink_unfactor <- shrink_unfactor(panama_unfactor)
+paraguay_shrink_unfactor <- shrink_unfactor(paraguay_unfactor)
+peru_shrink_unfactor <- shrink_unfactor(peru_unfactor)
+suriname_shrink_unfactor <- shrink_unfactor(suriname_unfactor)
+usa_shrink_unfactor <- shrink_unfactor(usa_unfactor)
+uruguay_shrink_unfactor <- shrink_unfactor(uruguay_unfactor)
+venezuela_shrink_unfactor <- shrink_unfactor(venezuela_unfactor)
+```
+
+```{r}
+new_col <- unlist(common_factor)
+
+shrink_unfactor <- function(country){
+  country <- country[, new_col]
+  return(country)
+}
+```
+
+```{r}
+argentina_shrink_factor  <- shrink(argentina_factor)
+belize_shrink_factor  <- shrink(belize_factor)
+bolivia_shrink_factor  <- shrink(bolivia_factor)
+brazil_shrink_factor  <- shrink(brazil_factor)
+canada_shrink_factor  <- shrink(canada_factor)
+chile_shrink_factor  <- shrink(chile_factor)
+colombia_shrink_factor  <- shrink(colombia_factor)
+costa_shrink_factor <- shrink(costa_factor)
+ecuador_shrink_factor <- shrink(ecuador_factor)
+elsalvador_shrink_factor <- shrink(elsalvador_factor)
+guatemala_shrink_factor <- shrink(guatemala_factor)
+#guyana_shrink_factor <- shrink(guyana_factor) Commented out because it is English-only
+honduras_shrink_factor <- shrink(honduras_factor)
+#jamaica_shrink_factor <- shrink(jamaica_factor) Commented out because it is English-only
+mexico_shrink_factor <- shrink(mexico_factor)
+nicaragua_shrink_factor <- shrink(nicaragua_factor)
+panama_shrink_factor <- shrink(panama_factor)
+paraguay_shrink_factor <- shrink(paraguay_factor)
+peru_shrink_factor<- shrink(peru_factor)
+suriname_shrink_factor <- shrink(suriname_factor)
+usa_shrink_factor <- shrink(usa_factor_factor)
+uruguay_shrink_factor <- shrink(uruguay_factor)
+venezuela_shrink_factor <- shrink(venezuela_factor)
+```
+
+
+
+
+
+
+
+These things below were what we were trying to create in order to only have the common questions as the colummn headers, but this got more complicated as we found that there were duplicate column questions, which caused the countries not to shrink properly or recombine properly
 
 Use this shrink if goin to do join on countries.... need to only allow in unique ones
 ```{r}

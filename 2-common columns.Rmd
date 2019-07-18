@@ -88,7 +88,6 @@ list_and_factor <- function(list1, country2) {
 }
 ```
 
-
 ```{r}
 first <- same_column_names(argentina, bolivia)
 second <- list_and_factor(first, brazil)
@@ -113,6 +112,62 @@ twenty <- list_and_factor(nineteen, usa)
 twen_one <- list_and_factor(twenty, uruguay)
 all_common_col <- list_and_factor(twen_one, venezuela)
 ```
+
+
+NEW
+Unfactored
+```{r}
+first <- same_column_names(argentina_unfactor, bolivia_unfactor)
+second <- list_and_factor(first, brazil_unfactor)
+third <- list_and_factor(second, belize_unfactor)
+fourth <- list_and_factor(third, canada_unfactor)
+fifth <- list_and_factor(fourth, chile_unfactor)
+sixth <- list_and_factor(fifth, colombia_unfactor)
+seven <- list_and_factor(sixth, costa_unfactor)
+eigth <- list_and_factor(seven, ecuador_unfactor)
+nine <- list_and_factor(eigth, elsalvador_unfactor)
+ten <- list_and_factor(nine, guatemala_unfactor)
+eleven <- list_and_factor(ten, guyana_unfactor)
+twelve <- list_and_factor(eleven, paraguay_unfactor)
+thirteen <- list_and_factor(twelve, honduras_unfactor)
+fourteen <- list_and_factor(thirteen, jamaica_unfactor)
+fifteen <- list_and_factor(fourteen, mexico_unfactor)
+sixteen <- list_and_factor(fifteen, nicaragua_unfactor)
+seventeen <- list_and_factor(sixteen, panama_unfactor)
+eighteen <- list_and_factor(seventeen, peru_unfactor)
+nineteen <- list_and_factor(eighteen, suriname_unfactor)
+twenty <- list_and_factor(nineteen, usa_unfactor)
+twen_one <- list_and_factor(twenty, uruguay_unfactor)
+common_unfactor <- list_and_factor(twen_one, venezuela_unfactor)
+```
+
+Factored
+```{r}
+first <- same_column_names(argentina_factor, bolivia_factor)
+second <- list_and_factor(first, brazil_factor)
+third <- list_and_factor(second, belize_factor)
+fourth <- list_and_factor(third, canada_factor)
+fifth <- list_and_factor(fourth, chile_factor)
+sixth <- list_and_factor(fifth, colombia_factor)
+seven <- list_and_factor(sixth, costa_factor)
+eigth <- list_and_factor(seven, ecuador_factor)
+nine <- list_and_factor(eigth, elsalvador_factor)
+ten <- list_and_factor(nine, guatemala_factor)
+eleven <- list_and_factor(ten, guyana_factor)
+twelve <- list_and_factor(eleven, paraguay_factor)
+thirteen <- list_and_factor(twelve, honduras_factor)
+fourteen <- list_and_factor(thirteen, jamaica_factor)
+fifteen <- list_and_factor(fourteen, mexico_factor)
+sixteen <- list_and_factor(fifteen, nicaragua_factor)
+seventeen <- list_and_factor(sixteen, panama_factor)
+eighteen <- list_and_factor(seventeen, peru_factor)
+nineteen <- list_and_factor(eighteen, suriname_factor)
+twenty <- list_and_factor(nineteen, usa_factor)
+twen_one <- list_and_factor(twenty, uruguay_factor)
+common_factor <- list_and_factor(twen_one, venezuela_factor)
+```
+
+
 
 
 Need to compare all common questions not just column names, because there are different questions for the column names
