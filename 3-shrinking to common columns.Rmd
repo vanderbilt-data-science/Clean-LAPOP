@@ -84,36 +84,36 @@ venezuela_shrink_unfactor <- shrink_unfactor(venezuela_unfactor)
 ```{r}
 new_col <- unlist(common_factor)
 
-shrink_unfactor <- function(country){
+shrink_factor <- function(country){
   country <- country[, new_col]
   return(country)
 }
 ```
 
 ```{r}
-argentina_shrink_factor  <- shrink(argentina_factor)
-belize_shrink_factor  <- shrink(belize_factor)
-bolivia_shrink_factor  <- shrink(bolivia_factor)
-brazil_shrink_factor  <- shrink(brazil_factor)
-canada_shrink_factor  <- shrink(canada_factor)
-chile_shrink_factor  <- shrink(chile_factor)
-colombia_shrink_factor  <- shrink(colombia_factor)
-costa_shrink_factor <- shrink(costa_factor)
-ecuador_shrink_factor <- shrink(ecuador_factor)
-elsalvador_shrink_factor <- shrink(elsalvador_factor)
-guatemala_shrink_factor <- shrink(guatemala_factor)
-#guyana_shrink_factor <- shrink(guyana_factor) Commented out because it is English-only
-honduras_shrink_factor <- shrink(honduras_factor)
-#jamaica_shrink_factor <- shrink(jamaica_factor) Commented out because it is English-only
-mexico_shrink_factor <- shrink(mexico_factor)
-nicaragua_shrink_factor <- shrink(nicaragua_factor)
-panama_shrink_factor <- shrink(panama_factor)
-paraguay_shrink_factor <- shrink(paraguay_factor)
-peru_shrink_factor<- shrink(peru_factor)
-suriname_shrink_factor <- shrink(suriname_factor)
-usa_shrink_factor <- shrink(usa_factor_factor)
-uruguay_shrink_factor <- shrink(uruguay_factor)
-venezuela_shrink_factor <- shrink(venezuela_factor)
+argentina_shrink_factor  <- shrink_factor(argentina_factor)
+belize_shrink_factor  <- shrink_factor(belize_factor)
+bolivia_shrink_factor  <- shrink_factor(bolivia_factor)
+brazil_shrink_factor  <- shrink_factor(brazil_factor)
+canada_shrink_factor  <- shrink_factor(canada_factor)
+chile_shrink_factor  <- shrink_factor(chile_factor)
+colombia_shrink_factor  <- shrink_factor(colombia_factor)
+costa_shrink_factor <- shrink_factor(costa_factor)
+ecuador_shrink_factor <- shrink_factor(ecuador_factor)
+elsalvador_shrink_factor <- shrink_factor(elsalvador_factor)
+guatemala_shrink_factor <- shrink_factor(guatemala_factor)
+#guyana_shrink_factor <- shrink_factor(guyana_factor) Commented out because it is English-only
+honduras_shrink_factor <- shrink_factor(honduras_factor)
+#jamaica_shrink_factor <- shrink_factor(jamaica_factor) Commented out because it is English-only
+mexico_shrink_factor <- shrink_factor(mexico_factor)
+nicaragua_shrink_factor <- shrink_factor(nicaragua_factor)
+panama_shrink_factor <- shrink_factor(panama_factor)
+paraguay_shrink_factor <- shrink_factor(paraguay_factor)
+peru_shrink_factor<- shrink_factor(peru_factor)
+suriname_shrink_factor <- shrink_factor(suriname_factor)
+usa_shrink_factor <- shrink_factor(usa_factor_factor)
+uruguay_shrink_factor <- shrink_factor(uruguay_factor)
+venezuela_shrink_factor <- shrink_factor(venezuela_factor)
 ```
 
 

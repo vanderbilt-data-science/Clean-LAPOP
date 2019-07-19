@@ -81,7 +81,7 @@ Created these next things in order to try to continue working with the common co
 ```{r}
 library(tidyr)
 library(tidyverse)
-long_questions <- function(country, country_before, column){
+long_questions2 <- function(country, country_before, column){
 			  #Starting at index 1
 			  i <- 1
 number_for_dupID <- rep(NA, column)
@@ -108,7 +108,7 @@ lengthen2 <- function(country) {
 			  gather(column_name, answer, estratopri:vic2)
 #Takes length of column_name and arguments from long_questions
 			  column <- length(country$column_name)
-			  questions <- long_questions(country, country_before, column)
+			  questions <- long_questions2(country, country_before, column)
  country <- country %>% 
 			    mutate(questions)
 country <- country %>% 
@@ -159,7 +159,7 @@ NEW
 ```{r}
 library(tidyr)
 library(tidyverse)
-long_questions <- function(country, country_before, column){
+long_questions2 <- function(country, country_before, column){
 			  #Starting at index 1
 			  i <- 1
 number_for_dupID <- rep(NA, column)
@@ -182,12 +182,12 @@ lengthen_factor <- function(country) {
 			  country_before <- country
 			  country <- country %>%
  #These are excluded because they are repeated
-			  select(-`sex-factor`, -`vb11_10-factor`, -`vb11_12-factor`) %>%
+			  select(-`strata-factor`,-`sex-factor`, -`vb11_10-factor`, -`vb11_12-factor`) %>%
 			  #Brings together the following columns
 			  gather(column_name, answer, `estratopri-factor`:`vb_combined-factor`)
 #Takes length of column_name and arguments from long_questions
 			  column <- length(country$column_name)
-			  questions <- long_questions(country, country_before, column)
+			  questions <- long_questions2(country, country_before, column)
  country <- country %>% 
 			    mutate(questions)
 country <- country %>% 
@@ -222,7 +222,7 @@ lengthen <- function(country) {
 			  country_before <- country
 			  country <- country %>%
  #These are excluded because they are repeated
-			  select(-sex, -vb11_10, -vb11_12) %>%
+			  select(-strata, -sex, -vb11_10, -vb11_12) %>%
 			  #Brings together the following columns
 			  gather(column_name, answer, estratopri:vb_combined)
 #Takes length of column_name and arguments from long_questions
@@ -239,7 +239,8 @@ country <- country %>%
 
 
 ```{r}
-argentina_test <- lengthen_factor(argentina_unique_factor)
+argentina_long_factor <- lengthen_factor(argentina_unique_factor)
+test <- tidy_spread(argentina_long_factor)
 argentina_wide_factor <- tidy_spread(lengthen_factor(argentina_unique_factor))
 belize_wide_factor <- tidy_spread(lengthen_factor(belize_unique_factor))
 brazil_wide_factor <- tidy_spread(lengthen_factor(brazil_unique_factor))
@@ -264,8 +265,8 @@ usa_wide_factor <- tidy_spread(lengthen_factor(usa_unique_factor))
 ```
 
 ```{r}
-arg <- lengthen(argentina_unique_unfactor)
-argentina_wide_unfactor <- tidy_spread(lengthen(argentina_unique_unfactor))
+argentina_long_unfactor <- lengthen(argentina_unique_unfactor)
+argentina_wide_unfactor <- lengthen(argentina_unique_unfactor)
 belize_wide_unfactor <- tidy_spread(lengthen(belize_unique_unfactor))
 brazil_wide_unfactor <- tidy_spread(lengthen(brazi_unique_unfactor))
 chile_wide_unfactor <- tidy_spread(lengthen(chile_unique_unfactor))
@@ -288,7 +289,17 @@ nicaragua_wide_unfactor <- tidy_spread(lengthen(nicaragua_unique_unfactor))
 usa_wide_unfactor <- tidy_spread(lengthen(usa_unique_unfactor))
 ```
 
+```{r}
+bind <- function(unfactor, factor){
+  unfactor <- unfactor %>% select(`¿Con cuál partido político simpatiza usted?`:`Votó en las últimas elecciones presidenciales`)
+  full <- bind_cols(factor,unfactor)
+}
+```
 
-652, 6572
+```{r}
+argentina_full <- bind(argentina_wide_unfactor, argentina_wide_factor)
+write_csv(argentina_full, "argentina.csv")
+```
+
 
 
