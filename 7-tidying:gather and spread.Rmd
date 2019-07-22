@@ -1,53 +1,71 @@
 ---
-title: "7-tidying/gather and spread"
+title: "7-Gather and Spread"
 output: html_notebook
 editor_options: 
   chunk_output_type: inline
 ---
+#Goal of Document
+This sections creates a long format of the data and spreads it based on the variables we are interested in.
 
-#PART A
+#Libraries
 ```{r}
 library(tidyr)
 library(tidyverse)
-long_questions <- function(country, country_before, column){
-			  #Starting at index 1
-			  i <- 1
-number_for_dupID <- rep(NA, column)
-new_list <- rep(NA, column)
-#Replaces original column names with readable version
-			  while(i <= column){
-			    #Isolates original column names
-			    original <- (country$column_name)[i]
-			    #Replaces with label
-			    new <- attributes(country_before[[original]])$label
-			    #Adds object to list
-			    new_list[i] <- new
-			    #Moves to next item
-			    i <- i + 1
-			  }
-			  new_list
-			}
-lengthen <- function(country) {
-			  country_before <- country
-			  country <- country %>%
- #These are excluded because they are repeated
-			  select(-sex, -vb11_10, -vb11_12) %>%
-			  #Brings together the following columns
-			  gather(column_name, answer, estratopri:vb_combined)
-#Takes length of column_name and arguments from long_questions
-			  column <- length(country$column_name)
-			  questions <- long_questions(country, country_before, column)
- country <- country %>% 
-			    mutate(questions)
-country <- country %>% 
-			    select(pais, year, unique_id, column_name, answer, questions, extra_id)
-country <- country %>% mutate("common" = column_name %in% common_unfactor)
-			  return(country)
-			}
+```
 
+#PART A
+```{r}
+#Adds the questions column
+#country_before is the country while still in the wide format - necessary for accessing the questions
+long_questions <- function(country, country_before, column){
+  #Starting at index 1
+  i <- 1
+  #Makes a new list with NA values that is the length of column
+  new_list <- rep(NA, column)
+  #Replaces original column names with readable version
+  while(i <= column){
+    #Isolates original column names
+    original <- (country$column_name)[i]
+    #Replaces with label
+    new <- attributes(country_before[[original]])$label
+    #Adds object to list
+    new_list[i] <- new
+    #Moves to next item
+    i <- i + 1
+    }
+  new_list
+}
+
+#Lengthens dataset
+lengthen <- function(country) {
+  #Assigns the original country to country_before
+  country_before <- country
+  #Takes out four columns and gathers into new columns, column_name and answer
+  country <- country %>%
+    #These are excluded because they are repeated
+    select(-strata, -sex, -vb11_10, -vb11_12) %>%
+    #Brings together the following columns
+    gather(column_name, answer, estratopri:vb_combined)
+  #Takes length of column_name and arguments from long_questions
+  column <- length(country$column_name)
+  questions <- long_questions(country, country_before, column)
+  #Adds column, questions
+  country <- country %>% 
+    mutate(questions)
+  #Selects seven columns
+  country <- country %>% 
+    select(pais, year, unique_id, column_name, answer, questions, extra_id)
+  #Adds column to determine if the column name is in all_common_col list
+  country <- country %>%
+    mutate("common" = column_name %in% all_common_col)
+  
+  #Returns country
+  return(country)
+  }
 ```
 
 ```{r}
+#Makes country wide again with questions as the column name
 tidy_spread <- function(x){
   x <- x %>%
     select(-column_name) %>%
@@ -55,6 +73,8 @@ tidy_spread <- function(x){
 }
 ```
 
+
+##Applying `lengthen()` and `tidy_spread()` to all countries
 ```{r}
 argentina_wide <- tidy_spread(lengthen(argentina_na))
 belize_wide <- tidy_spread(lengthen(belize_na))
@@ -79,10 +99,8 @@ nicaragua_wide <- tidy_spread(lengthen(nicaragua_na))
 usa_wide <- tidy_spread(lengthen(usa_na))
 ```
 
-
-
 #PART B
-
+Functions are repeated from above
 ```{r}
 tidy_spread <- function(x){
   x <- x %>%
@@ -92,87 +110,90 @@ tidy_spread <- function(x){
 ```
 
 ```{r}
-library(tidyr)
-library(tidyverse)
-long_questions2 <- function(country, country_before, column){
-			  #Starting at index 1
-			  i <- 1
-number_for_dupID <- rep(NA, column)
-new_list <- rep(NA, column)
-#Replaces original column names with readable version
-			  while(i <= column){
-			    #Isolates original column names
-			    original <- (country$column_name)[i]
-			    #Replaces with label
-			    new <- attributes(country_before[[original]])$label
-			    new <- paste(new, "factor", sep = "-")
-			    #Adds object to list
-			    new_list[i] <- new
-			    #Moves to next item
-			    i <- i + 1
-			  }
-			  new_list
-			}
-lengthen_factor <- function(country) {
-			  country_before <- country
-			  country <- country %>%
- #These are excluded because they are repeated
-			  select(-`strata-factor`,-`sex-factor`, -`vb11_10-factor`, -`vb11_12-factor`) %>%
-			  #Brings together the following columns
-			  gather(column_name, answer, `estratopri-factor`:`vb_combined-factor`)
-#Takes length of column_name and arguments from long_questions
-			  column <- length(country$column_name)
-			  questions <- long_questions2(country, country_before, column)
- country <- country %>% 
-			    mutate(questions)
-country <- country %>% 
-			    select(`pais-factor`, `year-factor`, unique_id, column_name, answer, questions, extra_id)
-			  return(country)
-			}
+long_questions_factor <- function(country, country_before, column){
+  #Starting at index 1
+  i <- 1
+  number_for_dupID <- rep(NA, column)
+  new_list <- rep(NA, column)
+  #Replaces original column names with readable version
+  while(i <= column){
+    #Isolates original column names
+    original <- (country$column_name)[i]
+    #Replaces with label
+    new <- attributes(country_before[[original]])$label
+    #Adds "factor" to end of question
+    new <- paste(new, "factor", sep = "-")
+    #Adds object to list
+    new_list[i] <- new
+    #Moves to next item
+    i <- i + 1
+    }
+  new_list
+}
 
+
+lengthen_factor <- function(country) {
+  country_before <- country
+  country <- country %>%
+    #These are excluded because they are repeated
+    select(-`strata-factor`,-`sex-factor`, -`vb11_10-factor`, -`vb11_12-factor`) %>%
+    #Brings together the following columns
+    gather(column_name, answer, `estratopri-factor`:`vb_combined-factor`)
+  #Takes length of column_name and arguments from long_questions
+  column <- length(country$column_name)
+  questions <- long_questions_factor(country, country_before, column)
+  country <- country %>% 
+    mutate(questions)
+  country <- country %>% 
+    select(`pais-factor`, `year-factor`, unique_id, column_name, answer, questions, extra_id)
+  country <- country %>%
+    mutate("common" = column_name %in% common_factor)
+  
+  return(country)
+  }
 ```
 
 ```{r}
-library(tidyr)
-library(tidyverse)
 long_questions <- function(country, country_before, column){
-			  #Starting at index 1
-			  i <- 1
-number_for_dupID <- rep(NA, column)
-new_list <- rep(NA, column)
-#Replaces original column names with readable version
-			  while(i <= column){
-			    #Isolates original column names
-			    original <- (country$column_name)[i]
-			    #Replaces with label
-			    new <- attributes(country_before[[original]])$label
-			    #Adds object to list
-			    new_list[i] <- new
-			    #Moves to next item
-			    i <- i + 1
-			  }
-			  new_list
-			}
-lengthen <- function(country) {
-			  country_before <- country
-			  country <- country %>%
- #These are excluded because they are repeated
-			  select(-strata, -sex, -vb11_10, -vb11_12) %>%
-			  #Brings together the following columns
-			  gather(column_name, answer, estratopri:vb_combined)
-#Takes length of column_name and arguments from long_questions
-			  column <- length(country$column_name)
-			  questions <- long_questions(country, country_before, column)
- country <- country %>% 
-			    mutate(questions)
-country <- country %>% 
-			    select(pais, year, unique_id, column_name, answer, questions, extra_id)
-			  return(country)
-			}
+  #Starting at index 1
+  i <- 1
+  new_list <- rep(NA, column)
+  #Replaces original column names with readable version
+  while(i <= column){
+    #Isolates original column names
+    original <- (country$column_name)[i]
+    #Replaces with label
+    new <- attributes(country_before[[original]])$label
+    #Adds object to list
+    new_list[i] <- new
+    #Moves to next item
+    i <- i + 1
+    }
+  new_list
+}
 
+lengthen <- function(country) {
+  country_before <- country
+  country <- country %>%
+    #These are excluded because they are repeated
+    select(-strata, -sex, -vb11_10, -vb11_12) %>%
+    #Brings together the following columns
+    gather(column_name, answer, estratopri:vb_combined)
+  #Takes length of column_name and arguments from long_questions
+  column <- length(country$column_name)
+  questions <- long_questions(country, country_before, column)
+  country <- country %>% 
+    mutate(questions)
+  country <- country %>% 
+    select(pais, year, unique_id, column_name, answer, questions, extra_id)
+  country <- country %>%
+    mutate("common" = column_name %in% common_unfactor)
+  
+  return(country)
+  }
 ```
 
-
+##Applying `lengthen_factor()` and `tidy_spread`
 ```{r}
 argentina_wide_factor <- tidy_spread(lengthen_factor(argentina_unique_factor))
 arg_l_factor <- lengthen_factor(argentina_unique_factor)
@@ -197,6 +218,7 @@ mexico_wide_factor <- tidy_spread(lengthen_factor(mexico_unique_factor))
 nicaragua_wide_factor <- tidy_spread(lengthen_factor(nicaragua_unique_factor))
 usa_wide_factor <- tidy_spread(lengthen_factor(usa_unique_factor))
 ```
+
 
 ```{r}
 arg_l_unfactor <- lengthen(argentina_unique_unfactor)
