@@ -10,6 +10,9 @@ For example, Part A would contain only the Argentina dataframe, with columns spe
 
 Some functions are repeated in both sections so that you don't have to jump back and forth across parts if you are only trying to look at one.
 
+Suggested order to follow:
+1-Reading in Data
+
 #Libraries
 ```{r}
 library(labelled)

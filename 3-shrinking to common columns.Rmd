@@ -1,8 +1,9 @@
 ---
-title: "3-shrinking to common columns"
+title: "3-Shrinking to Common Columns"
 output: html_notebook
 ---
-This section shrinks each of the dataframes to a shorter width, but we probably won't use this step later and rather use the longer version of our data that we have created
+#Goal of Document
+This section shrinks each of the dataframes to a shorter width, but we probably won't use this step later. Instead, we will most likely opt for the longer version of our data that we have created.
 
 #PART A
 ```{r}

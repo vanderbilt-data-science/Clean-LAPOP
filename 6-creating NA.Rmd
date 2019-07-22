@@ -4,7 +4,6 @@ output: html_notebook
 ---
 
 #For reference only
-
 After talking with LAPOP they asked us to leave these responses in the data
 
 ```{r}

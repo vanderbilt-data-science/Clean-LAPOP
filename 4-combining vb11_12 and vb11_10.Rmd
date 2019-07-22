@@ -1,7 +1,8 @@
 ---
-title: "4-combining vb11_12 and vb11_10"
+title: "4-Combining vb11_12 and vb11_10"
 output: html_notebook
 ---
+#Goal of Document
 This combines two columns together that were used for the same data but for seperate years. We might not need to do this in the future with the tidy data
 
 #PART A

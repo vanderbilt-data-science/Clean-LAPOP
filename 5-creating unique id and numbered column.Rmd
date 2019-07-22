@@ -1,12 +1,13 @@
 ---
-title: "5-creating unique id and numbered column"
+title: "5-Creating Unique ID and Numbered Column"
 output: html_notebook
 ---
-
-Makes a unique and common id format 
+#Goal of Document
+This section makes a unique and common id format for all the dataframes.
 
 #PART A
 ```{r}
+#Makes unique ID for the year by combining idnum and idnum_14
 making_uniqueID <- function(country){
   #Combines idnum and idnum_14 with "/" and then makes unique id
   country <- mutate(country,
@@ -22,6 +23,7 @@ making_uniqueID <- function(country){
            idnum, sep = "_"))
 }
 
+#Adds row number to further ensure that ID is unique
 extra_id <- function(country) {
   i <- 1
   #Object column is the length of idnum column
@@ -36,6 +38,7 @@ extra_id <- function(country) {
   number_for_dupID
 }
 
+#Adds the column extra_id to dataframe
 full_id <- function(country){
   country <- making_uniqueID(country)
   extra_id <- extra_id(country)
@@ -44,15 +47,10 @@ full_id <- function(country){
     mutate(extra_id)
   country
 }
-  
-#countries <- list(argentina,belize, bolivia, brazil, canada, chile, colombia, costa, ecuador, elsalvador, guatemala, honduras, mexico, nicaragua, panama, peru, suriname, usa, uruguay, venezuela)
-#Removed Guyan and Jamaica 6/27
-  
-
 ```
 
 
-
+#Applying `full_id` to all countries
 ```{r}
 argentina_unique <- full_id(argentina_vb)
 belize_unique <- full_id(belize_vb)
@@ -81,7 +79,7 @@ venezuela_unique <- full_id(venezuela_vb)
 
 
 #PART B
-
+The functions are repeated from above.
 ```{r}
 making_uniqueID <- function(country){
   #Combines idnum and idnum_14 with "/" and then makes unique id
@@ -120,14 +118,9 @@ full_id <- function(country){
     mutate(extra_id)
   country
 }
-  
-#countries <- list(argentina,belize, bolivia, brazil, canada, chile, colombia, costa, ecuador, elsalvador, guatemala, honduras, mexico, nicaragua, panama, peru, suriname, usa, uruguay, venezuela)
-#Removed Guyan and Jamaica 6/27
-  
-
 ```
 
-
+#Applying `full_id` to all unfactored countries
 ```{r}
 argentina_unique_unfactor <- full_id(argentina_vb_unfactor)
 belize_unique_unfactor <- full_id(belize_vb_unfactor)
@@ -154,6 +147,8 @@ uruguay_unique_unfactor <- full_id(uruguay_vb_unfactor)
 venezuela_unique_unfactor <- full_id(venezuela_vb_unfactor)
 ```
 
+#Applying `full_id_factor` to all countries
+The functions below are the same as above, except `full_id` is now `full_id_factor` to indicate it needs to be used for factored data
 ```{r}
 making_uniqueID <- function(country){
   #Combines idnum and idnum_14 with "/" and then makes unique id
@@ -192,11 +187,6 @@ full_id_factor <- function(country){
     mutate(extra_id)
   country
 }
-  
-#countries <- list(argentina,belize, bolivia, brazil, canada, chile, colombia, costa, ecuador, elsalvador, guatemala, honduras, mexico, nicaragua, panama, peru, suriname, usa, uruguay, venezuela)
-#Removed Guyan and Jamaica 6/27
-  
-
 ```
 
 ```{r}
