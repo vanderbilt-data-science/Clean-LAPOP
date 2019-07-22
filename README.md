@@ -27,7 +27,7 @@ These files will need to be placed into the working directory of your project in
 7-Gather and Spread
 
 ## Team
-Jesse Spencer-Smith | Chief Data Scientist at the Vanderbilt Data Scientist Institute
-Lindsey Fox | Senior IT Consultant for Research
-Carmen Canedo | Vanderbilt Data Science Institute Intern
-Lindsay Hardy | Vanderbilt Data Science Institute Intern
+* Jesse Spencer-Smith | Chief Data Scientist at the Vanderbilt Data Scientist Institute
+* Lindsey Fox | Senior IT Consultant for Research
+* Carmen Canedo | Vanderbilt Data Science Institute Intern
+* Lindsay Hardy | Vanderbilt Data Science Institute Intern
