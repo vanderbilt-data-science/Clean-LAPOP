@@ -1,6 +1,8 @@
 ---
 title: "4-combining vb11_12 and vb11_10"
 output: html_notebook
+editor_options: 
+  chunk_output_type: inline
 ---
 Only do if are doing countries individually, because vb11_12 and vb11_10 aren't brought over because don't match
 ```{r}

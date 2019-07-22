@@ -111,7 +111,7 @@ panama_shrink_factor <- shrink_factor(panama_factor)
 paraguay_shrink_factor <- shrink_factor(paraguay_factor)
 peru_shrink_factor<- shrink_factor(peru_factor)
 suriname_shrink_factor <- shrink_factor(suriname_factor)
-usa_shrink_factor <- shrink_factor(usa_factor_factor)
+usa_shrink_factor <- shrink_factor(usa_factor)
 uruguay_shrink_factor <- shrink_factor(uruguay_factor)
 venezuela_shrink_factor <- shrink_factor(venezuela_factor)
 ```

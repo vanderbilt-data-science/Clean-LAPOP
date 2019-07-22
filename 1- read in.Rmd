@@ -135,9 +135,15 @@ country <- read_dta("1326054827Argentina LAPOP merge 2008-2014 v3.0_W_dta.zip")
 NEW for creating factored and unfactored columns together so that they can be exchanged
 ```{r}
 factor_country <- function(country){
+  #reads file for the country
   country <- read_dta(country)
+  #factors all the columns
   country <- as_factor(country)
+  
+  #starts list x
   x <- 1
+  
+  #changes name of column to add "factor"
   while(x <= length(country)){
     colnames(country)[x] <- paste(colnames(country)[x], "factor", sep = "-")
     x <- x + 1
