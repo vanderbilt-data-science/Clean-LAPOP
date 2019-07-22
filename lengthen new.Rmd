@@ -36,8 +36,8 @@ lengthen <- function(country) {
 			    mutate(questions)
 country <- country %>% 
 			    select(pais, year, unique_id, column_name, answer, questions, extra_id)
-			  return(country)
 country <- country %>% mutate("common" = column_name %in% common_unfactor)
+return(country)
 			}
 
 ```
