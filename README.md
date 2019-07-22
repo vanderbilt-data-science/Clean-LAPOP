@@ -13,11 +13,17 @@ These files will need to be placed into the working directory of your project in
 
 ### Suggested Workflow
 1-Reading in Data
+
 2-Finding Common Columns
+
 3-Shrinking to Common Columns
+
 4-Combining vb11_12 and vb11_10
+
 5-Creating Unique ID and Numbered Column
+
 6-Creating NA
+
 7-Gather and Spread
 
 ## Team
