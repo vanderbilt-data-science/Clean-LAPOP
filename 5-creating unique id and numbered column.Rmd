@@ -6,79 +6,6 @@ output: html_notebook
 This section makes a unique and common id format for all the dataframes.
 
 #PART A
-```{r}
-#Makes unique ID for the year by combining idnum and idnum_14
-making_uniqueID <- function(country){
-  #Combines idnum and idnum_14 with "/" and then makes unique id
-  country <- mutate(country,
-                    idnum = ifelse(idnum_14 == '',
-                                   idnum,
-                                   paste(idnum,idnum_14,sep = "/")))
-  
-  mutate(country,
-         unique_id = paste(
-           paste(
-             toupper(substr(pais, 1, 3)),
-             substr(year, 3, 4), sep = ''),
-           idnum, sep = "_"))
-}
-
-#Adds row number to further ensure that ID is unique
-extra_id <- function(country) {
-  i <- 1
-  #Object column is the length of idnum column
-  column <- length(country$idnum)
-  #Repeats NA for length column
-  number_for_dupID <- rep(NA, column)
-  #Loop that adds row number
-  while(i <= column){
-    number_for_dupID[i] <- i
-    i <- i + 1
-  }
-  number_for_dupID
-}
-
-#Adds the column extra_id to dataframe
-full_id <- function(country){
-  country <- making_uniqueID(country)
-  extra_id <- extra_id(country)
-  #Makes extra column, numbered by row
-  country <- country %>%
-    mutate(extra_id)
-  country
-}
-```
-
-
-#Applying `full_id` to all countries
-```{r}
-argentina_unique <- full_id(argentina_vb)
-belize_unique <- full_id(belize_vb)
-bolivia_unique <- full_id(bolivia_vb)
-brazil_unique <- full_id(brazil_vb)
-canada_unique <- full_id(canada_vb)
-chile_unique <- full_id(chile_vb)
-colombia_unique <- full_id(colombia_vb)
-costa_unique <- full_id(costa_vb)
-ecuador_unique <- full_id(ecuador_vb)
-elsalvador_unique <- full_id(elsalvador_vb)
-guatemala_unique <- full_id(guatemala_vb)
-#guyana_unique <- full_id(guyana_vb)
-honduras_unique <- full_id(honduras_vb)
-#jamaica_unique <- full_id(jamaica_vb)
-mexico_unique <- full_id(mexico_vb)
-nicaragua_unique <- full_id(nicaragua_vb)
-panama_unique <- full_id(panama_vb)
-paraguay_unique <- full_id(paraguay_vb)
-peru_unique <- full_id(peru_vb)
-suriname_unique <- full_id(suriname_vb)
-usa_unique <- full_id(usa_vb)
-uruguay_unique <- full_id(uruguay_vb)
-venezuela_unique <- full_id(venezuela_vb)
-```
-
-
-#PART B
 The functions are repeated from above.
 ```{r}
 making_uniqueID <- function(country){
@@ -216,5 +143,80 @@ venezuela_unique_factor <- full_id_factor(venezuela_vb_factor)
 ```
 
 
+
+
+
+
+#For reference only: Alternate
+```{r}
+#Makes unique ID for the year by combining idnum and idnum_14
+making_uniqueID <- function(country){
+  #Combines idnum and idnum_14 with "/" and then makes unique id
+  country <- mutate(country,
+                    idnum = ifelse(idnum_14 == '',
+                                   idnum,
+                                   paste(idnum,idnum_14,sep = "/")))
+  
+  mutate(country,
+         unique_id = paste(
+           paste(
+             toupper(substr(pais, 1, 3)),
+             substr(year, 3, 4), sep = ''),
+           idnum, sep = "_"))
+}
+
+#Adds row number to further ensure that ID is unique
+extra_id <- function(country) {
+  i <- 1
+  #Object column is the length of idnum column
+  column <- length(country$idnum)
+  #Repeats NA for length column
+  number_for_dupID <- rep(NA, column)
+  #Loop that adds row number
+  while(i <= column){
+    number_for_dupID[i] <- i
+    i <- i + 1
+  }
+  number_for_dupID
+}
+
+#Adds the column extra_id to dataframe
+full_id <- function(country){
+  country <- making_uniqueID(country)
+  extra_id <- extra_id(country)
+  #Makes extra column, numbered by row
+  country <- country %>%
+    mutate(extra_id)
+  country
+}
+```
+
+
+#Applying `full_id` to all countries
+```{r}
+argentina_unique <- full_id(argentina_vb)
+belize_unique <- full_id(belize_vb)
+bolivia_unique <- full_id(bolivia_vb)
+brazil_unique <- full_id(brazil_vb)
+canada_unique <- full_id(canada_vb)
+chile_unique <- full_id(chile_vb)
+colombia_unique <- full_id(colombia_vb)
+costa_unique <- full_id(costa_vb)
+ecuador_unique <- full_id(ecuador_vb)
+elsalvador_unique <- full_id(elsalvador_vb)
+guatemala_unique <- full_id(guatemala_vb)
+#guyana_unique <- full_id(guyana_vb)
+honduras_unique <- full_id(honduras_vb)
+#jamaica_unique <- full_id(jamaica_vb)
+mexico_unique <- full_id(mexico_vb)
+nicaragua_unique <- full_id(nicaragua_vb)
+panama_unique <- full_id(panama_vb)
+paraguay_unique <- full_id(paraguay_vb)
+peru_unique <- full_id(peru_vb)
+suriname_unique <- full_id(suriname_vb)
+usa_unique <- full_id(usa_vb)
+uruguay_unique <- full_id(uruguay_vb)
+venezuela_unique <- full_id(venezuela_vb)
+```
 
 

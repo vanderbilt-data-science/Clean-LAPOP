@@ -13,93 +13,9 @@ library(tidyr)
 library(tidyverse)
 ```
 
+
+
 #PART A
-```{r}
-#Adds the questions column
-#country_before is the country while still in the wide format - necessary for accessing the questions
-long_questions <- function(country, country_before, column){
-  #Starting at index 1
-  i <- 1
-  #Makes a new list with NA values that is the length of column
-  new_list <- rep(NA, column)
-  #Replaces original column names with readable version
-  while(i <= column){
-    #Isolates original column names
-    original <- (country$column_name)[i]
-    #Replaces with label
-    new <- attributes(country_before[[original]])$label
-    #Adds object to list
-    new_list[i] <- new
-    #Moves to next item
-    i <- i + 1
-    }
-  new_list
-}
-
-#Lengthens dataset
-lengthen <- function(country) {
-  #Assigns the original country to country_before
-  country_before <- country
-  #Takes out four columns and gathers into new columns, column_name and answer
-  country <- country %>%
-    #These are excluded because they are repeated
-    select(-strata, -sex, -vb11_10, -vb11_12) %>%
-    #Brings together the following columns
-    gather(column_name, answer, estratopri:vb_combined)
-  #Takes length of column_name and arguments from long_questions
-  column <- length(country$column_name)
-  questions <- long_questions(country, country_before, column)
-  #Adds column, questions
-  country <- country %>% 
-    mutate(questions)
-  #Selects seven columns
-  country <- country %>% 
-    select(pais, year, unique_id, column_name, answer, questions, extra_id)
-  #Adds column to determine if the column name is in all_common_col list
-  country <- country %>%
-    mutate("common" = column_name %in% all_common_col)
-  
-  #Returns country
-  return(country)
-  }
-```
-
-```{r}
-#Makes country wide again with questions as the column name
-tidy_spread <- function(x){
-  x <- x %>%
-    select(-column_name) %>%
-    spread(questions, answer)
-}
-```
-
-
-##Applying `lengthen()` and `tidy_spread()` to all countries
-```{r}
-argentina_wide <- tidy_spread(lengthen(argentina_na))
-belize_wide <- tidy_spread(lengthen(belize_na))
-brazil_wide <- tidy_spread(lengthen(brazil_na))
-chile_wide <- tidy_spread(lengthen(chile_na))
-panama_wide <- tidy_spread(lengthen(panama_na))
-paraguay_wide <- tidy_spread(lengthen(paraguay_na))
-peru_wide <- tidy_spread(lengthen(peru_na))
-#suriname_wide <- tidy_spread(lengthen(suriname_na)) - says that no unique combination, but the combination seems unique...
-uruguay_wide <- tidy_spread(lengthen(uruguay_na))
-venezuela_wide <- tidy_spread(lengthen(venezuela_na))
-bolivia_wide <- tidy_spread(lengthen(bolivia_na))
-canada_wide <- tidy_spread(lengthen(canada_na))
-colombia_wide <- tidy_spread(lengthen(colombia_na))
-costa_wide <- tidy_spread(lengthen(costa_na))
-ecuador_wide <- tidy_spread(lengthen(ecuador_na))
-elsalvador_wide <- tidy_spread(lengthen(elsalvador_na))
-guatemala_wide <- tidy_spread(lengthen(guatemala_na))
-honduras_wide <- tidy_spread(lengthen(honduras_na))
-mexico_wide <- tidy_spread(lengthen(mexico_na))
-nicaragua_wide <- tidy_spread(lengthen(nicaragua_na))
-usa_wide <- tidy_spread(lengthen(usa_na))
-```
-
-#PART B
 Functions are repeated from above
 ```{r}
 tidy_spread <- function(x){
@@ -262,6 +178,91 @@ write_csv(argentina_full, "argentina.csv")
 ```
 
 
+#For reference only: Alternate
+```{r}
+#Adds the questions column
+#country_before is the country while still in the wide format - necessary for accessing the questions
+long_questions <- function(country, country_before, column){
+  #Starting at index 1
+  i <- 1
+  #Makes a new list with NA values that is the length of column
+  new_list <- rep(NA, column)
+  #Replaces original column names with readable version
+  while(i <= column){
+    #Isolates original column names
+    original <- (country$column_name)[i]
+    #Replaces with label
+    new <- attributes(country_before[[original]])$label
+    #Adds object to list
+    new_list[i] <- new
+    #Moves to next item
+    i <- i + 1
+    }
+  new_list
+}
+
+#Lengthens dataset
+lengthen <- function(country) {
+  #Assigns the original country to country_before
+  country_before <- country
+  #Takes out four columns and gathers into new columns, column_name and answer
+  country <- country %>%
+    #These are excluded because they are repeated
+    select(-strata, -sex, -vb11_10, -vb11_12) %>%
+    #Brings together the following columns
+    gather(column_name, answer, estratopri:vb_combined)
+  #Takes length of column_name and arguments from long_questions
+  column <- length(country$column_name)
+  questions <- long_questions(country, country_before, column)
+  #Adds column, questions
+  country <- country %>% 
+    mutate(questions)
+  #Selects seven columns
+  country <- country %>% 
+    select(pais, year, unique_id, column_name, answer, questions, extra_id)
+  #Adds column to determine if the column name is in all_common_col list
+  country <- country %>%
+    mutate("common" = column_name %in% all_common_col)
+  
+  #Returns country
+  return(country)
+  }
+```
+
+```{r}
+#Makes country wide again with questions as the column name
+tidy_spread <- function(x){
+  x <- x %>%
+    select(-column_name) %>%
+    spread(questions, answer)
+}
+```
+
+
+##Applying `lengthen()` and `tidy_spread()` to all countries
+```{r}
+argentina_wide <- tidy_spread(lengthen(argentina_na))
+belize_wide <- tidy_spread(lengthen(belize_na))
+brazil_wide <- tidy_spread(lengthen(brazil_na))
+chile_wide <- tidy_spread(lengthen(chile_na))
+panama_wide <- tidy_spread(lengthen(panama_na))
+paraguay_wide <- tidy_spread(lengthen(paraguay_na))
+peru_wide <- tidy_spread(lengthen(peru_na))
+#suriname_wide <- tidy_spread(lengthen(suriname_na)) - says that no unique combination, but the combination seems unique...
+uruguay_wide <- tidy_spread(lengthen(uruguay_na))
+venezuela_wide <- tidy_spread(lengthen(venezuela_na))
+bolivia_wide <- tidy_spread(lengthen(bolivia_na))
+canada_wide <- tidy_spread(lengthen(canada_na))
+colombia_wide <- tidy_spread(lengthen(colombia_na))
+costa_wide <- tidy_spread(lengthen(costa_na))
+ecuador_wide <- tidy_spread(lengthen(ecuador_na))
+elsalvador_wide <- tidy_spread(lengthen(elsalvador_na))
+guatemala_wide <- tidy_spread(lengthen(guatemala_na))
+honduras_wide <- tidy_spread(lengthen(honduras_na))
+mexico_wide <- tidy_spread(lengthen(mexico_na))
+nicaragua_wide <- tidy_spread(lengthen(nicaragua_na))
+usa_wide <- tidy_spread(lengthen(usa_na))
+```
 #For reference only
 
 Created these next things in order to try to continue working with the common columns, but had to end up doing it a different way, can't shrink based off of common columns until later - were running into issues with unique keys and also the number of columns that each country had

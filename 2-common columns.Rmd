@@ -5,121 +5,9 @@ output: html_notebook
 ##Goal of Document
 This finds all the common columns and labels/questions across the countries.
 
+
+
 #PART A
-```{r}
-#Takes two dataframes and returns list of their common columns
-same_column_names <- function(country1, country2) {
-  #Collects names of each column from their respective data set in a list
-  list1 <- attributes(country1)$names 
-  list2 <- attributes(country2)$names
-  
-  #Initializing list
-  firstlist <- vector("list", 800)
-  i <- 1
-  n <- 0
-  k <- 1
-
-  #Looping through both column names to find similarities
-  for (name1 in list1) {
-    if(name1 %in% list2)  {
-        firstlist[[i]] <- name1
-        i <- i + 1
-      }
-  }
-
-
-  #Getting rid of NULL values
-  for(x in firstlist){
-    if(is.null(x) == FALSE) {
-     n <- n + 1
-    }
-  }
- 
-  #Creating final vector
-  final <- vector("list", n)
-
-  #Adding values to vectors
-  for(x in firstlist) {
-    final[[k]] <- x
-    k <- k + 1
-  }
-
-  #Print result
-  return(final)
-}
-```
-
-
-```{r}
-#Takes a list and a dataframe and returns a list of similarities between the two
-list_and_factor <- function(list1, country2) {
-  #Collects names of each column from their respective data set
-  list2 <- attributes(country2)$names
-  #Initializing list
-  firstlist <- vector("list", 800)
-  i <- 1
-  n <- 0
-  k <- 1
-
-  #Looping through both column names to find similarities
-  for (name1 in list1) {
-    if(name1 %in% list2)  {
-        firstlist[[i]] <- name1
-        i <- i + 1
-      }
-  }
-
-
-  #Getting rid of NULL values
-  for(x in firstlist){
-    if(is.null(x) == FALSE) {
-     n <- n + 1
-    }
-  }
- 
-  #Creating final vector
-  final <- vector("list", n)
-
-  #Adding values to vectors
-  for(x in firstlist) {
-    final[[k]] <- x
-    k <- k + 1
-  }
-
-  #Print result
-  return(final)
-}
-```
-
-#Applying above functions
-Start with `same_column_names`, but then use list and factor
-```{r}
-first <- same_column_names(argentina, bolivia)
-second <- list_and_factor(first, brazil)
-third <- list_and_factor(second, belize)
-fourth <- list_and_factor(third, canada)
-fifth <- list_and_factor(fourth, chile)
-sixth <- list_and_factor(fifth, colombia)
-seven <- list_and_factor(sixth, costa)
-eigth <- list_and_factor(seven, ecuador)
-nine <- list_and_factor(eigth, elsalvador)
-ten <- list_and_factor(nine, guatemala)
-eleven <- list_and_factor(ten, guyana)
-twelve <- list_and_factor(eleven, paraguay)
-thirteen <- list_and_factor(twelve, honduras)
-fourteen <- list_and_factor(thirteen, jamaica)
-fifteen <- list_and_factor(fourteen, mexico)
-sixteen <- list_and_factor(fifteen, nicaragua)
-seventeen <- list_and_factor(sixteen, panama)
-eighteen <- list_and_factor(seventeen, peru)
-nineteen <- list_and_factor(eighteen, suriname)
-twenty <- list_and_factor(nineteen, usa)
-twen_one <- list_and_factor(twenty, uruguay)
-all_common_col <- list_and_factor(twen_one, venezuela)
-```
-
-
-#PART B
 The two functions below are repeated from Part A
 ```{r}
 same_column_names <- function(country1, country2) {
@@ -257,6 +145,120 @@ twenty <- list_and_factor(nineteen, usa_factor)
 twen_one <- list_and_factor(twenty, uruguay_factor)
 common_factor <- list_and_factor(twen_one, venezuela_factor)
 ```
+
+#For reference only: Alternate
+```{r}
+#Takes two dataframes and returns list of their common columns
+same_column_names <- function(country1, country2) {
+  #Collects names of each column from their respective data set in a list
+  list1 <- attributes(country1)$names 
+  list2 <- attributes(country2)$names
+  
+  #Initializing list
+  firstlist <- vector("list", 800)
+  i <- 1
+  n <- 0
+  k <- 1
+
+  #Looping through both column names to find similarities
+  for (name1 in list1) {
+    if(name1 %in% list2)  {
+        firstlist[[i]] <- name1
+        i <- i + 1
+      }
+  }
+
+
+  #Getting rid of NULL values
+  for(x in firstlist){
+    if(is.null(x) == FALSE) {
+     n <- n + 1
+    }
+  }
+ 
+  #Creating final vector
+  final <- vector("list", n)
+
+  #Adding values to vectors
+  for(x in firstlist) {
+    final[[k]] <- x
+    k <- k + 1
+  }
+
+  #Print result
+  return(final)
+}
+```
+
+
+```{r}
+#Takes a list and a dataframe and returns a list of similarities between the two
+list_and_factor <- function(list1, country2) {
+  #Collects names of each column from their respective data set
+  list2 <- attributes(country2)$names
+  #Initializing list
+  firstlist <- vector("list", 800)
+  i <- 1
+  n <- 0
+  k <- 1
+
+  #Looping through both column names to find similarities
+  for (name1 in list1) {
+    if(name1 %in% list2)  {
+        firstlist[[i]] <- name1
+        i <- i + 1
+      }
+  }
+
+
+  #Getting rid of NULL values
+  for(x in firstlist){
+    if(is.null(x) == FALSE) {
+     n <- n + 1
+    }
+  }
+ 
+  #Creating final vector
+  final <- vector("list", n)
+
+  #Adding values to vectors
+  for(x in firstlist) {
+    final[[k]] <- x
+    k <- k + 1
+  }
+
+  #Print result
+  return(final)
+}
+```
+
+#Applying above functions
+Start with `same_column_names`, but then use list and factor
+```{r}
+first <- same_column_names(argentina, bolivia)
+second <- list_and_factor(first, brazil)
+third <- list_and_factor(second, belize)
+fourth <- list_and_factor(third, canada)
+fifth <- list_and_factor(fourth, chile)
+sixth <- list_and_factor(fifth, colombia)
+seven <- list_and_factor(sixth, costa)
+eigth <- list_and_factor(seven, ecuador)
+nine <- list_and_factor(eigth, elsalvador)
+ten <- list_and_factor(nine, guatemala)
+eleven <- list_and_factor(ten, guyana)
+twelve <- list_and_factor(eleven, paraguay)
+thirteen <- list_and_factor(twelve, honduras)
+fourteen <- list_and_factor(thirteen, jamaica)
+fifteen <- list_and_factor(fourteen, mexico)
+sixteen <- list_and_factor(fifteen, nicaragua)
+seventeen <- list_and_factor(sixteen, panama)
+eighteen <- list_and_factor(seventeen, peru)
+nineteen <- list_and_factor(eighteen, suriname)
+twenty <- list_and_factor(nineteen, usa)
+twen_one <- list_and_factor(twenty, uruguay)
+all_common_col <- list_and_factor(twen_one, venezuela)
+```
+
 
 #For reference only
 

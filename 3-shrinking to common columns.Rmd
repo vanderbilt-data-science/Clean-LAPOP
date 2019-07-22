@@ -5,49 +5,9 @@ output: html_notebook
 #Goal of Document
 This section shrinks each of the dataframes to a shorter width, but we probably won't use this step later. Instead, we will most likely opt for the longer version of our data that we have created.
 
+
+
 #PART A
-```{r}
-new_col <- unlist(all_common_col)
-
-shrink <- function(country){
-  country <- country[, new_col]
-  return(country)
-}
-
-```
-
-
-```{r}
-library(purrr)
-library(dplyr)
-
-argentina_shrink  <- shrink(argentina)
-belize_shrink  <- shrink(belize)
-bolivia_shrink  <- shrink(bolivia)
-brazil_shrink  <- shrink(brazil)
-canada_shrink  <- shrink(canada)
-chile_shrink  <- shrink(chile)
-colombia_shrink  <- shrink(colombia)
-costa_shrink <- shrink(costa)
-ecuador_shrink <- shrink(ecuador)
-elsalvador_shrink <- shrink(elsalvador)
-guatemala_shrink <- shrink(guatemala)
-#guyana_shrink <- shrink(guyana) Commented out because it is English-only
-honduras_shrink <- shrink(honduras)
-#jamaica_shrink <- shrink(jamaica) Commented out because it is English-only
-mexico_shrink <- shrink(mexico)
-nicaragua_shrink <- shrink(nicaragua)
-panama_shrink <- shrink(panama)
-paraguay_shrink <- shrink(paraguay)
-peru_shrink <- shrink(peru)
-suriname_shrink <- shrink(suriname)
-usa_shrink <- shrink(usa)
-uruguay_shrink <- shrink(uruguay)
-venezuela_shrink <- shrink(venezuela)
-```
-
-
-#PART B
 
 ```{r}
 new_col <- unlist(common_unfactor)
@@ -117,6 +77,47 @@ suriname_shrink_factor <- shrink_factor(suriname_factor)
 usa_shrink_factor <- shrink_factor(usa_factor)
 uruguay_shrink_factor <- shrink_factor(uruguay_factor)
 venezuela_shrink_factor <- shrink_factor(venezuela_factor)
+```
+
+#For reference only: Alternate
+```{r}
+new_col <- unlist(all_common_col)
+
+shrink <- function(country){
+  country <- country[, new_col]
+  return(country)
+}
+
+```
+
+
+```{r}
+library(purrr)
+library(dplyr)
+
+argentina_shrink  <- shrink(argentina)
+belize_shrink  <- shrink(belize)
+bolivia_shrink  <- shrink(bolivia)
+brazil_shrink  <- shrink(brazil)
+canada_shrink  <- shrink(canada)
+chile_shrink  <- shrink(chile)
+colombia_shrink  <- shrink(colombia)
+costa_shrink <- shrink(costa)
+ecuador_shrink <- shrink(ecuador)
+elsalvador_shrink <- shrink(elsalvador)
+guatemala_shrink <- shrink(guatemala)
+#guyana_shrink <- shrink(guyana) Commented out because it is English-only
+honduras_shrink <- shrink(honduras)
+#jamaica_shrink <- shrink(jamaica) Commented out because it is English-only
+mexico_shrink <- shrink(mexico)
+nicaragua_shrink <- shrink(nicaragua)
+panama_shrink <- shrink(panama)
+paraguay_shrink <- shrink(paraguay)
+peru_shrink <- shrink(peru)
+suriname_shrink <- shrink(suriname)
+usa_shrink <- shrink(usa)
+uruguay_shrink <- shrink(uruguay)
+venezuela_shrink <- shrink(venezuela)
 ```
 
 
