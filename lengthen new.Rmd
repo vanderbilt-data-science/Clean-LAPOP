@@ -25,8 +25,10 @@ new_list <- rep(NA, column)
 lengthen <- function(country) {
 			  country_before <- country
 			  country <- country %>%
+ #These are excluded because they are repeated
+			  select(-sex, -vb11_10, -vb11_12) %>%
 			  #Brings together the following columns
-			  gather(column_name, answer, estratopri:formatq)
+			  gather(column_name, answer, estratopri:vb_combined)
 #Takes length of column_name and arguments from long_questions
 			  column <- length(country$column_name)
 			  questions <- long_questions(country, country_before, column)
@@ -34,13 +36,20 @@ lengthen <- function(country) {
 			    mutate(questions)
 country <- country %>% 
 			    select(pais, year, unique_id, column_name, answer, questions, extra_id)
-country <- country %>% mutate(common = column_name %in% all_common_col)
 			  return(country)
+country <- country %>% mutate("common" = column_name %in% common_unfactor)
 			}
+
+```
+
+
+
+```{r}
+argentina_long_unfactor <- lengthen(argentina_unique_unfactor)
 ```
 
 ```{r}
-arge_t <- lengthen(argentina_unfactor)
+long_questions(argentina_long_unfactor, argentina_unique_unfactor)
 ```
 
 
