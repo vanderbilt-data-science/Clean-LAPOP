@@ -266,7 +266,7 @@ usa_wide_factor <- tidy_spread(lengthen_factor(usa_unique_factor))
 
 ```{r}
 argentina_long_unfactor <- lengthen(argentina_unique_unfactor)
-argentina_wide_unfactor <- lengthen(argentina_unique_unfactor)
+argentina_wide_unfactor <- tidy_spread(lengthen(argentina_unique_unfactor))
 belize_wide_unfactor <- tidy_spread(lengthen(belize_unique_unfactor))
 brazil_wide_unfactor <- tidy_spread(lengthen(brazi_unique_unfactor))
 chile_wide_unfactor <- tidy_spread(lengthen(chile_unique_unfactor))
