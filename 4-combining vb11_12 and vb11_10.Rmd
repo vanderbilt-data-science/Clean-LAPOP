@@ -1,10 +1,10 @@
 ---
 title: "4-combining vb11_12 and vb11_10"
 output: html_notebook
-editor_options: 
-  chunk_output_type: inline
 ---
-Only do if are doing countries individually, because vb11_12 and vb11_10 aren't brought over because don't match
+This combines two columns together that were used for the same data but for seperate years. We might not need to do this in the future with the tidy data
+
+#PART A
 ```{r}
 
 vb_combine <- function(country) {
@@ -47,7 +47,7 @@ venezuela_vb <- vb_combine(venezuela_shrink)
 ```
 
 
-NEW
+#PART B
 
 ```{r}
 vb_combine_factor <- function(country) {
@@ -92,6 +92,7 @@ venezuela_vb_factor <- vb_combine_factor(venezuela_shrink_factor)
 
 
 ```{r}
+argentina_vb_unfactor <- vb_combine(argentina_unfactor)
 argentina_vb_unfactor <- vb_combine(argentina_shrink_unfactor)
 belize_vb_unfactor <- vb_combine(belize_shrink_unfactor)
 bolivia_vb_unfactor <- vb_combine(bolivia_shrink_unfactor)

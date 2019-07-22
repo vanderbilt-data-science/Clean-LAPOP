@@ -4,7 +4,8 @@ output: html_notebook
 editor_options: 
   chunk_output_type: inline
 ---
-Only need to do the first three
+
+#PART A
 ```{r}
 library(tidyr)
 library(tidyverse)
@@ -40,6 +41,7 @@ lengthen <- function(country) {
 			    mutate(questions)
 country <- country %>% 
 			    select(pais, year, unique_id, column_name, answer, questions, extra_id)
+country <- country %>% mutate("common" = column_name %in% common_unfactor)
 			  return(country)
 			}
 
@@ -54,7 +56,6 @@ tidy_spread <- function(x){
 ```
 
 ```{r}
-argentina_long <- lengthen(argentina_na)
 argentina_wide <- tidy_spread(lengthen(argentina_na))
 belize_wide <- tidy_spread(lengthen(belize_na))
 brazil_wide <- tidy_spread(lengthen(brazil_na))
@@ -78,85 +79,17 @@ nicaragua_wide <- tidy_spread(lengthen(nicaragua_na))
 usa_wide <- tidy_spread(lengthen(usa_na))
 ```
 
-Created these next things in order to try to continue working with the common columns, but had to end up doing it a different way, can't shrink based off of common columns until later - were running into issues with unique keys and also the number of columns that each country had
+
+
+#PART B
 
 ```{r}
-library(tidyr)
-library(tidyverse)
-long_questions2 <- function(country, country_before, column){
-			  #Starting at index 1
-			  i <- 1
-number_for_dupID <- rep(NA, column)
-new_list <- rep(NA, column)
-#Replaces original column names with readable version
-			  while(i <= column){
-			    #Isolates original column names
-			    original <- (country$column_name)[i]
-			    #Replaces with label
-			    new <- attributes(country_before[[original]])$label
-			    #Adds object to list
-			    new_list[i] <- new
-			    #Moves to next item
-			    i <- i + 1
-			  }
-			  new_list
-			}
-lengthen2 <- function(country) {
-			  country_before <- country
-			  country <- country %>%
- #These are excluded because they are repeated
-			  select(-strata,-sex, -gi7r, -idnum_14) %>%
-			  #Brings together the following columns
-			  gather(column_name, answer, estratopri:vic2)
-#Takes length of column_name and arguments from long_questions
-			  column <- length(country$column_name)
-			  questions <- long_questions2(country, country_before, column)
- country <- country %>% 
-			    mutate(questions)
-country <- country %>% 
-			    select(pais, year, unique_id, column_name, answer, questions, extra_id)
-			  return(country)
-			}
-
+tidy_spread <- function(x){
+  x <- x %>%
+    select(-column_name) %>%
+    spread(questions, answer)
+}
 ```
-
-when running this it dramatically shrinks the number of columns.......and not in a consistent manner
-
-
-
-
-
-```{r}
-
-arg <- tidy_spread(lengthen2(argentina_nax))
-argentina_widex <- tidy_spread(lengthen2(argentina_nax))
-bel_long <- lengthen2(belize_nax)
-belize_widex <- tidy_spread(lengthen2(belize_nax))
-brazx_long <- lengthen2(brazil_nax)
-brazil_widex <- tidy_spread(lengthen2(brazil_nax))
-chile_widex <- tidy_spread(lengthen2(chile_nax))
-panama_widex <- tidy_spread(lengthen2(panama_nax))
-paraguay_widex <- tidy_spread(lengthen2(paraguay_nax))
-peru_widex <- tidy_spread(lengthen2(peru_nax))
-#suriname_widex <- tidy_spread(lengthen2(suriname_nax)) - says that no unique combination, but the combination seems unique...
-uruguay_widex <- tidy_spread(lengthen2(uruguay_nax))
-venezuela_widex <- tidy_spread(lengthen2(venezuela_nax))
-bolivia_widex <- tidy_spread(lengthen2(bolivia_nax))
-canada_widex <- tidy_spread(lengthen2(canada_nax))
-colombia_widex <- tidy_spread(lengthen2(colombiax))
-costa_widex <- tidy_spread(lengthen2(costa_nax))
-ecuador_widex <- tidy_spread(lengthen2(ecuador_nax))
-elsalvador_widex <- tidy_spread(lengthen2(elsalvador_nax))
-guatemala_widex <- tidy_spread(lengthen2(guatemala_nax))
-honduras_widex <- tidy_spread(lengthen2(honduras_nax))
-mexico_widex <- tidy_spread(lengthen2(mexico_nax))
-nicaragua_widex <- tidy_spread(lengthen2(nicaragua_nax))
-usa_widex <- tidy_spread(lengthen2(usa_nax))
-```
-
-belize: * 226617, 617081 
-
-NEW
 
 ```{r}
 library(tidyr)
@@ -242,6 +175,7 @@ country <- country %>%
 
 ```{r}
 argentina_wide_factor <- tidy_spread(lengthen_factor(argentina_unique_factor))
+arg_l_factor <- lengthen_factor(argentina_unique_factor)
 belize_wide_factor <- tidy_spread(lengthen_factor(belize_unique_factor))
 brazil_wide_factor <- tidy_spread(lengthen_factor(brazil_unique_factor))
 chile_wide_factor <- tidy_spread(lengthen_factor(chile_unique_factor))
@@ -265,6 +199,7 @@ usa_wide_factor <- tidy_spread(lengthen_factor(usa_unique_factor))
 ```
 
 ```{r}
+arg_l_unfactor <- lengthen(argentina_unique_unfactor)
 argentina_wide_unfactor <- tidy_spread(lengthen(argentina_unique_unfactor))
 belize_wide_unfactor <- tidy_spread(lengthen(belize_unique_unfactor))
 brazil_wide_unfactor <- tidy_spread(lengthen(brazi_unique_unfactor))
@@ -288,6 +223,10 @@ nicaragua_wide_unfactor <- tidy_spread(lengthen(nicaragua_unique_unfactor))
 usa_wide_unfactor <- tidy_spread(lengthen(usa_unique_unfactor))
 ```
 
+Argentina	2008	ARG08_1	    estratopri-factor	AMBA (Capital Federal y GBA)	Estrato Primario-factor	652
+Argentina	2008	ARG08_1	    strata-factor	    1	                            Estrato Primario-factor	652
+
+tests the combining of factor and unfactor
 ```{r}
 bind <- function(unfactor, factor){
   unfactor <- unfactor %>% select(`¿Con cuál partido político simpatiza usted?`:`Votó en las últimas elecciones presidenciales`)
@@ -301,4 +240,80 @@ write_csv(argentina_full, "argentina.csv")
 ```
 
 
+#For reference only
 
+Created these next things in order to try to continue working with the common columns, but had to end up doing it a different way, can't shrink based off of common columns until later - were running into issues with unique keys and also the number of columns that each country had
+
+```{r}
+library(tidyr)
+library(tidyverse)
+long_questions2 <- function(country, country_before, column){
+			  #Starting at index 1
+			  i <- 1
+number_for_dupID <- rep(NA, column)
+new_list <- rep(NA, column)
+#Replaces original column names with readable version
+			  while(i <= column){
+			    #Isolates original column names
+			    original <- (country$column_name)[i]
+			    #Replaces with label
+			    new <- attributes(country_before[[original]])$label
+			    #Adds object to list
+			    new_list[i] <- new
+			    #Moves to next item
+			    i <- i + 1
+			  }
+			  new_list
+			}
+lengthen2 <- function(country) {
+			  country_before <- country
+			  country <- country %>%
+ #These are excluded because they are repeated
+			  select(-strata,-sex, -gi7r, -idnum_14) %>%
+			  #Brings together the following columns
+			  gather(column_name, answer, estratopri:vic2)
+#Takes length of column_name and arguments from long_questions
+			  column <- length(country$column_name)
+			  questions <- long_questions2(country, country_before, column)
+ country <- country %>% 
+			    mutate(questions)
+country <- country %>% 
+			    select(pais, year, unique_id, column_name, answer, questions, extra_id)
+			  return(country)
+			}
+
+```
+
+when running this it dramatically shrinks the number of columns.......and not in a consistent manner
+
+
+
+
+
+```{r}
+
+arg <- tidy_spread(lengthen2(argentina_nax))
+argentina_widex <- tidy_spread(lengthen2(argentina_nax))
+bel_long <- lengthen2(belize_nax)
+belize_widex <- tidy_spread(lengthen2(belize_nax))
+brazx_long <- lengthen2(brazil_nax)
+brazil_widex <- tidy_spread(lengthen2(brazil_nax))
+chile_widex <- tidy_spread(lengthen2(chile_nax))
+panama_widex <- tidy_spread(lengthen2(panama_nax))
+paraguay_widex <- tidy_spread(lengthen2(paraguay_nax))
+peru_widex <- tidy_spread(lengthen2(peru_nax))
+#suriname_widex <- tidy_spread(lengthen2(suriname_nax)) - says that no unique combination, but the combination seems unique...
+uruguay_widex <- tidy_spread(lengthen2(uruguay_nax))
+venezuela_widex <- tidy_spread(lengthen2(venezuela_nax))
+bolivia_widex <- tidy_spread(lengthen2(bolivia_nax))
+canada_widex <- tidy_spread(lengthen2(canada_nax))
+colombia_widex <- tidy_spread(lengthen2(colombiax))
+costa_widex <- tidy_spread(lengthen2(costa_nax))
+ecuador_widex <- tidy_spread(lengthen2(ecuador_nax))
+elsalvador_widex <- tidy_spread(lengthen2(elsalvador_nax))
+guatemala_widex <- tidy_spread(lengthen2(guatemala_nax))
+honduras_widex <- tidy_spread(lengthen2(honduras_nax))
+mexico_widex <- tidy_spread(lengthen2(mexico_nax))
+nicaragua_widex <- tidy_spread(lengthen2(nicaragua_nax))
+usa_widex <- tidy_spread(lengthen2(usa_nax))
+```

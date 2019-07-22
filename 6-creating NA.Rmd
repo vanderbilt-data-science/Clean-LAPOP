@@ -3,6 +3,10 @@ title: "6-creating NA"
 output: html_notebook
 ---
 
+#For reference only
+
+After talking with LAPOP they asked us to leave these responses in the data
+
 ```{r}
 
 #Replaces the columns that have "No se le preguntó en este país o año" and others with NA
@@ -40,29 +44,4 @@ uruguay_na <- turn_to_NA(uruguay_unique)
 venezuela_na <- turn_to_NA(venezuela_unique)
 ```
 
-```{r}
-argentina_nax <- turn_to_NA(argentina_uniquex)
-belize_nax <- turn_to_NA(belize_uniquex)
-bolivia_nax <- turn_to_NA(bolivia_uniquex)
-brazil_nax <- turn_to_NA(brazil_uniquex)
-canada_nax <- turn_to_NA(canada_uniquex)
-chile_nax <- turn_to_NA(chile_uniquex)
-colombia_nax <- turn_to_NA(colombia_uniquex)
-costa_nax <- turn_to_NA(costa_uniquex)
-ecuador_nax <- turn_to_NA(ecuador_uniquex)
-elsalvador_nax <- turn_to_NA(elsalvador_uniquex)
-guatemala_nax <- turn_to_NA(guatemala_uniquex)
-#guyana_nax <- turn_to_NA(guyana_uniquex)
-honduras_nax <- turn_to_NA(honduras_uniquex)
-#jamaica_nax <- turn_to_NA(jamaica_uniquex)
-mexico_nax <- turn_to_NA(mexico_uniquex)
-nicaragua_nax <- turn_to_NA(nicaragua_uniquex)
-panama_nax <- turn_to_NA(panama_uniquex)
-paraguay_nax <- turn_to_NA(paraguay_uniquex)
-peru_nax <- turn_to_NA(peru_uniquex)
-suriname_nax <- turn_to_NA(suriname_uniquex)
-usa_nax <- turn_to_NA(usa_uniquex)
-uruguay_nax <- turn_to_NA(uruguay_uniquex)
-venezuela_nax <- turn_to_NA(venezuela_uniquex)
-```
 

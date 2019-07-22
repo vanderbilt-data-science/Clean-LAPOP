@@ -2,7 +2,9 @@
 title: "3-shrinking to common columns"
 output: html_notebook
 ---
-Only really need to run these next two chunks
+This section shrinks each of the dataframes to a shorter width, but we probably won't use this step later and rather use the longer version of our data that we have created
+
+#PART A
 ```{r}
 new_col <- unlist(all_common_col)
 
@@ -44,7 +46,7 @@ venezuela_shrink <- shrink(venezuela)
 ```
 
 
-NEW!!!!!
+#PART B
 
 ```{r}
 new_col <- unlist(common_unfactor)
@@ -117,10 +119,9 @@ venezuela_shrink_factor <- shrink_factor(venezuela_factor)
 ```
 
 
+#For reference only
 
-
-
-
+Don't use this, just want to keep track of what we tried
 
 These things below were what we were trying to create in order to only have the common questions as the colummn headers, but this got more complicated as we found that there were duplicate column questions, which caused the countries not to shrink properly or recombine properly
 

@@ -2,8 +2,9 @@
 title: "2-common columns"
 output: html_notebook
 ---
+This finds all the common columns across the countries, and also the common labels/questions across the countries
 
-
+#PART A
 ```{r}
 same_column_names <- function(country1, country2) {
   #Collects names of each column from their respective data set
@@ -18,12 +19,10 @@ same_column_names <- function(country1, country2) {
 
   #Looping through both column names to find similarities
   for (name1 in list1) {
-    for (name2 in list2) {
-      if (name1 == name2) {
+    if(name1 %in% list2)  {
         firstlist[[i]] <- name1
         i <- i + 1
       }
-    }
   }
 
 
@@ -60,12 +59,10 @@ list_and_factor <- function(list1, country2) {
 
   #Looping through both column names to find similarities
   for (name1 in list1) {
-    for (name2 in list2) {
-      if (name1 == name2) {
+    if(name1 %in% list2)  {
         firstlist[[i]] <- name1
         i <- i + 1
       }
-    }
   }
 
 
@@ -114,7 +111,89 @@ all_common_col <- list_and_factor(twen_one, venezuela)
 ```
 
 
-NEW
+#PART B
+
+```{r}
+same_column_names <- function(country1, country2) {
+  #Collects names of each column from their respective data set
+  list1 <- attributes(country1)$names 
+  list2 <- attributes(country2)$names
+  #Initializing list
+  firstlist <- vector("list", 800)
+
+  i <- 1
+  n <- 0
+  k <- 1
+
+  #Looping through both column names to find similarities
+  for (name1 in list1) {
+    if(name1 %in% list2)  {
+        firstlist[[i]] <- name1
+        i <- i + 1
+      }
+  }
+
+
+  #Getting rid of NULL values
+  for(x in firstlist){
+    if(is.null(x) == FALSE) {
+     n <- n + 1
+    }
+  }
+ 
+  final <- vector("list", n)
+
+  for(x in firstlist) {
+    final[[k]] <- x
+    k <- k + 1
+  }
+
+  #Print result
+  return(final)
+}
+```
+
+
+```{r}
+list_and_factor <- function(list1, country2) {
+  #Collects names of each column from their respective data set
+  list2 <- attributes(country2)$names
+  #Initializing list
+  firstlist <- vector("list", 800)
+
+  i <- 1
+  n <- 0
+  k <- 1
+
+  #Looping through both column names to find similarities
+  for (name1 in list1) {
+    if(name1 %in% list2)  {
+        firstlist[[i]] <- name1
+        i <- i + 1
+      }
+  }
+
+
+  #Getting rid of NULL values
+  for(x in firstlist){
+    if(is.null(x) == FALSE) {
+     n <- n + 1
+    }
+  }
+ 
+  final <- vector("list", n)
+
+  for(x in firstlist) {
+    final[[k]] <- x
+    k <- k + 1
+  }
+
+  #Print result
+  return(final)
+}
+```
+
+
 Unfactored
 ```{r}
 first <- same_column_names(argentina_unfactor, bolivia_unfactor)
@@ -167,32 +246,14 @@ twen_one <- list_and_factor(twenty, uruguay_factor)
 common_factor <- list_and_factor(twen_one, venezuela_factor)
 ```
 
+#For reference only
 
+Below this is NOT necessary to run, but we wanted to keep it just incase we need it in the future. It makes a unique list of all the common questions that are a part of each of the countries
 
 
 Need to compare all common questions not just column names, because there are different questions for the column names
 
-making list of common column questions
 
-```{r}
-questions1 <- function(country){
-  i <- 1
-  column <- length(attributes(country)$names)
-  new_list <- rep(NA, column)
-#Replaces original column names with readable version
-			  while(i <= length(new_list)){
-			    #Isolates original column names
-			    original <- attributes(country)$names[i]
-			    #Replaces with label
-			    new <- attributes(country[[original]])$label
-			    #Adds object to list
-			    new_list[i] <- new
-			    #Moves to next item
-			    i <- i + 1
-			  }
-			  new_list
-}
-```
 
 ```{r}
 questions <- function(country){
