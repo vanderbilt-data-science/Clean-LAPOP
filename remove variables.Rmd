@@ -27,6 +27,11 @@ turn_into_factor <- function(list){
   list
 }
 
+
+```
+
+
+```{r}
 #Creates object with above function to includw -factor
 variables_factor <- turn_into_factor(variables)
 
@@ -39,7 +44,7 @@ remove_variables_factor <- function(country){
   x <- 1
   
   #Makes dataframe out of column year
-  new <- data.frame('extra' = country$year)
+  new <- data.frame('extra' = country$`year-factor`)
   
   #Loops through length of list columns
   while(x <= length(columns)){
@@ -67,6 +72,8 @@ new <- new %>%
 new
 }
 ```
+
+
 
 # Applying `remove_variables_factor` to all factored countries
 ```{r}
