@@ -13,6 +13,18 @@ This removes the questions that are not available to the general public.
 variables <- c('ls3r', 'a4r', 'cp4ar', 'np1r', 'np2r', 'prot3r', 'prot7r', 'jc15ar', 'vic1extr', 'vic1hogarr',
 'jc10rr', 'jc13rr', 'sgl1r', 'm1r', 'cp5r', 'cp6r', 'cp7r', 'cp8r', 'cp9r', 'cp13r', 'cp20r', 'it1r', 'pn4r', 'pol1r', 'exc7r', 'community' ,'anyvictim', 'aoj11r', 'sd2r', 'sd3r', 'sd6r', 'coupr', 'b1r', 'b2r', 'b3r', 'b4r', 'b6r', 'b12r', 'b32r','n11r', 'n9r', 'mil3r', 'mil4r', 'eff1r', 'eff2r', 'mil7r', 'ing4r', 'ros1r', 'ros4r', 'psar', 'psa5r', 'psa2r', 'd1r', 'd2r', 'd3r', 'd4r', 'd5r', 'tolr', 'tol2r','bar2x2', 'exc2r', 'exc6r', 'ecexc11r', 'exc11r', 'exc13r', 'exc14r', 'exc15r', 'exc16r', 'exc20r', 'exctot', 'exctot5r', 'exctot3r', 'corvic', 'vb2r', 'mujer', 'edr', 'edad', 'age1', 'age2', 'age3', 'age4', 'age5', 'age6', 'q5br', 'q10dr', 'housewife', 'etidr', 'indigenous', 'black', 'white', 'mestizo', 'mulatto', 'other', 'quintall', 'ed2r', 'intid', 'ideology', 'ti', 'q11nr', 'q5bnr')
 
+turn_into_factor <- function(list){
+  x <- 1
+  while(x <= length(list)){
+    list[x] <- paste(list[x], "factor", sep = "-")
+    x <- x + 1
+  }
+  list
+}
+
+variables_factor <- turn_into_factor(variables)
+
+
 #Function for removing variables
 remove_variables <- function(country){
   #Creates list of column names by country
@@ -50,6 +62,46 @@ new <- new %>%
 new
 }
 ```
+
+```{r}
+#Function for removing variables
+remove_variables_factor <- function(country){
+  #Creates list of column names by country
+  columns <- attributes(country)$names
+  
+  #Initializes list
+  x <- 1
+  
+  #Makes dataframe out of column year
+  new <- data.frame('extra' = country$year)
+  
+  #Loops through length of list columns
+  while(x <= length(columns)){
+    if(!(columns[x] %in% variables_factor)){
+      #Takes a string and makes it a column name, stored into object d
+      d <- country %>%
+        select(!!! syms(columns[x]))
+      
+      #Adds column d to new dataframe
+      new <- cbind(new, d)
+      
+      #Moves to next item in list
+      x <- x + 1
+    } else{
+      #Moves to next item
+      x <- x + 1
+    }
+  }
+  
+#Removes column, extra, from dataframe, new
+new <- new %>%
+  select(-extra)
+
+#Returns dataframe
+new
+}
+```
+
 
 
 ```{r}
