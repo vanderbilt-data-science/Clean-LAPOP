@@ -2,12 +2,12 @@
 title: "2-Finding Common Columns"
 output: html_notebook
 ---
-##Goal of Document
+## Goal of Document
 This finds all the common columns and labels/questions across the countries.
 
 
 
-#PART A
+# PART A
 The two functions below are repeated from Part A
 ```{r}
 same_column_names <- function(country1, country2) {
@@ -94,7 +94,7 @@ list_and_factor <- function(list1, country2) {
 ```
 
 
-#Unfactored Dataframes
+# Unfactored Dataframes
 ```{r}
 first <- same_column_names(argentina_unfactor, bolivia_unfactor)
 second <- list_and_factor(first, brazil_unfactor)
@@ -120,7 +120,7 @@ twen_one <- list_and_factor(twenty, uruguay_unfactor)
 common_unfactor <- list_and_factor(twen_one, venezuela_unfactor)
 ```
 
-#Factored Dataframes
+# Factored Dataframes
 ```{r}
 first <- same_column_names(argentina_factor, bolivia_factor)
 second <- list_and_factor(first, brazil_factor)
@@ -146,7 +146,7 @@ twen_one <- list_and_factor(twenty, uruguay_factor)
 common_factor <- list_and_factor(twen_one, venezuela_factor)
 ```
 
-#For reference only: Alternate
+# For reference only: Alternate
 ```{r}
 #Takes two dataframes and returns list of their common columns
 same_column_names <- function(country1, country2) {
@@ -232,7 +232,7 @@ list_and_factor <- function(list1, country2) {
 }
 ```
 
-#Applying above functions
+# Applying above functions
 Start with `same_column_names`, but then use list and factor
 ```{r}
 first <- same_column_names(argentina, bolivia)
@@ -260,7 +260,7 @@ all_common_col <- list_and_factor(twen_one, venezuela)
 ```
 
 
-#For reference only
+# For reference only
 
 Below this is NOT necessary to run, but we wanted to keep it just incase we need it in the future. It makes a unique list of all the common questions that are a part of each of the countries.
 ```{r}

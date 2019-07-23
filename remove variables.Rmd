@@ -8,62 +8,28 @@ This should eventually be placed after Reading in Data
 ## Goal of Document
 This removes the questions that are not available to the general public.
 
+# Creating function to remove unneeded factored columns
 ```{r}
 #Selecting variables to remove
 variables <- c('ls3r', 'a4r', 'cp4ar', 'np1r', 'np2r', 'prot3r', 'prot7r', 'jc15ar', 'vic1extr', 'vic1hogarr',
 'jc10rr', 'jc13rr', 'sgl1r', 'm1r', 'cp5r', 'cp6r', 'cp7r', 'cp8r', 'cp9r', 'cp13r', 'cp20r', 'it1r', 'pn4r', 'pol1r', 'exc7r', 'community' ,'anyvictim', 'aoj11r', 'sd2r', 'sd3r', 'sd6r', 'coupr', 'b1r', 'b2r', 'b3r', 'b4r', 'b6r', 'b12r', 'b32r','n11r', 'n9r', 'mil3r', 'mil4r', 'eff1r', 'eff2r', 'mil7r', 'ing4r', 'ros1r', 'ros4r', 'psar', 'psa5r', 'psa2r', 'd1r', 'd2r', 'd3r', 'd4r', 'd5r', 'tolr', 'tol2r','bar2x2', 'exc2r', 'exc6r', 'ecexc11r', 'exc11r', 'exc13r', 'exc14r', 'exc15r', 'exc16r', 'exc20r', 'exctot', 'exctot5r', 'exctot3r', 'corvic', 'vb2r', 'mujer', 'edr', 'edad', 'age1', 'age2', 'age3', 'age4', 'age5', 'age6', 'q5br', 'q10dr', 'housewife', 'etidr', 'indigenous', 'black', 'white', 'mestizo', 'mulatto', 'other', 'quintall', 'ed2r', 'intid', 'ideology', 'ti', 'q11nr', 'q5bnr')
 
+#Adds -factor to the end of variables
 turn_into_factor <- function(list){
+  #Initializes list
   x <- 1
+  #Loops through length of list to add right amount of -factor
   while(x <= length(list)){
     list[x] <- paste(list[x], "factor", sep = "-")
     x <- x + 1
   }
+  #Returns list
   list
 }
 
+#Creates object with above function to includw -factor
 variables_factor <- turn_into_factor(variables)
 
-
-#Function for removing variables
-remove_variables <- function(country){
-  #Creates list of column names by country
-  columns <- attributes(country)$names
-  
-  #Initializes list
-  x <- 1
-  
-  #Makes dataframe out of column year
-  new <- data.frame('extra' = country$year)
-  
-  #Loops through length of list columns
-  while(x <= length(columns)){
-    if(!(columns[x] %in% variables)){
-      #Takes a string and makes it a column name, stored into object d
-      d <- country %>%
-        select(!!! syms(columns[x]))
-      
-      #Adds column d to new dataframe
-      new <- cbind(new, d)
-      
-      #Moves to next item in list
-      x <- x + 1
-    } else{
-      #Moves to next item
-      x <- x + 1
-    }
-  }
-  
-#Removes column, extra, from dataframe, new
-new <- new %>%
-  select(-extra)
-
-#Returns dataframe
-new
-}
-```
-
-```{r}
 #Function for removing variables
 remove_variables_factor <- function(country){
   #Creates list of column names by country
@@ -102,11 +68,97 @@ new
 }
 ```
 
-
-
+# Applying `remove_variables_factor` to all factored countries
 ```{r}
-arg_new <- remove_variables(argentina_unfactor)
+argentina_factor_public <- remove_variables_factor(argentina_factor)
+bolivia_factor_public <- remove_variables_factor(bolivia_factor)
+brazil_factor_public <- remove_variables_factor(brazil_factor)
+belize_factor_public <- remove_variables_factor(belize_factor)
+canada_factor_public <- remove_variables_factor(canada_factor)
+chile_factor_public <- remove_variables_factor(chile_factor)
+colombia_factor_public <- remove_variables_factor(colombia_factor)
+costa_factor_public <- remove_variables_factor(costa_factor)
+ecuador_factor_public <- remove_variables_factor(ecuador_factor)
+elsalvador_factor_public <- remove_variables_factor(elsalvador_factor)
+guatemala_factor_public <- remove_variables_factor(guatemala_factor)
+guyana_factor_public <- remove_variables_factor(guyana_factor)
+paraguay_factor_public <- remove_variables_factor(paraguay_factor)
+honduras_factor_public <- remove_variables_factor(honduras_factor)
+jamaica_factor_public <- remove_variables_factor(jamaica_factor)
+mexico_factor_public <- remove_variables_factor(mexico_factor)
+nicaragua_factor_public <- remove_variables_factor(nicaragua_factor)
+panama_factor_public <- remove_variables_factor(panama_factor)
+peru_factor_public <- remove_variables_factor(peru_factor)
+suriname_factor_public <- remove_variables_factor(suriname_factor)
+usa_factor_public <- remove_variables_factor(usa_factor)
+uruguay_factor_public <- remove_variables_factor(uruguay_factor)
+venezuela_factor_public <- remove_variables_factor(venezuela_factor)
+```
 
+# Creating function to remove unneeded factored columns
+```{r}
+#Function for removing variables
+remove_variables <- function(country){
+  #Creates list of column names by country
+  columns <- attributes(country)$names
   
+  #Initializes list
+  x <- 1
+  
+  #Makes dataframe out of column year
+  new <- data.frame('extra' = country$year)
+  
+  #Loops through length of list columns
+  while(x <= length(columns)){
+    if(!(columns[x] %in% variables)){
+      #Takes a string and makes it a column name, stored into object d
+      d <- country %>%
+        select(!!! syms(columns[x]))
+      
+      #Adds column d to new dataframe
+      new <- cbind(new, d)
+      
+      #Moves to next item in list
+      x <- x + 1
+    } else{
+      #Moves to next item
+      x <- x + 1
+    }
+  }
+  
+#Removes column, extra, from dataframe, new
+new <- new %>%
+  select(-extra)
+
+#Returns dataframe
+new
+}
+```
+
+# Applying `remove_variables` to all unfactored countries
+```{r}
+argentina_unfactored_public <- remove_variables(argentina_unfactor)
+bolivia_unfactored_public <- remove_variables(bolivia_unfactor)
+brazil_unfactored_public <- remove_variables(brazil_unfactor)
+belize_unfactored_public <- remove_variables(belize_unfactor)
+canada_unfactored_public <- remove_variables(canada_unfactor)
+chile_unfactored_public <- remove_variables(chile_unfactor)
+colombia_unfactored_public <- remove_variables(colombia_unfactor)
+costa_unfactored_public <- remove_variables(costa_unfactor)
+ecuador_unfactored_public <- remove_variables(ecuador_unfactor)
+elsalvador_unfactored_public <- remove_variables(elsalvador_unfactor)
+guatemala_unfactored_public <- remove_variables(guatemala_unfactor)
+guyana_unfactored_public <- remove_variables(guyana_unfactor)
+paraguay_unfactored_public <- remove_variables(paraguay_unfactor)
+honduras_unfactored_public <- remove_variables(honduras_unfactor)
+jamaica_unfactored_public <- remove_variables(jamaica_unfactor)
+mexico_unfactored_public <- remove_variables(mexico_unfactor)
+nicaragua_unfactored_public <- remove_variables(nicaragua_unfactor)
+panama_unfactored_public <-  remove_variables(panama_unfactor)
+peru_unfactored_public <- remove_variables(peru_unfactor)
+suriname_unfactored_public <- remove_variables(suriname_unfactor)
+usa_unfactored_public <- remove_variables(usa_unfactor)
+uruguay_unfactored_public <- remove_variables(uruguay_unfactor)
+venezuela_unfactored_public <- remove_variables(venezuela_unfactor)
 ```
 

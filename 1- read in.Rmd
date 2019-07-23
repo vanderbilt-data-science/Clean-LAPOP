@@ -3,7 +3,7 @@ title: "1-Reading in Data"
 output: html_notebook
 ---
 
-##Structure of the code
+## Structure of the code
 The code contains two parts: Part A which works only with one specific dataframe to divide it up by factored or unfactored, and Part B that works with two dataframes - the factored and unfactored version.
 
 For example, Part A would contain only the Argentina dataframe, with columns specified by factored/unfactored. Whereas Part B would have something along the lines of argentina_factored and argentina_unfactored, where each dataframe is EITHER factored or unfactored, not both.
@@ -13,7 +13,7 @@ Some functions are repeated in both sections so that you don't have to jump back
 Suggested order to follow:
 1-Reading in Data
 
-#Libraries
+# Libraries
 ```{r}
 library(labelled)
 library(sjmisc)
@@ -24,7 +24,7 @@ library(haven)
 ```
 
 
-#PART A
+# PART A
 Creating factored and unfactored dataframes
 ```{r}
 factor_country <- function(country){
@@ -45,7 +45,7 @@ factor_country <- function(country){
 }
 ```
 
-#Creating factored dataframes using `factor_country`
+# Creating factored dataframes using `factor_country`
 ```{r}
 panama_factor <- factor_country("1909860951Panama LAPOP merge 2004-2014 v3.0_W_dta.zip")
 argentina_factor <- factor_country("1326054827Argentina LAPOP merge 2008-2014 v3.0_W_dta.zip")
@@ -72,7 +72,7 @@ uruguay_factor <- factor_country("1222977998Uruguay LAPOP merge 2007-2014 v3.0_W
 venezuela_factor <- factor_country("1165310382Venezuela LAPOP merge 2007-2014 v3.0_W_dta.zip")
 ```
 
-#Creating unfactored dataframes using `read_dta`
+# Creating unfactored dataframes using `read_dta`
 ```{r}
 panama_unfactor <- read_dta("1909860951Panama LAPOP merge 2004-2014 v3.0_W_dta.zip")
 argentina_unfactor <- read_dta("1326054827Argentina LAPOP merge 2008-2014 v3.0_W_dta.zip")
@@ -100,7 +100,7 @@ venezuela_unfactor <- read_dta("1165310382Venezuela LAPOP merge 2007-2014 v3.0_W
 ```
 
 
-#For Reference only: Alternate
+# For Reference only: Alternate
 Step 1 - read in the data
 Step 2 - split it up into what needs to be factored vs what doesn't
 Step 3 - return the new data set of the combined unfactored and factored version
@@ -166,7 +166,7 @@ factor_unfactor_combine <- function(filename){
 ```
 
 
-#Applying `factor_unfactor_combine()` to all countries
+# Applying `factor_unfactor_combine()` to all countries
 ```{r}
 panama <- factor_unfactor_combine("1909860951Panama LAPOP merge 2004-2014 v3.0_W_dta.zip")
 argentina <- factor_unfactor_combine("1326054827Argentina LAPOP merge 2008-2014 v3.0_W_dta.zip")
