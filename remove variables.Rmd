@@ -39,6 +39,7 @@ arg <- data.frame('extra' = argentina_unfactor$year)
     if(!(variables[x] %!in% columns)){
       d <- argentina_unfactor %>% select(!!! syms(columns[x]))
       arg <- cbind(arg,d)
+    
       x <- x + 1
     }
     else{
