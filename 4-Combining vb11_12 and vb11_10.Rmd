@@ -25,7 +25,7 @@ vb_combine_factor <- function(country) {
 
 
 ```{r}
-argentina_vb_factor <- vb_combine_factor(argentina_shrink_factor)
+argentina_vb_factor <- vb_combine_factor(argentina_factor_public)
 belize_vb_factor <- vb_combine_factor(belize_shrink_factor)
 bolivia_vb_factor <- vb_combine_factor(bolivia_shrink_factor)
 brazil_vb_factor <- vb_combine_factor(brazil_shrink_factor)
@@ -50,9 +50,23 @@ uruguay_vb_factor <- vb_combine_factor(uruguay_shrink_factor)
 venezuela_vb_factor <- vb_combine_factor(venezuela_shrink_factor)
 ```
 
+```{r}
+
+vb_combine <- function(country) {
+  country <- country %>% #
+  #Converting the columns from factors to characters
+  mutate_at(vars(vb11_10, vb11_12), as.character) %>% 
+  #Creating new column that is vb_combined
+  mutate(vb_combined = ifelse(is.na(vb11_10), vb11_12, vb11_10))
+
+  var_label(country$vb_combined) <- "¿Con cuál partido político simpatiza usted?"
+  
+  return(country)
+}
+```
 
 ```{r}
-argentina_vb_unfactor <- vb_combine(argentina_unfactor)
+argentina_vb_unfactor <- vb_combine(argentina_unfactored_public)
 argentina_vb_unfactor <- vb_combine(argentina_shrink_unfactor)
 belize_vb_unfactor <- vb_combine(belize_shrink_unfactor)
 bolivia_vb_unfactor <- vb_combine(bolivia_shrink_unfactor)

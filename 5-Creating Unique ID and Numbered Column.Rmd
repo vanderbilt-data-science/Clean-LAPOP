@@ -74,6 +74,10 @@ uruguay_unique_unfactor <- full_id(uruguay_vb_unfactor)
 venezuela_unique_unfactor <- full_id(venezuela_vb_unfactor)
 ```
 
+```{r}
+write_csv(arg_ai,)
+```
+
 #Applying `full_id_factor` to all countries
 The functions below are the same as above, except `full_id` is now `full_id_factor` to indicate it needs to be used for factored data
 ```{r}

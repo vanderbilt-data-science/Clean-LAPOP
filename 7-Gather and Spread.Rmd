@@ -177,6 +177,10 @@ argentina_full <- bind(argentina_wide_unfactor, argentina_wide_factor)
 write_csv(argentina_full, "argentina.csv")
 ```
 
+```{r}
+t <- arg_l_unfactor %>% filter(common == TRUE)
+```
+
 
 #For reference only: Alternate
 ```{r}
