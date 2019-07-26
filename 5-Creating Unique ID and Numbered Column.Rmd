@@ -1,6 +1,8 @@
 ---
 title: "5-Creating Unique ID and Numbered Column"
 output: html_notebook
+editor_options: 
+  chunk_output_type: inline
 ---
 #Goal of Document
 This section makes a unique and common id format for all the dataframes.

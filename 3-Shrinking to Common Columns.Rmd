@@ -1,6 +1,8 @@
 ---
 title: "3-Shrinking to Common Columns"
 output: html_notebook
+editor_options: 
+  chunk_output_type: inline
 ---
 #Goal of Document
 This section shrinks each of the dataframes to a shorter width, but we probably won't use this step later. Instead, we will most likely opt for the longer version of our data that we have created.

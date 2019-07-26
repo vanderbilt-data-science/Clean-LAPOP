@@ -1,6 +1,8 @@
 ---
 title: "6-creating NA"
 output: html_notebook
+editor_options: 
+  chunk_output_type: inline
 ---
 
 #For reference only

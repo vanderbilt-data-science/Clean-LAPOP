@@ -1,6 +1,8 @@
 ---
 title: "2-Finding Common Columns"
 output: html_notebook
+editor_options: 
+  chunk_output_type: inline
 ---
 ## Goal of Document
 This finds all the common columns and labels/questions across the countries.
