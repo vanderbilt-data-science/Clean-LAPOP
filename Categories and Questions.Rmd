@@ -7,7 +7,13 @@ editor_options:
 
 ## Goal of Document
 
-This document contains the inital list of categories and columns LAPOP specificied. It comes from the  SODA_categories_variables.txt fail that Maita shared with us on 7/26. This definitely outdatedsome columns are incorrectly labelled.
+This document contains the inital list of categories and columns LAPOP specificied. It comes from the  SODA_categories_variables.txt fail that Maita shared with us on 7/26. This is definitely outdated. Some columns are incorrectly labelled and categories nine and seventeen are empty.
+
+Lindsey - I started this off by making a vector with all the category names and made vectors of each category. I spent a stupid amount of time trying to fix an error I caused using find and replace... thought it would make things faster, but it just definitely was not. 
+
+What I was hoping to do is create a tibble that has columns "variable" (or whatever is the same for column name on the lengthened version) that contains all the column names and then "category" that has the category name as a string.
+
+From this tibble, I want to do a join on variable with the lengthened country data frame. This would then add the category column to the other dataset.
 
 ## Categories
 1.  Geographic
@@ -35,16 +41,12 @@ I might create a character vector of all the over-all category names.
 category_names <- c("Geographic", "Socio-Economic", "Control", "Economic", "Social Participation", "Local Government", "Interpersonal Trust", "Crime and Rule of Law", "Internal Conflict and War", "Politcal System Support", "Tolerance", "Positive-Negative Participation", "Democracy", "Authoritarian Values", "Corruption", "Elections and Political Rights", "International Context", "Special topics")
 ```
 
-
-Maybe could do something like `complete_categories <- list("Geographic" = cat_one" ""Socio-Demographic" = cat_two" "etc.)`
-
-
 ```{r}
 library(tidyverse)
 ```
 
 ## Columns by Category
-In the text document" "this is just written out.  I'm going to make a list for each of the categories that contains the columns grouped by category.
+In the text document, this is just written out.  I'm going to make a vector for each of the categories that contains the columns grouped by category.
 
 ```{r}
 cat_one <- c("pais",
@@ -201,8 +203,7 @@ cat_eight <- list(
 	'st4')
 ```
 
-
-No values for category nine given
+# !No values for category nine given
 ```{r}
 cat_nine <- list()
 ```
@@ -335,7 +336,7 @@ cat_sixteen <- c(
 	'vb21')
 ```
 
-No values for category seventeen given
+# !No values for category seventeen given
 ```{r}
 cat_seventeen <- c()
 ```
@@ -393,32 +394,32 @@ cat_eighteen <- c(
 ```
 
 
-All categories, except nine and seventeen
+# Vector of category numbers, except nine and seventeen
 ```{r}
 category_num <- list(cat_one, cat_two, cat_three, cat_four, cat_five, cat_six, cat_seven, cat_eight, cat_ten, cat_eleven, cat_twelve, cat_thirteen, cat_fourteen, cat_fifteen, cat_sixteen, cat_eighteen)
 ```
 
 
-#Making dataframe that can be joined
-
+# Making dataframe that can be joined
 ```{r}
 test_tbl <- tibble(`variable` = cat_one, `category` = "Geographic") 
 
-test_tbl
+test_tbl #Makes tibble that has the format I want
 
 test_tbl2 <- tibble(`variable` = cat_one, `category` = rep("Geographic", length(cat_one)))
 
-test_tbl2
+test_tbl2 #Has same output as above
 
 test_tbl2a <- tibble(`variable` = cat_two, `category` = rep("Socio-Demographc", length(cat_two)))
 
-test
+test_tbl2a #Makes the desired result with 50 rows
 
+#Makes an error saying columns have to be consistent lengths... Moving on to try making my own function
 test_tbl3 <- tibble(`variable` = cat_one, cat_two, `category` = rep("Geographic", length(cat_one)), rep("Socio-Demographic", length(cat_two)))
 ```
 
 
-This makes an individual tibble, need to find a way to repeat this.
+# Function for an individual tibble, need to find a way to repeat this.
 ```{r}
 indiv_tbl <- function(category_num, category_name) {
   tibble(`variable` = category_num,
@@ -428,11 +429,14 @@ indiv_tbl <- function(category_num, category_name) {
 indiv_tbl(cat_three, "Control")
 ```
 
+# Trying `lapply()`
+In theory this should work... I've tried it several different ways and this is where I was at at the end of the day. I would say if you can find a way to make one big tibble that is an aggregate of all the smaller ones, that would be great to focus on on Monday.
 ```{r}
-lapply(category_num, category_names, indiv_tbl)
+lapply(category_num = category_num, category_name = category_names, FUN = indiv_tbl)
 ```
 
 
+# !Do not run, for reference only
 ```{r}
 cat_two_tbl <- cat_two %>%
   as_tibble()
