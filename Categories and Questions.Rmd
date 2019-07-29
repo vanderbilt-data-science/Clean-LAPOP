@@ -1,5 +1,5 @@
 ---
-title: "List of Categories and Questions"
+title: "List of Categories and Questions-unfactor"
 output: html_notebook
 editor_options: 
   chunk_output_type: inline
@@ -9,7 +9,7 @@ editor_options:
 
 This document contains the inital list of categories and columns LAPOP specificied. It comes from the  SODA_categories_variables.txt fail that Maita shared with us on 7/26. This is definitely outdated. Some columns are incorrectly labelled and categories nine and seventeen are empty.
 
-Lindsey - I started this off by making a vector with all the category names and made vectors of each category. I spent a stupid amount of time trying to fix an error I caused using find and replace... thought it would make things faster, but it just definitely was not. 
+Lindsay - I started this off by making a vector with all the category names and made vectors of each category. I spent a stupid amount of time trying to fix an error I caused using find and replace... thought it would make things faster, but it just definitely was not. 
 
 What I was hoping to do is create a tibble that has columns "variable" (or whatever is the same for column name on the lengthened version) that contains all the column names and then "category" that has the category name as a string.
 
@@ -38,7 +38,7 @@ From this tibble, I want to do a join on variable with the lengthened country da
 I might create a character vector of all the over-all category names.
 
 ```{r}
-category_names <- c("Geographic", "Socio-Economic", "Control", "Economic", "Social Participation", "Local Government", "Interpersonal Trust", "Crime and Rule of Law", "Internal Conflict and War", "Politcal System Support", "Tolerance", "Positive-Negative Participation", "Democracy", "Authoritarian Values", "Corruption", "Elections and Political Rights", "International Context", "Special topics")
+category_names <- c("Geographic", "Socio-Demographic", "Control", "Economic", "Social Participation", "Local Government", "Interpersonal Trust", "Crime and Rule of Law", "Internal Conflict and War", "Politcal System Support", "Tolerance", "Positive-Negative Participation", "Democracy", "Authoritarian Values", "Corruption", "Elections and Political Rights", "International Context", "Special topics")
 ```
 
 ```{r}

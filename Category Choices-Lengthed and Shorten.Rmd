@@ -1,0 +1,485 @@
+---
+title: "Category choices, length and shorten"
+output: html_notebook
+---
+
+
+```{r}
+long_questions <- function(country, country_before, column){
+  #Starting at index 1
+  i <- 1
+  questions <- rep(NA, column)
+  #Replaces original column names with readable version
+  while(i <= column){
+    #Isolates original column names
+    original <- (country$column_name)[i]
+    #Replaces with label
+    new <- attributes(country_before[[original]])$label
+    #Adds object to list
+    questions[i] <- new
+    #Moves to next item
+    i <- i + 1
+    }
+  country <- country %>% mutate(questions)
+  country
+}
+
+lengthen <- function(country) {
+  country_before <- country
+  country <- country %>%
+    #These are excluded because they are repeated
+    #Brings together the following columns
+    gather(column_name, answer, estratopri:formatq)
+  #Takes length of column_name and arguments from long_questions
+  column <- length(country$column_name)
+  country <- long_questions(country, country_before, column)
+  country <- country %>% 
+    select(pais, year, unique_id, column_name, answer, questions, extra_id)
+  return(country)
+}
+```
+
+```{r}
+category <- function(country){
+  i <- 1
+  column <- length(country$pais)
+  combine <- data.frame('extra' = country$pais)
+  category <- rep(NA, column)
+  while(i <= column){
+    original <- (country$column_name)[i]
+    if(original %in% cat_one){
+      category[i] <- 'Geographic'
+      i <- i + 1
+    }
+    else if(original %in% cat_two){
+      category[i] <- 'Socio-Demographic'
+      i <- i + 1
+    }
+    else if(original %in% cat_three){
+      category[i] <- 'Control'
+      i <- i + 1
+    }
+    else if(original %in% cat_four){
+      category[i] <- 'Economic'
+      i <- i + 1
+    }
+    else if(original %in% cat_five){
+      category[i] <- 'Social Participation'
+      i <- i + 1
+    }
+    else if(original %in% cat_six){
+      category[i] <- 'Local Government'
+      i <- i + 1
+    }
+    else if(original %in% cat_seven){
+      category[i] <- 'Interpersonal Trust'
+      i <- i + 1
+    }
+    else if(original %in% cat_eight){
+     category[i] <- 'Crime and Rule of Law'
+      i <- i + 1
+    }
+    else if(original %in% cat_nine){
+      category[i] <- 'Internal Conflict and War'
+      i <- i + 1
+    }
+    else if(original %in% cat_ten){
+      category[i] <- 'Political System Support'
+      i <- i + 1
+    }
+    else if(original %in% cat_eleven){
+      category[i] <- 'Tolerance'
+      i <- i + 1
+    }
+    else if(original %in% cat_twelve){
+      category[i] <- 'Positive-Negative Participation'
+      i <- i + 1
+    }
+    else if(original %in% cat_thirteen){
+      category[i] <- 'Democracy'
+      i <- i + 1
+    }
+    else if(original %in% cat_fourteen){
+      category[i] <- 'Authoritarian Values'
+      i <- i + 1
+    }
+    else if(original %in% cat_fifteen){
+      category[i] <- 'Corruption'
+      i <- i + 1
+    }
+    else if(original %in% cat_sixteen){
+      category[i] <- 'Elections and Political Rights'
+      i <- i + 1
+    }
+    else if(original %in% cat_seventeen){
+      category[i] <- 'International Context'
+      i <- i + 1
+    }
+    else if(original %in% cat_eighteen){
+      category[i] <- 'Special topics'
+      i <- i + 1
+    }
+    else{
+      category[i] <- 'NONE'
+      i <- i + 1
+    }
+  }
+  combine <- combine %>% mutate(category)
+  combine <- combine %>% select(-extra)
+  c <- cbind(country,combine)
+  return(c)
+}
+```
+
+
+```{r}
+tidy_spread <- function(x){
+  x <- x %>%
+    select(-column_name) %>%
+    spread(questions, answer)
+}
+```
+
+```{r}
+belize_long <- lengthen(belize_unique_unfactor)
+belize_category <- category(belize_long)
+belize_short <- belize_category %>% filter(category == "Geographic")
+belize_wide <- tidy_spread(belize_short)
+
+argentina_long <- lengthen(argentina_unique_unfactor)
+argentina_category <- category(argentina_long)
+argentina_short <- belize_category %>% filter(category == "Geographic")
+argentina_wide <- tidy_spread(argentina_short)
+
+brazil_long <- lengthen(brazi_unique_unfactor)
+brazil_category <- category(brazil_long)
+brazil_short <- belize_category %>% filter(category == "Geographic")
+brazil_wide <- tidy_spread(brazil_short)
+
+chile_long <- lengthen(chile_unique_unfactor)
+chile_category <- category(chile_long)
+chile_short <- belize_category %>% filter(category == "Geographic")
+chile_wide <- tidy_spread(chile_short)
+
+panama_long <- lengthen(panama_unique_unfactor)
+panama_category <- category(panama_long)
+panama_short <- belize_category %>% filter(category == "Geographic")
+panama_wide <- tidy_spread(panama_short)
+
+paraguay_long <- lengthen(paraguay_unique_unfactor)
+paraguay_category <- category(paraguay_long)
+paraguay_short <- belize_category %>% filter(category == "Geographic")
+paraguay_wide <- tidy_spread(paraguay_short)
+
+peru_long <- lengthen(peru_unique_unfactor)
+peru_category <- category(peru_long)
+peru_short <- belize_category %>% filter(category == "Geographic")
+peru_wide <- tidy_spread(peru_short)
+
+#suriname_long <- lengthen(suriname__unique_unfactor) - says that no unique combination, but the combination seems unique...
+#suriname_category <- category(suriname_long)
+#suriname_short <- belize_category %>% filter(category == "Geographic")
+#suriname_wide <- tidy_spread(suriname_short)
+
+uruguay_long <- lengthen(uruguay_unique_unfactor)
+uruguay_category <- category(uruguay_long)
+uruguay_short <- belize_category %>% filter(category == "Geographic")
+uruguay_wide <- tidy_spread(uruguay_short)
+
+venezuela_long <- lengthen(venezuela_unique_unfactor)
+venezuela_category <- category(venezuela_long)
+venezuela_short <- belize_category %>% filter(category == "Geographic")
+venezuela_wide <- tidy_spread(venezuela_short)
+
+bolivia_long <- lengthen(bolivia_unique_unfactor)
+bolivia_category <- category(bolivia_long)
+bolivia_short <- belize_category %>% filter(category == "Geographic")
+bolivia_wide <- tidy_spread(bolivia_short)
+
+canada_long <- lengthen(canada_unique_unfactor)
+canada_category <- category(canada_long)
+canada_short <- belize_category %>% filter(category == "Geographic")
+canada_wide <- tidy_spread(canada_short)
+
+colombia_long <- lengthen(colombia_unique_unfactor)
+colombia_category <- category(colombia_long)
+colombia_short <- belize_category %>% filter(category == "Geographic")
+colombia_wide <- tidy_spread(colombia_short)
+
+costa_long <- lengthen(costa_unique_unfactor)
+costa_category <- category(costa_long)
+costa_short <- belize_category %>% filter(category == "Geographic")
+costa_wide <- tidy_spread(costa_short)
+
+ecuador_long <- lengthen(ecuador_unique_unfactor)
+ecuador_category <- category(ecuador_long)
+ecuador_short <- belize_category %>% filter(category == "Geographic")
+ecuador_wide <- tidy_spread(ecuador_short)
+
+elsalvador_long <- lengthen(elsalvador_unique_unfactor)
+elsalvador_category <- category(elsalvador_long)
+elsalvador_short <- belize_category %>% filter(category == "Geographic")
+elsalvador_wide <- tidy_spread(elsalvador_short)
+
+guatemala_long <- lengthen(guatemala_unique_unfactor)
+guatemala_category <- category(guatemala_long)
+guatemala_short <- belize_category %>% filter(category == "Geographic")
+guatemala_wide <- tidy_spread(guatemala_short)
+
+honduras_long <- lengthen(honduras_unique_unfactor)
+honduras_category <- category(honduras_long)
+honduras_short <- belize_category %>% filter(category == "Geographic")
+honduras_wide <- tidy_spread(honduras_short)
+
+mexico_long <- lengthen(mexico_unique_unfactor)
+mexico_category <- category(mexico_long)
+mexico_short <- belize_category %>% filter(category == "Geographic")
+mexico_wide <- tidy_spread(mexico_short)
+
+nicaragua_long <- lengthen(nicaragua_unique_unfactor)
+nicaragua_category <- category(nicaragua_long)
+nicaragua_short <- belize_category %>% filter(category == "Geographic")
+nicaragua_wide <- tidy_spread(nicaragua_short)
+
+usa_long <- lengthen(usa_unique_unfactor)
+usa_category <- category(usa_long)
+usa_short <- belize_category %>% filter(category == "Geographic")
+usa_wide <- tidy_spread(usa_short)
+```
+
+```{r}
+long_questions_factor <- function(country, country_before, column){
+  #Starting at index 1
+  i <- 1
+  questions <- rep(NA, column)
+  #Replaces original column names with readable version
+  while(i <= column){
+    #Isolates original column names
+    original <- (country$column_name)[i]
+    #Replaces with label
+    new <- attributes(country_before[[original]])$label
+    #Adds "factor" to end of question
+    new <- paste(new, "factor", sep = "-")
+    #Adds object to list
+    questions[i] <- new
+    #Moves to next item
+    i <- i + 1
+    }
+  country <- country %>% mutate(questions)
+  country
+}
+
+
+lengthen_factor <- function(country) {
+  country_before <- country
+  country <- country %>%
+    #These are excluded because they are repeated
+    #Brings together the following columns
+    gather(column_name, answer, `estratopri-factor`:`formatq-factor`)
+  #Takes length of column_name and arguments from long_questions
+  column <- length(country$column_name)
+  country <- long_questions(country, country_before, column)
+  country <- country %>% 
+    select(`pais-factor`, `year-factor`, unique_id, column_name, answer, questions, extra_id)
+  return(country)
+  }
+```
+
+```{r}
+category_factor <- function(country){
+  i <- 1
+  column <- length(country$pais)
+  combine <- data.frame('extra' = country$pais)
+  category <- rep(NA, column)
+  while(i <= column){
+    original <- (country$column_name)[i]
+    if(original %in% cat_one_factor){
+      category[i] <- 'Geographic'
+      i <- i + 1
+    }
+    else if(original %in% cat_two_factor){
+      category[i] <- 'Socio-Demographic'
+      i <- i + 1
+    }
+    else if(original %in% cat_three_factor){
+      category[i] <- 'Control'
+      i <- i + 1
+    }
+    else if(original %in% cat_four_factor){
+      category[i] <- 'Economic'
+      i <- i + 1
+    }
+    else if(original %in% cat_five_factor){
+      category[i] <- 'Social Participation'
+      i <- i + 1
+    }
+    else if(original %in% cat_six_factor){
+      category[i] <- 'Local Government'
+      i <- i + 1
+    }
+    else if(original %in% cat_seven_factor){
+      category[i] <- 'Interpersonal Trust'
+      i <- i + 1
+    }
+    else if(original %in% cat_eight_factor){
+     category[i] <- 'Crime and Rule of Law'
+      i <- i + 1
+    }
+    else if(original %in% cat_nine_factor){
+      category[i] <- 'Internal Conflict and War'
+      i <- i + 1
+    }
+    else if(original %in% cat_ten_factor){
+      category[i] <- 'Political System Support'
+      i <- i + 1
+    }
+    else if(original %in% cat_eleven_factor){
+      category[i] <- 'Tolerance'
+      i <- i + 1
+    }
+    else if(original %in% cat_twelve_factor){
+      category[i] <- 'Positive-Negative Participation'
+      i <- i + 1
+    }
+    else if(original %in% cat_thirteen_factor){
+      category[i] <- 'Democracy'
+      i <- i + 1
+    }
+    else if(original %in% cat_fourteen_factor){
+      category[i] <- 'Authoritarian Values'
+      i <- i + 1
+    }
+    else if(original %in% cat_fifteen_factor){
+      category[i] <- 'Corruption'
+      i <- i + 1
+    }
+    else if(original %in% cat_sixteen_factor){
+      category[i] <- 'Elections and Political Rights'
+      i <- i + 1
+    }
+    else if(original %in% cat_seventeen_factor){
+      category[i] <- 'International Context'
+      i <- i + 1
+    }
+    else if(original %in% cat_eighteen_factor){
+      category[i] <- 'Special topics'
+      i <- i + 1
+    }
+    else{
+      category[i] <- 'NONE'
+      i <- i + 1
+    }
+  }
+  combine <- combine %>% mutate(category)
+  combine <- combine %>% select(-extra)
+  c <- cbind(country,combine)
+  return(c)
+}
+```
+
+```{r}
+belize_long_factor <- lengthen(belize_unique_factor)
+belize_category_factor <- category(belize_long_factor)
+belize_short_factor <- belize_categor_factory %>% filter(category == "Geographic")
+belize_wide_factor <- tidy_spread(belize_short_factor)
+
+argentina_long_factor <- lengthen(argentina_unique_factor)
+argentina_category_factor <- category(argentina_long_factor)
+argentina_short_factor <- argentina_category_factor %>% filter(category == "Geographic")
+argentina_wide_factor <- tidy_spread(argentina_short_factor)
+
+brazil_long_factor <- lengthen(brazi_unique_factor)
+brazil_category_factor <- category(brazil_long_factor)
+brazil_short_factor <- brazil_category_factor %>% filter(category == "Geographic")
+brazil_wide_factor <- tidy_spread(brazil_short_factor)
+
+chile_long_factor <- lengthen(chile_unique_factor)
+chile_category_factor <- category(chile_long_factor)
+chile_short_factor <- chile_category_factor %>% filter(category == "Geographic")
+chile_wide_factor <- tidy_spread(chile_short_factor)
+
+panama_long_factor <- lengthen(panama_unique_factor)
+panama_category_factor <- category(panama_long_factor)
+panama_short_factor <- panama_category_factor %>% filter(category == "Geographic")
+panama_wide_factor <- tidy_spread(panama_short_factor)
+
+paraguay_long_factor <- lengthen(paraguay_unique_factor)
+paraguay_category_factor <- category(paraguay_long_factor)
+paraguay_short_factor <- paraguay_category_factor %>% filter(category == "Geographic")
+paraguay_wide_factor <- tidy_spread(paraguay_short_factor)
+
+peru_long_factor <- lengthen(peru_unique_factor)
+peru_category_factor <- category(peru_long_factor)
+peru_short_factor <- peru_category_factor %>% filter(category == "Geographic")
+peru_wide_factor <- tidy_spread(peru_short_factor)
+
+#suriname_long_factor <- lengthen(suriname__unique_factor) - says that no unique combination, but the combination seems unique...
+#suriname_category_factor <- category(suriname_long_factor)
+#suriname_short_factor <- suriname_category_factor %>% filter(category == "Geographic")
+#suriname_wide_factor <- tidy_spread(suriname_short_factor)
+
+uruguay_long_factor <- lengthen(uruguay_unique_factor)
+uruguay_category_factor <- category(uruguay_long_factor)
+uruguay_short_factor <- uruguay_category_factor %>% filter(category == "Geographic")
+uruguay_wide_factor <- tidy_spread(uruguay_short_factor)
+
+venezuela_long_factor <- lengthen(venezuela_unique_factor)
+venezuela_category_factor <- category(venezuela_long_factor)
+venezuela_short_factor <- venezuela_category_factor %>% filter(category == "Geographic")
+venezuela_wide_factor <- tidy_spread(venezuela_short_factor)
+
+bolivia_long_factor <- lengthen(bolivia_unique_factor)
+bolivia_category_factor <- category(bolivia_long_factor)
+bolivia_short_factor <- bolivia_category_factor %>% filter(category == "Geographic")
+bolivia_wide_factor <- tidy_spread(bolivia_short_factor)
+
+canada_long_factor <- lengthen(canada_unique_factor)
+canada_category_factor <- category(canada_long_factor)
+canada_short_factor <- canada_category_factor %>% filter(category == "Geographic")
+canada_wide_factor <- tidy_spread(canada_short_factor)
+
+colombia_long_factor <- lengthen(colombia_unique_factor)
+colombia_category_factor <- category(colombia_long_factor)
+colombia_short_factor <- colombia_category_factor %>% filter(category == "Geographic")
+colombia_wide_factor <- tidy_spread(colombia_short_factor)
+
+costa_long_factor <- lengthen(costa_unique_factor)
+costa_category_factor<- category(costa_long_factor)
+costa_short_factor <- costa_category_factor %>% filter(category == "Geographic")
+costa_wide_factor <- tidy_spread(costa_short_factor)
+
+ecuador_long_factor <- lengthen(ecuador_unique_factor)
+ecuador_category_factor <- category(ecuador_long_factor)
+ecuador_short_factor <- ecuador_category_factor %>% filter(category == "Geographic")
+ecuador_wide_factor <- tidy_spread(ecuador_short_factor)
+
+elsalvador_long_factor <- lengthen(elsalvador_unique_factor)
+elsalvador_category_factor <- category(elsalvador_long_factor)
+elsalvador_short_factor <- elsalvador_category_factor %>% filter(category == "Geographic")
+elsalvador_wide_factor <- tidy_spread(elsalvador_short_factor)
+
+guatemala_long_factor <- lengthen(guatemala_unique_factor)
+guatemala_category_factor <- category(guatemala_long_factor)
+guatemala_short_factor <- guatemala_category_factor %>% filter(category == "Geographic")
+guatemala_wide_factor <- tidy_spread(guatemala_short_factor)
+
+honduras_long_factor <- lengthen(honduras_unique_factor)
+honduras_category_factor <- category(honduras_long_factor)
+honduras_short_factor <- honduras_category_factor %>% filter(category == "Geographic")
+honduras_wide_factor <- tidy_spread(honduras_short_factor)
+
+mexico_long_factor <- lengthen(mexico_unique_factor)
+mexico_category_factor <- category(mexico_long_factor)
+mexico_short_factor <- mexico_category_factor %>% filter(category == "Geographic")
+mexico_wide_factor <- tidy_spread(mexico_short_factor)
+
+nicaragua_long_factor <- lengthen(nicaragua_unique_factor)
+nicaragua_category_factor <- category(nicaragua_long_factor)
+nicaragua_short_factor <- nicaragua_category_factor %>% filter(category == "Geographic")
+nicaragua_wide_factor <- tidy_spread(nicaragua_short_factor)
+
+usa_long_factor <- lengthen(usa_unique_factor)
+usa_category_factor <- category(usa_long_factor)
+usa_short_factor <- usa_category_factor %>% filter(category == "Geographic")
+usa_wide_factor <- tidy_spread(usa_short_factor)
+```

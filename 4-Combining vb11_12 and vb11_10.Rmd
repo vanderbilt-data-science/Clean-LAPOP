@@ -27,7 +27,7 @@ vb_combine_factor <- function(country) {
 
 
 ```{r}
-argentina_vb_factor <- vb_combine_factor(argentina_shrink_factor)
+argentina_vb_factor <- vb_combine_factor(argentina_factor)
 belize_vb_factor <- vb_combine_factor(belize_shrink_factor)
 bolivia_vb_factor <- vb_combine_factor(bolivia_shrink_factor)
 brazil_vb_factor <- vb_combine_factor(brazil_shrink_factor)
@@ -68,9 +68,9 @@ vb_combine <- function(country) {
 ```
 
 ```{r}
+argentina_vb_unfactor <- vb_combine(argentina_unfactor)
 argentina_vb_unfactor <- vb_combine(argentina_shrink_unfactor)
-argentina_vb_unfactor <- vb_combine(argentina_shrink_unfactor)
-belize_vb_unfactor <- vb_combine(belize_shrink_unfactor)
+belize_vb_unfactor <- vb_combine(belize_unfactor)
 bolivia_vb_unfactor <- vb_combine(bolivia_shrink_unfactor)
 brazil_vb_unfactor <- vb_combine(brazil_shrink_unfactor)
 canada_vb_unfactor <- vb_combine(canada_shrink_unfactor)

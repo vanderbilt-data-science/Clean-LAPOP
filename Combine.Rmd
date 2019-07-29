@@ -1,0 +1,32 @@
+---
+title: "Combine"
+output: html_notebook
+---
+
+```{r}
+panama <- bind_cols(panama_wide, panama_wide_factor)
+argentina <- bind_cols(argnetina_wide, argentina_wide_factor)
+bolivia <- bind_cols(bolivia_wide, bolivia_wide_factor)
+brazil <- factor_unfactor_combine("1058457654Brazil LAPOP merge 2007-2014 v3.0_W_dta.zip")
+belize <- factor_unfactor_combine("1866361808Belize LAPOP merge 2008-2014 v3.0_W_dta.zip")
+canada <- factor_unfactor_combine("257165704Canada LAPOP merge 2006-2014 v3.0_W_dta.zip")
+chile <- factor_unfactor_combine("1651690880Chile LAPOP merge 2006-2014 v3.0_W_dta.zip")
+colombia <- factor_unfactor_combine("26761406Colombia LAPOP merge 2004-2014 v3.0_W_dta.zip")
+costa <- factor_unfactor_combine("312640706CostaRica LAPOP merge 2004-2014 v3.0_W_dta.zip")
+ecuador <- factor_unfactor_combine("1562314955Ecuador LAPOP merge 2004-2014 v3.0_W_dta.zip")
+elsalvador <- factor_unfactor_combine("71618678ElSalvador LAPOP merge 2004-2014 v3.0_W_dta.zip")
+guatemala <- factor_unfactor_combine("833541857Guatemala LAPOP merge 2004-2014 v3.0_W_dta.zip")
+guyana <- factor_unfactor_combine("1293237393Guyana LAPOP merge 2006-2014 v3.0_W_dta.zip")
+paraguay <- factor_unfactor_combine("450650714Paraguay LAPOP merge 2006-2014 v3.0_W_dta.zip")
+honduras <- factor_unfactor_combine("125162980Honduras LAPOP merge 2004-2014 v3.0_W_dta.zip")
+jamaica <- factor_unfactor_combine("1518553693Jamaica LAPOP merge 2006-2014 v3.0_W_dta.zip")
+mexico <- factor_unfactor_combine("1467358429Mexico LAPOP merge 2004-2014 v3.0_W_dta.zip")
+nicaragua <- factor_unfactor_combine("420919900Nicaragua LAPOP merge 2004-2014 v3.0_W_dta.zip")
+peru <- factor_unfactor_combine("897206140Peru LAPOP merge 2006-2014 v3.0_W_dta.zip")
+suriname <- factor_unfactor_combine("2028239474Suriname LAPOP merge 2010-2014 v3.0_W_dta.zip")
+usa <- factor_unfactor_combine("1355754260UnitedStates LAPOP merge 2006-2014 v3.0_W_dta.zip")
+uruguay <- factor_unfactor_combine("1222977998Uruguay LAPOP merge 2007-2014 v3.0_W_dta.zip")
+venezuela <- factor_unfactor_combine("1165310382Venezuela LAPOP merge 2007-2014 v3.0_W_dta.zip")
+```
+```
+
