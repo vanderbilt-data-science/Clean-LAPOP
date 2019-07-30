@@ -14,7 +14,7 @@ Suggested order to follow:
 1-Reading in Data
 
 #Libraries
-```{r}
+```{r, message=FALSE}
 library(labelled)
 library(sjmisc)
 library(tidyr)
@@ -45,7 +45,7 @@ factor_country <- function(country){
 }
 ```
 
-#Creating factored dataframes using `factor_country`
+# Creating factored dataframes using `factor_country`
 ```{r}
 panama_factor <- factor_country("1909860951Panama LAPOP merge 2004-2014 v3.0_W_dta.zip")
 argentina_factor <- factor_country("1326054827Argentina LAPOP merge 2008-2014 v3.0_W_dta.zip")
@@ -72,7 +72,7 @@ uruguay_factor <- factor_country("1222977998Uruguay LAPOP merge 2007-2014 v3.0_W
 venezuela_factor <- factor_country("1165310382Venezuela LAPOP merge 2007-2014 v3.0_W_dta.zip")
 ```
 
-#Creating unfactored dataframes using `read_dta`
+# Creating unfactored dataframes using `read_dta`
 ```{r}
 panama_unfactor <- read_dta("1909860951Panama LAPOP merge 2004-2014 v3.0_W_dta.zip")
 argentina_unfactor <- read_dta("1326054827Argentina LAPOP merge 2008-2014 v3.0_W_dta.zip")
@@ -99,7 +99,10 @@ uruguay_unfactor <- read_dta("1222977998Uruguay LAPOP merge 2007-2014 v3.0_W_dta
 venezuela_unfactor <- read_dta("1165310382Venezuela LAPOP merge 2007-2014 v3.0_W_dta.zip")
 ```
 
+
+# Creating factored dataframes of 2016/17 questionnaires using `factor_country`
 ```{r}
+argentina_16_factor <- factor_country("42076439Argentina LAPOP AmericasBarometer 2017 V1.0_W.dta")
 venezuela_16_factor  <- factor_country("25258094Venezuela LAPOP AmericasBarometer 2016-17 V1.0_W.dta")
 bolivia_16_factor  <- factor_country("142790203Bolivia LAPOP AmericasBarometer 2017 V1.0_W.dta")
 brazil_16_factor  <- factor_country("780314464Brazil LAPOP AmericasBarometer 2017 V1.0_W.dta")
@@ -122,7 +125,10 @@ usa_16_factor  <- factor_country("2133069031United States LAPOP AmericasBaromete
 uruguay_16_factor  <- factor_country("646644681Uruguay LAPOP AmericasBarometer 2017 V1.0_W.dta")
 ```
 
+
+# Creating unfactored dataframes of 2016/17 questionnaires using `read_dta`
 ```{r}
+argentina_16_unfactor <- read_dta("42076439Argentina LAPOP AmericasBarometer 2017 V1.0_W.dta")
 venezuela_16_unfactor  <- read_dta("25258094Venezuela LAPOP AmericasBarometer 2016-17 V1.0_W.dta")
 bolivia_16_unfactor  <- read_dta("142790203Bolivia LAPOP AmericasBarometer 2017 V1.0_W.dta")
 brazil_16_unfactor  <- read_dta("780314464Brazil LAPOP AmericasBarometer 2017 V1.0_W.dta")
@@ -144,7 +150,6 @@ peru_16_unfactor  <- read_dta("83639715Peru_LAPOP_AmericasBarometer_2017_V1.1_W.
 usa_16_unfactor  <- read_dta("2133069031United States LAPOP AmericasBarometer 2017 V1.0_W.dta")
 uruguay_16_unfactor  <- read_dta("646644681Uruguay LAPOP AmericasBarometer 2017 V1.0_W.dta")
 ```
-
 
 #For Reference only: Alternate
 Step 1 - read in the data
