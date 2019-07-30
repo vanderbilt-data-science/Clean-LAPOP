@@ -483,3 +483,93 @@ usa_category_factor <- category(usa_long_factor)
 usa_short_factor <- usa_category_factor %>% filter(category == "Geographic")
 usa_wide_factor <- tidy_spread(usa_short_factor)
 ```
+
+```{r}
+lengthen2 <- function(country) {
+  country_before <- country
+  country <- country %>%
+    #These are excluded because they are repeated
+    #Brings together the following columns
+    gather(column_name, answer, estratopri:formatq)
+  #Takes length of column_name and arguments from long_questions
+  country <- country %>% 
+    select(pais, year, unique_id, column_name, answer, extra_id)
+  return(country)
+}
+```
+
+
+```{r}
+belize_long_unfactor <- lengthen2(belize_unique_unfactor)
+belize_category_unfactor <- belize_long_unfactor %>% left_join(unfactored_categories, by = 'column_name')
+
+argentina_long <- lengthen(argentina_unique_unfactor)
+argentina_category <- category(argentina_long)
+
+brazil_long <- lengthen(brazi_unique_unfactor)
+brazil_category <- category(brazil_long)
+
+chile_long <- lengthen(chile_unique_unfactor)
+chile_category <- category(chile_long)
+
+panama_long <- lengthen(panama_unique_unfactor)
+panama_category <- category(panama_long)
+
+paraguay_long <- lengthen(paraguay_unique_unfactor)
+paraguay_category <- category(paraguay_long)
+
+peru_long <- lengthen(peru_unique_unfactor)
+peru_category <- category(peru_long)
+
+#suriname_long <- lengthen(suriname__unique_unfactor) - says that no unique combination, but the combination seems unique...
+#suriname_category <- category(suriname_long)
+
+uruguay_long <- lengthen(uruguay_unique_unfactor)
+uruguay_category <- category(uruguay_long)
+
+venezuela_long <- lengthen(venezuela_unique_unfactor)
+venezuela_category <- category(venezuela_long)
+
+bolivia_long <- lengthen(bolivia_unique_unfactor)
+bolivia_category <- category(bolivia_long)
+
+canada_long <- lengthen(canada_unique_unfactor)
+canada_category <- category(canada_long)
+
+colombia_long <- lengthen(colombia_unique_unfactor)
+colombia_category <- category(colombia_long)
+
+costa_long <- lengthen(costa_unique_unfactor)
+costa_category <- category(costa_long)
+
+ecuador_long <- lengthen(ecuador_unique_unfactor)
+ecuador_category <- category(ecuador_long)
+
+elsalvador_long <- lengthen(elsalvador_unique_unfactor)
+elsalvador_category <- category(elsalvador_long)
+
+guatemala_long <- lengthen(guatemala_unique_unfactor)
+guatemala_category <- category(guatemala_long)
+
+honduras_long <- lengthen(honduras_unique_unfactor)
+honduras_category <- category(honduras_long)
+
+mexico_long <- lengthen(mexico_unique_unfactor)
+mexico_category <- category(mexico_long)
+
+nicaragua_long <- lengthen(nicaragua_unique_unfactor)
+nicaragua_category <- category(nicaragua_long)
+
+usa_long <- lengthen(usa_unique_unfactor)
+usa_category <- category(usa_long)
+
+
+
+```
+
+
+```{r}
+factored_categories <- read_csv('/Users/lindsayhardy/Clean-LAPOP/Lapop Categories Factored.csv')
+unfactored_categories <- read_csv('/Users/lindsayhardy/Clean-LAPOP/LAPOP categories unfactored.csv')
+```
+
