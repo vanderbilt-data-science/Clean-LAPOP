@@ -77,12 +77,6 @@ venezuela_unique_unfactor <- full_id(venezuela_unfactor)
 ```
 
 
-
-
-```{r}
-write_csv(arg_ai,)
-```
-
 #Applying `full_id_factor` to all countries
 The functions below are the same as above, except `full_id` is now `full_id_factor` to indicate it needs to be used for factored data
 ```{r}
@@ -229,52 +223,3 @@ venezuela_unique <- full_id(venezuela_vb)
 ```
 
 
-```{r}
-argentina_16_unique_unfactor <- full_id(argentina_16_unfactor)
-venezuela_16_unique_unfactor  <- full_id(venezuela_16_unfactor)
-bolivia_16_unique_unfactor  <- full_id(bolivia_16_unfactor)
-brazil_16_unique_unfactor  <- full_id(brazil_16_unfactor)
-canada_16_unique_unfactor  <- full_id(canada_16_unfactor)
-chile_16_unique_unfactor  <- full_id(chile_16_unfactor)
-colombia_16_unique_unfactor  <- full_id(colombia_16_unfactor)
-costa_16_unique_unfactor  <- full_id(costa_16_unfactor)
-ecuador_16_unique_unfactor  <- full_id(ecuador_16_unfactor)
-elsalvador_16_unique_unfactor  <- full_id(elsalvador_16_unfactor)
-guatemala_16_unique_unfactor  <- full_id(guatemala_16_unfactor)
-guyana_16_unique_unfactor  <- full_id(guyana_16_unfactor)
-honduras_16_unique_unfactor  <- full_id(honduras_16_unfactor)
-jamaica_16_unique_unfactor  <- full_id(jamaica_16_unfactor)
-mexico_16_unique_unfactor  <- full_id(mexico_16_unfactor)
-nicaragua_16_unique_unfactor  <- full_id(nicaragua_16_unfactor)
-panama_16_unique_unfactor  <- full_id(panama_16_unfactor)
-paraguay_16_unique_unfactor <- full_id(paraguay_16_unfactor)
-peru_16_unique_unfactor  <- full_id(peru_16_unfactor)
-usa_16_unique_unfactor  <- full_id(usa_16_unfactor)
-uruguay_16_unique_unfactor  <- full_id(uruguay_16_unfactor)
-
-```
-
-
-```{r}
-argentina_16_unique_factor <- full_id_factor()
-venezuela_16_unique_factor  <- full_id_factor()
-bolivia_16_unique_factor  <- full_id_factor()
-brazil_16_unique_factor  <- full_id_factor()
-canada_16_unique_factor  <- full_id_factor()
-chile_16_unique_factor  <- full_id_factor()
-colombia_16_unique_factor  <- full_id_factor()
-costa_16_unique_factor  <- full_id_factor()
-ecuador_16_unique_factor  <- full_id_factor()
-elsalvador_16_unique_factor  <- full_id_factor()
-guatemala_16_unique_factor  <- full_id_factor()
-guyana_16_unique_factor  <- full_id_factor()
-honduras_16_unique_factor  <- full_id_factor()
-jamaica_16_unique_factor  <- full_id_factor()
-mexico_16_unique_factor  <- full_id_factor()
-nicaragua_16_unique_factor  <- full_id_factor()
-panama_16_unique_factor  <- full_id_factor()
-paraguay_16_unique_factor <- full_id_factor()
-peru_16_unique_factor  <- full_id_factor()
-usa_16_unique_factor  <- full_id_factor()
-uruguay_16_unique_factor  <- full_id_factor()
-```
