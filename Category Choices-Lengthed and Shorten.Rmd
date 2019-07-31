@@ -1,6 +1,8 @@
 ---
 title: "Category choices, length and shorten"
 output: html_notebook
+editor_options: 
+  chunk_output_type: inline
 ---
 ```{r}
 library(assertr)
@@ -499,7 +501,23 @@ lengthen <- function(country) {
     gather(column_name, answer, estratopri:formatq)
   #Takes length of column_name and arguments from long_questions
   country <- country %>% 
-    select(pais, year, unique_id, column_name, answer, extra_id)
+    select(pais, year, unique_id, column_name, answer, extra_id) %>%
+    as.character()
+  return(country)
+}
+```
+
+```{r}
+lengthen_16 <- function(country) {
+  country_before <- country
+  country <- country %>%
+    #These are excluded because they are repeated
+    #Brings together the following columns
+    gather(column_name, answer, estratopri:formatq)
+  #Takes length of column_name and arguments from long_questions
+  country <- country %>% 
+    select(pais, uniq_id, column_name, answer) %>%
+    as.character()
   return(country)
 }
 ```
@@ -507,12 +525,18 @@ lengthen <- function(country) {
 
 ```{r}
 belize_long_unfactor <- lengthen(belize_unique_unfactor)
-belize_category_unfactor <- belize_long_unfactor %>% left_join(unfactored_categories, by = 'column_name')
+#No 16/17 for Belize
+belize_category_unfactor <- belize_long_unfactor %>%
+  left_join(unfactored_categories, by = 'column_name')
 
 argentina_long_unfactor <- lengthen(argentina_unique_unfactor)
-argentina_category_unfactor <- argentina_long_unfactor %>% left_join(unfactored_categories, by = 'column_name')
+argentina16_long_unfactor <- lengthen_16(argentina_16_unfactor)
+test <- union_all(argentina_long_unfactor, argentina16_long_unfactor)
+argentina_category_unfactor <- argentina_long_unfactor %>%
+  left_join(unfactored_categories, by = 'column_name')
 
 brazil_long_unfactor <- lengthen(brazil_unique_unfactor)
+brazil16_long_unfactor <- lengthen()
 brazil_category_unfactor <- brazil_long_unfactor %>% left_join(unfactored_categories, by = 'column_name')
 
 chile_long_unfactor <- lengthen(chile_unique_unfactor)
