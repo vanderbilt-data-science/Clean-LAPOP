@@ -21,6 +21,7 @@ library(tidyr)
 library(tidyverse)
 library(dplyr)
 library(haven)
+library(assertr)
 ```
 
 
@@ -38,8 +39,8 @@ factor_country <- function(country){
   
   #Changes name of column to add "factor"
   while(x <= length(country)){
-    colnames(country)[x] <- paste(colnames(country)[x], "factor", sep = "-")
-    x <- x + 1
+      colnames(country)[x] <- paste(colnames(country)[x], "factor", sep = "-")
+     x <- x + 1
   }
   country
 }
@@ -150,6 +151,21 @@ peru_16_unfactor  <- read_dta("83639715Peru_LAPOP_AmericasBarometer_2017_V1.1_W.
 usa_16_unfactor  <- read_dta("2133069031United States LAPOP AmericasBarometer 2017 V1.0_W.dta")
 uruguay_16_unfactor  <- read_dta("646644681Uruguay LAPOP AmericasBarometer 2017 V1.0_W.dta")
 ```
+
+
+```{r}
+same <- function(x){
+  if(x == argentina_unfactor$year){
+    return(TRUE)
+  }
+  else{
+    return(FALSE)
+  }
+}
+argentina_unfactor %>% assert(same, wave)
+```
+
+
 
 #For Reference only: Alternate
 Step 1 - read in the data
