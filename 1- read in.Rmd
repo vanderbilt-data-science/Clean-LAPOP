@@ -129,7 +129,7 @@ uruguay_16_factor  <- factor_country("646644681Uruguay LAPOP AmericasBarometer 2
 
 # Creating unfactored dataframes of 2016/17 questionnaires using `read_dta`
 ```{r}
-argentina_16_unfactor <- read_dta("42076439Argentina LAPOP AmericasBarometer 2017 V1.0_W.dta") %>%
+argentina_16_unfactor <- read_dta("/Users/lindsayhardy/Clean-LAPOP/42076439Argentina LAPOP AmericasBarometer 2017 V1.0_W (1).dta") %>%
   transform(uniq_id = as.character(uniq_id))
 
 venezuela_16_unfactor  <- read_dta("25258094Venezuela LAPOP AmericasBarometer 2016-17 V1.0_W.dta") %>% 
@@ -193,18 +193,6 @@ uruguay_16_unfactor  <- read_dta("646644681Uruguay LAPOP AmericasBarometer 2017 
   transform(uniq_id = as.character(uniq_id))
 ```
 
-
-```{r}
-same <- function(x){
-  if(x == argentina_unfactor$year){
-    return(TRUE)
-  }
-  else{
-    return(FALSE)
-  }
-}
-argentina_unfactor %>% assert(same, wave)
-```
 
 
 
