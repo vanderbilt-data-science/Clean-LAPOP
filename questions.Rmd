@@ -20,6 +20,7 @@ x <- 1
 while(x <= length(factored_category_names))
   {y <- attributes(chile_unfactor[[unfactored_category_names[x]]])$label
   print(y)
+  print(unfactored_category_names[x])
   x <- x + 1
 }
 
@@ -31,7 +32,7 @@ while(x <= length(factored_category_names))
 ```{r}
 x <- 1
 while(x <= length(factored_category_names))
-  {y <- attributes(argentina_16_unfactor[[unfactored_category_names[x]]])$label
+  {y <- attributes(chile_16_unfactor[[unfactored_category_names[x]]])$label
   print(y)
   x <- x + 1
 }
