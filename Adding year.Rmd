@@ -27,14 +27,14 @@ countries_both <- list(ecuador_16_factor, ecuador_16_unfactor, venezuela_16_fact
 
 ```{r}
 add_wave_factor_2016 <- function(country){
-  country <- country %>% mutate(`wave-factor` = 2016)
+  country <- country %>% mutate(wave_factor = 2016)
   return(country)
 }
 ```
 
 ```{r}
 add_wave_factor_2017 <- function(country){
-  country <- country %>% mutate(`wave-factor` = 2017)
+  country <- country %>% mutate(wave_factor = 2017)
   return(country)
 }
 ```

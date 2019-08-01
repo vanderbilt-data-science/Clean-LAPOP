@@ -39,7 +39,7 @@ factor_country <- function(country){
   
   #Changes name of column to add "factor"
   while(x <= length(country)){
-      colnames(country)[x] <- paste(colnames(country)[x], "factor", sep = "-")
+      colnames(country)[x] <- paste(colnames(country)[x], "factor", sep = "_")
      x <- x + 1
   }
   country
@@ -103,7 +103,7 @@ venezuela_unfactor <- read_dta("1165310382Venezuela LAPOP merge 2007-2014 v3.0_W
 
 # Creating factored dataframes of 2016/17 questionnaires using `factor_country`
 ```{r}
-argentina_16_factor <- factor_country("42076439Argentina LAPOP AmericasBarometer 2017 V1.0_W.dta")
+argentina_16_factor <- factor_country("/Users/lindsayhardy/Clean-LAPOP/42076439Argentina LAPOP AmericasBarometer 2017 V1.0_W (1).dta")
 venezuela_16_factor  <- factor_country("25258094Venezuela LAPOP AmericasBarometer 2016-17 V1.0_W.dta")
 bolivia_16_factor  <- factor_country("142790203Bolivia LAPOP AmericasBarometer 2017 V1.0_W.dta")
 brazil_16_factor  <- factor_country("780314464Brazil LAPOP AmericasBarometer 2017 V1.0_W.dta")

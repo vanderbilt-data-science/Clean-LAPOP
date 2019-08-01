@@ -90,16 +90,16 @@ The functions below are the same as above, except `full_id` is now `full_id_fact
 making_uniqueID_factor <- function(country){
   #Combines idnum and idnum_14 with "/" and then makes unique id
   country <- mutate(country,
-                    `idnum-factor` = ifelse(`idnum_14-factor` == '',
-                                   `idnum-factor`,
-                                   paste(`idnum-factor`,`idnum_14-factor`, sep = "/"))) %>%
+                    idnum_factor = ifelse(idnum_14_factor == '',
+                                   idnum_factor,
+                                   paste(idnum_factor,idnum_14_factor, sep = "/"))) %>%
     mutate(.,
-           uniq_id = paste(
+           uniq_id_factor = paste(
              paste(
-               toupper(substr(`pais-factor`, 1, 3)),
-               substr(`year-factor`, 3, 4), sep = ''),
-             `idnum-factor`, sep = "_"))
-  country <- transform(country, uniq_id = as.character(uniq_id))
+               toupper(substr(pais_factor, 1, 3)),
+               substr(year_factor, 3, 4), sep = ''),
+             idnum_factor, sep = "_"))
+  country <- transform(country, uniq_id_factor = as.character(uniq_id_factor))
   return(country)
 }
 

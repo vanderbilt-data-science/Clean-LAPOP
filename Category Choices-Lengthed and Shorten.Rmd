@@ -706,10 +706,10 @@ lengthen_factor <- function(country) {
   country <- country %>%
     #These are excluded because they are repeated
     #Brings together the following columns
-    gather(column_name, answer, `estratopri.factor`:`formatq.factor`)
+    gather(column_name, answer, estratopri_factor:formatq_factor)
   #Takes length of column_name and arguments from long_questions
   country <- country %>% 
-    select(`pais.factor`, `wave.factor`, uniq_id, column_name, answer)
+    select(pais_factor, wave_factor, uniq_id_factor, column_name, answer)
   return(country)
 }
 ```
@@ -721,10 +721,10 @@ lengthen_16factor <- function(country) {
   country <- country %>%
     #These are excluded because they are repeated
     #Brings together the following columns
-    gather(column_name, answer, `estratopri.factor`:`formatq-actor`)
+    gather(column_name, answer, estratopri_factor:formatq_factor)
   #Takes length of column_name and arguments from long_questions
   country <- country %>% 
-    select(`pais-factor`, `wave-factor`, uniq_id, column_name, answer)
+    select(pais_factor, wave_factor, uniq_id_factor, column_name, answer)
   return(country)
 }
 ```
@@ -756,7 +756,7 @@ brazil_category_factor <- brazil_long_factor %>%
 
 
 #Chile
-chile_long_factor <- lengthe_factor(chile_unique_factor)
+chile_long_factor <- lengthen_factor(chile_unique_factor)
 chile16_long_factor <- lengthen_16factor(chile_16_factor)
 chile_category_factor <- chile_long_factor %>%
   left_join(factored_categories, by = 'column_name')
