@@ -93,13 +93,12 @@ making_uniqueID_factor <- function(country){
                     `idnum-factor` = ifelse(`idnum_14-factor` == '',
                                    `idnum-factor`,
                                    paste(`idnum-factor`,`idnum_14-factor`, sep = "/"))) %>%
-  
-  mutate(.,
-         uniq_id = paste(
-           paste(
-             toupper(substr(`pais-factor`, 1, 3)),
-             substr(`year-factor`, 3, 4), sep = ''),
-           `idnum-factor`, sep = "_"))
+    mutate(.,
+           uniq_id = paste(
+             paste(
+               toupper(substr(`pais-factor`, 1, 3)),
+               substr(`year-factor`, 3, 4), sep = ''),
+             `idnum-factor`, sep = "_"))
   country <- transform(country, uniq_id = as.character(uniq_id))
   return(country)
 }
