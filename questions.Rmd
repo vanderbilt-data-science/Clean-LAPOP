@@ -15,12 +15,35 @@ while(x <= length(factored_category_names))
 questions_list(argentina_unfactor)
 ```
 
+
+
+```{r}
+na <- c('redist1',
+'redist2',
+'redist2a',
+'redist3',
+'a4r',
+'gi0n',
+'v58',
+'smedia1',
+'smedia4',
+'smedia7',
+'l1b',
+'q3cn')
+```
+
+
+```{r}
+argentina_16_unfactor %>% select()
+```
+
+
 ```{r}
 x <- 1
-while(x <= length(unfactored_category_names))
-  {y <- attributes(bolivia_unfactor[[unfactored_category_names[x]]])$label
+while(x <= length(na))
+  {y <- attributes(venezuela_16_unfactor[[na[x]]])$label
   print(y)
-  #print(unfactored_category_names[x])
+  #print(na[x])
   x <- x + 1
 }
 
