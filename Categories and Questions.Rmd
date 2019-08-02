@@ -141,6 +141,7 @@ unfactored_category_names <- c('soct2',
 )
 ```
 
+# !Don't delete yet, wait to reorganize
 
 ## Goal of Document
 
