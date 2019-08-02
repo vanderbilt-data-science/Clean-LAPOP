@@ -14,6 +14,7 @@ Suggested order to follow:
 2. Categories and Questions
 3. Adding Wave Column
 4. Creating Unique ID
+5. Lengthening and Joining
 
 ## Libraries
 ```{r, message=FALSE}

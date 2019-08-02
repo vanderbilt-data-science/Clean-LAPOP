@@ -6,10 +6,11 @@ editor_options:
 ---
 
 # Structure
-
 The 2016 and 2017 files are missing the year and wave columns that are present in the merged files. The code below adds the correct wave to the corresponding files.
 
 Note: we use wave instead of year because in some instances the questionnaire is conducted in January of the following year, but is still a part of the previous wave. (e.g. interview is conducted Jan 1, 2005 but wave is 2004)
+
+The countries are first listed by year. There are then functions written for the factored and unfactored versions for both 2016 and 2017 waves. 
 
 ## Lists of files by year
 ```{r}
