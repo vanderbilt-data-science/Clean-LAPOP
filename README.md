@@ -15,21 +15,21 @@ These files will need to be placed into the working directory of your project in
 
 ### Suggested Workflow
 1. Reading in Data
-  + Reads in the merged country and 2016/17 Stata files downloaded from the [LAPOP Datasets](http://datasets.americasbarometer.org/database/index.php)
-  + Creates factored and unfactored versions of all datasets
+    + Reads in the merged country and 2016/17 Stata files downloaded from the [LAPOP Datasets](http://datasets.americasbarometer.org/database/index.php)
+    + Creates factored and unfactored versions of all datasets
   
 2. Categories and Questions
-  + Contains factored and unfactored version of the most recent list of categories and questions provided by LAPOP.
+    + Contains factored and unfactored version of the most recent list of categories and questions provided by LAPOP.
 
 3. Adding Wave Column
-  + Creates a column that contains the correct wave for 2016/17 datasets.
+    + Creates a column that contains the correct wave for 2016/17 datasets.
 
 4. Creating Unique ID
-  + Makes a unique ID for merged country files that follows the unique ID of 2016/17 files.
+    + Makes a unique ID for merged country files that follows the unique ID of 2016/17 files.
 
 5. Lengthening and Joining
-   + Lengthens countries into tidy format
-   + Joins the questions and category columns by column_name
+    + Lengthens countries into tidy format
+    + Joins the questions and category columns by column_name
 
 # Team
 * Jesse Spencer-Smith | Chief Data Scientist at the Vanderbilt Data Scientist Institute
