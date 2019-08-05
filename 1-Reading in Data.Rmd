@@ -6,8 +6,7 @@ editor_options:
 ---
 
 # Overall Structure of the code
-Include a brief sentence with a summary of code structure.
-- Divided by merged and 16/17
+In this file, we read in the data from the [LAPOP Datasets](http://datasets.americasbarometer.org/database/index.php). In order to do this, you need to download them to your machine and place them in this file.
 
 Suggested order to follow:
 1. Reading in Data
@@ -27,6 +26,7 @@ library(haven)
 library(assertr)
 ```
 
+The first function we wrote, `factor_country()`, reads the file in and edits the column name so that it ends in "_factor" to differentiate between unfactored and factored when we combine them later.
 
 ## Creating factored and unfactored dataframes
 ```{r}
@@ -49,6 +49,10 @@ factor_country <- function(country){
 ```
 
 # Reading in merged country files
+This is where we read in all the factored data. You should use the *most recent* merged country files for this section. The factored and unfactored file names are the same.
+
+If you want to change the files that are being read in, you can either make a new code chunk or replace the current file names. If you do this, you have to make sure there is an unfactored version of the file as well.
+
 ## Creating factored dataframes using `factor_country`
 ```{r}
 panama_factor <- factor_country("1909860951Panama LAPOP merge 2004-2014 v3.0_W_dta.zip")
@@ -77,6 +81,7 @@ venezuela_factor <- factor_country("1165310382Venezuela LAPOP merge 2007-2014 v3
 ```
 
 ## Creating unfactored dataframes using `read_dta`
+This is where we read in the unfactored data.
 ```{r}
 panama_unfactor <- read_dta("1909860951Panama LAPOP merge 2004-2014 v3.0_W_dta.zip")
 argentina_unfactor <- read_dta("1326054827Argentina LAPOP merge 2008-2014 v3.0_W_dta.zip")
@@ -104,7 +109,12 @@ venezuela_unfactor <- read_dta("1165310382Venezuela LAPOP merge 2007-2014 v3.0_W
 ```
 
 # Reading in 2016/17 files
+Because there is no pre-existing merge that include 2016/17 data, we are reading it in separately and then joining it later in the process.
+
+If you are using the new merged files, you can skip this.
+
 ## Creating factored dataframes of 2016/17 questionnaires using `factor_country`
+This is the 16/17 version of the `factor_country()` used above. The same process applies.
 ```{r}
 argentina_16_factor <- factor_country("/Users/lindsayhardy/Clean-LAPOP/42076439Argentina LAPOP AmericasBarometer 2017 V1.0_W (1).dta")
 venezuela_16_factor  <- factor_country("25258094Venezuela LAPOP AmericasBarometer 2016-17 V1.0_W.dta")
@@ -131,6 +141,8 @@ uruguay_16_factor  <- factor_country("646644681Uruguay LAPOP AmericasBarometer 2
 
 
 ## Creating unfactored dataframes of 2016/17 questionnaires using `read_dta`
+This is the unfactored version of the 16/17 data frames, but we needed to apply modifications for when we eventually combined the 16/17 with the merged. 
+We transformed the unique ID column to character. This does not affect the data, but is necessary for the join.
 ```{r}
 argentina_16_unfactor <- read_dta("/Users/lindsayhardy/Clean-LAPOP/42076439Argentina LAPOP AmericasBarometer 2017 V1.0_W (1).dta") %>%
   transform(uniq_id = as.character(uniq_id))
