@@ -1,0 +1,543 @@
+---
+title: "5-Lengthening and Joining"
+output: html_notebook
+editor_options: 
+  chunk_output_type: inline
+---
+
+# Structure
+In this section we lengthen the datasets so that there are only 5 columns: pais, wave, uniq_id, column_name, and answer. We also read in the categories from a csv that contains all the categories and questions. There will be combined to the lengthened datasets at the end.
+
+There are four versions of the lengthen function. The first two are the functions that should be used for the unfactored versions of the merged and 2016/17 countries. The last two are for the factored versions.
+
+When we apply the lengthen function, we also use `left_join()` to add a column for questions and categories.
+
+The process is repeated twice for each country - once for the unfactored versions and then again for the factored versions.
+
+## Reading in categories from CSV
+```{r}
+#Factored categories
+factored_categories <- read_csv('/Users/lindsayhardy/Clean-LAPOP/Lapop Categories Factored.csv')
+factored_categories <- factored_categories %>%
+  select(column_name_factor, category)
+factored_categories %>% 
+  assert(is_uniq, column_name_factor)
+
+#Unfactored categories
+unfactored_categories <- read_csv('/Users/lindsayhardy/Clean-LAPOP/LAPOP categories unfactored.csv')
+unfactored_categories <- unfactored_categories %>% 
+  elect(column_name, category)
+unfactored_categories %>%
+  assert(is_uniq, column_name)
+```
+
+##Reading in questions from CSV
+```{r}
+#Factored questions
+factored_questions <- read_csv('/Users/lindsayhardy/Clean-LAPOP/updated factor questions.csv')
+factored_questions <- factored_questions %>%
+  select(column_name_factor, question_factor)
+
+#Unfactored questions
+unfactored_questions <- read_csv('/Users/lindsayhardy/Clean-LAPOP/updated unfactor questions.csv')
+unfactored_questions <- unfactored_questions %>%
+  select(column_name, question)
+```
+
+## Functions to lengthen unfactored datasets
+### Use for merged files
+```{r}
+lengthen <- function(country) {
+  country_before <- country
+  country <- country %>%
+    #These are excluded because they are repeated
+    #Brings together the following columns
+    gather(column_name, answer, estratopri:formatq)
+  country <- transform(country, answer = as.character(answer))
+  #Takes length of column_name and arguments from long_questions
+  country <- country %>% 
+    select(pais, wave, uniq_id, column_name, answer)
+  return(country)
+}
+```
+
+### Use for 2016/17 files
+```{r}
+lengthen_16 <- function(country) {
+  country_before <- country
+  country <- country %>%
+    #These are excluded because they are repeated
+    #Brings together the following columns
+    gather(column_name, answer, estratopri:formatq)
+  country <- transform(country, answer = as.character(answer))
+  #Takes length of column_name and arguments from long_questions
+  country <- country %>% 
+    select(pais, wave, uniq_id, column_name, answer)
+  return(country)
+}
+```
+
+## Applying lengthening and joining merged datasets with 16/17 datsets
+```{r}
+#Belize
+belize_long_unfactor <- lengthen(belize_unique_unfactor)
+#No 16/17 for Belize
+belize_category_unfactor <- belize_long_unfactor %>%
+  left_join(unfactored_categories, by = 'column_name')
+belize_category_unfactor <- belize_category_unfactor %>%
+  left_join(unfactored_questions, by = 'column_name')
+
+
+#Argentina
+#Lengthens unfactored dataset that has unique ID
+argentina_long_unfactor <- lengthen(argentina_unique_unfactor)
+#Lengthens 2016 unfactored datset
+argentina16_long_unfactor <- lengthen_16(argentina_16_unfactor)
+#Joins the datasets together
+argentina_joined <- union_all(argentina_long_unfactor, argentina16_long_unfactor) %>% 
+  #Changes answer column to numeric
+  transform(answer = as.numeric(answer))
+#Adds categories
+argentina_joined <- argentina_joined %>%
+  left_join(unfactored_categories, by = 'column_name')
+#Adds questions
+argentina_joined <- argentina_joined %>%
+  left_join(unfactored_questions, by = 'column_name')
+
+#The rest follow the same pattern
+
+#Brazil
+brazil_long_unfactor <- lengthen(brazil_unique_unfactor)
+brazil16_long_unfactor <- lengthen(brazil_16_unfactor)
+brazil_joined <- union_all(brazil_long_unfactor, brazil16_long_unfactor) %>% 
+  transform(answer = as.numeric(answer))
+brazil_joined <- brazil_joined %>% left_join(unfactored_categories, by = 'column_name')
+brazil_joined <- brazil_joined %>%
+  left_join(unfactored_questions, by = 'column_name')
+
+
+#Chile
+chile_long_unfactor <- lengthen(chile_unique_unfactor)
+chile16_long_unfactor <- lengthen(chile_16_unfactor)
+chile_joined <- union_all(chile_long_unfactor, chile16_long_unfactor) %>% 
+  transform(answer = as.numeric(answer))
+chile_joined <- chile_joined %>% left_join(unfactored_categories, by = 'column_name')
+chile_joined <- chile_joined %>%
+  left_join(unfactored_questions, by = 'column_name')
+
+
+#Panama
+panama_long_unfactor <- lengthen(panama_unique_unfactor)
+panama16_long_unfactor <- lengthen(panama_16_unfactor)
+panama_joined <- union_all(panama_long_unfactor, panama16_long_unfactor) %>% 
+  transform(answer = as.numeric(answer))
+panama_joined <- panama_joined %>% left_join(unfactored_categories, by = 'column_name')
+panama_joined <- panama_joined %>%
+  left_join(unfactored_questions, by = 'column_name')
+
+
+#Paraguay
+paraguay_long_unfactor <- lengthen(paraguay_unique_unfactor)
+paraguay16_long_unfactor <- lengthen(paraguay_16_unfactor)
+paraguay_joined <- union_all(paraguay_long_unfactor, paraguay16_long_unfactor) %>% 
+  transform(answer = as.numeric(answer))
+paraguay_joined <-  paraguay_joined %>% left_join(unfactored_categories, by = 'column_name')
+paraguay_joined <- paraguay_joined %>%
+  left_join(unfactored_questions, by = 'column_name')
+
+
+#Peru
+peru_long_unfactor <- lengthen(peru_unique_unfactor)
+peru16_long_unfactor <- lengthen(peru_16_unfactor)
+peru_joined <- union_all(peru_long_unfactor, peru16_long_unfactor) %>% 
+  transform(answer = as.numeric(answer))
+peru_joined <- peru_joined %>% left_join(unfactored_categories, by = 'column_name')
+peru_joined <- peru_joined %>%
+  left_join(unfactored_questions, by = 'column_name')
+
+
+#Suriname
+#suriname_long_unfactor <- lengthen(suriname_unique_unfactor)
+#suriname16_long_unfactor <- lengthen(suriname_16_unfactor)
+#suriname_joined <- union_all(suriname_long_unfactor, suriname16_long_unfactor) %>% 
+#  transform(answer = as.numeric(answer))
+#suriname_joined <- suriname_joined %>% left_join(unfactored_categories, by = 'column_name')
+#suriname_joined <- suriname_joined %>%
+  #left_join(unfactored_questions, by = 'column_name')
+
+
+#Uruguay
+uruguay_long_unfactor <- lengthen(uruguay_unique_unfactor)
+uruguay16_long_unfactor <- lengthen(uruguay_16_unfactor)
+uruguay_joined <- union_all(uruguay_long_unfactor, uruguay16_long_unfactor) %>% 
+  transform(answer = as.numeric(answer))
+uruguay_joined <- uruguay_joined %>% left_join(unfactored_categories, by = 'column_name')
+uruguay_joined <- uruguay_joined %>%
+  left_join(unfactored_questions, by = 'column_name')
+
+
+#Venezuela (skip because missing wave)
+venezuela_long_unfactor <- lengthen(venezuela_unique_unfactor)
+venezuela16_long_unfactor <- lengthen(venezuela_16_unfactor)
+venezuela_joined <- union_all(venezuela_long_unfactor, venezuela16_long_unfactor) %>% 
+  transform(answer = as.numeric(answer))
+venezuela_joined <- venezuela_joined %>% left_join(unfactored_categories, by = 'column_name')
+venezuela_joined <- venezuela_joined %>%
+  left_join(unfactored_questions, by = 'column_name')
+
+
+#Bolivia
+bolivia_long_unfactor <- lengthen(bolivia_unique_unfactor)
+bolivia16_long_unfactor <- lengthen(bolivia_16_unfactor)
+bolivia_joined <- union_all(bolivia_long_unfactor, bolivia16_long_unfactor) %>% 
+  transform(answer = as.numeric(answer))
+bolivia_joined <- bolivia_joined %>% left_join(unfactored_categories, by = 'column_name')
+bolivia_joined <- bolivia_joined %>%
+  left_join(unfactored_questions, by = 'column_name')
+
+
+#Canada
+canada_long_unfactor <- lengthen(canada_unique_unfactor)
+canada16_long_unfactor <- lengthen(canada_16_unfactor)
+canada_joined <- union_all(canada_long_unfactor, canada16_long_unfactor) %>% 
+  transform(answer = as.numeric(answer))
+canada_joined <- canada_joined %>% left_join(unfactored_categories, by = 'column_name')
+canada_joined <- canada_joined %>%
+  left_join(unfactored_questions, by = 'column_name')
+
+
+#Colombia
+colombia_long_unfactor <- lengthen(colombia_unique_unfactor)
+colombia16_long_unfactor <- lengthen(colombia_16_unfactor)
+colombia_joined <- union_all(colombia_long_unfactor, colombia16_long_unfactor) %>% 
+  transform(answer = as.numeric(answer))
+colombia_joined <- colombia_joined %>% left_join(unfactored_categories, by = 'column_name')
+colombia_joined <- colombia_joined %>%
+  left_join(unfactored_questions, by = 'column_name')
+
+
+#Costa Rica
+costa_long_unfactor <- lengthen(costa_unique_unfactor)
+costa16_long_unfactor <- lengthen(costa_16_unfactor)
+costa_joined <- union_all(costa_long_unfactor, costa16_long_unfactor) %>% 
+  transform(answer = as.numeric(answer))
+costa_joined <- costa_joined %>% left_join(unfactored_categories, by = 'column_name')
+costa_joined <- costa_joined %>%
+  left_join(unfactored_questions, by = 'column_name')
+
+
+#Ecuador
+ecuador_long_unfactor <- lengthen(ecuador_unique_unfactor)
+ecuador16_long_unfactor <- lengthen(ecuador_16_unfactor)
+ecuador_joined <- union_all(ecuador_long_unfactor, ecuador16_long_unfactor) %>% 
+  transform(answer = as.numeric(answer))
+ecuador_joined <- ecuador_joined %>% left_join(unfactored_categories, by = 'column_name')
+ecuador_joined <- ecuador_joined %>%
+  left_join(unfactored_questions, by = 'column_name')
+
+
+#El Salvador
+elsalvador_long_unfactor <- lengthen(elsalvador_unique_unfactor)
+elsalvador16_long_unfactor <- lengthen(elsalvador_16_unfactor)
+elsalvador_joined <- union_all(elsalvador_long_unfactor, elsalvador16_long_unfactor) %>% 
+  transform(answer = as.numeric(answer))
+elsalvador_joined <- elsalvador_joined %>% left_join(unfactored_categories, by = 'column_name')
+elsalvador_joined <- elsalvador_joined %>%
+  left_join(unfactored_questions, by = 'column_name')
+
+
+#Guatemala
+guatemala_long_unfactor <- lengthen(guatemala_unique_unfactor)
+guatemala16_long_unfactor <- lengthen(guatemala_16_unfactor)
+guatemala_joined <- union_all(guatemala_long_unfactor, guatemala16_long_unfactor) %>% 
+  transform(answer = as.numeric(answer))
+guatemala_joined <- guatemala_joined %>% left_join(unfactored_categories, by = 'column_name')
+guatemala_joined <- guatemala_joined %>%
+  left_join(unfactored_questions, by = 'column_name')
+
+
+#Honduras
+honduras_long_unfactor <- lengthen(honduras_unique_unfactor)
+honduras16_long_unfactor <- lengthen(honduras_16_unfactor)
+honduras_joined <- union_all(honduras_long_unfactor, honduras16_long_unfactor) %>% 
+  transform(answer = as.numeric(answer))
+honduras_joined <- honduras_joined %>% left_join(unfactored_categories, by = 'column_name')
+honduras_joined <- honduras_joined %>%
+  left_join(unfactored_questions, by = 'column_name')
+
+
+#Mexico
+mexico_long_unfactor <- lengthen(mexico_unique_unfactor)
+mexico16_long_unfactor <- lengthen(mexico_16_unfactor)
+mexico_joined <- union_all(mexico_long_unfactor, mexico16_long_unfactor) %>% 
+  transform(answer = as.numeric(answer))
+mexico_joined <- mexico_joined %>% left_join(unfactored_categories, by = 'column_name')
+mexico_joined <- mexico_joined %>%
+  left_join(unfactored_questions, by = 'column_name')
+
+
+#Nicaragua
+nicaragua_long_unfactor <- lengthen(nicaragua_unique_unfactor)
+nicaragua16_long_unfactor <- lengthen(nicaragua_16_unfactor)
+nicaragua_joined <- union_all(nicaragua_long_unfactor, nicaragua16_long_unfactor) %>% 
+  transform(answer = as.numeric(answer))
+nicaragua_joined <- nicaragua_joined %>% left_join(unfactored_categories, by = 'column_name')
+nicaragua_joined <- nicaragua_joined %>%
+  left_join(unfactored_questions, by = 'column_name')
+
+
+#United States
+usa_long_unfactor <- lengthen(usa_unique_unfactor)
+usa16_long_unfactor <- lengthen(usa_16_unfactor)
+usa_joined <- union_all(usa_long_unfactor, usa16_long_unfactor) %>% 
+  transform(answer = as.numeric(answer))
+usa_joined <- usa_joined %>% left_join(unfactored_categories, by = 'column_name')
+usa_joined <- usa_joined %>%
+  left_join(unfactored_questions, by = 'column_name')
+
+```
+
+## Functions to lengthen unfactored datasets
+### Use for factored merged files
+```{r}
+lengthen_factor <- function(country) {
+  country_before <- country
+  country <- country %>%
+    #These are excluded because they are repeated
+    #Brings together the following columns
+    gather(column_name_factor, answer_factor, estratopri_factor:formatq_factor)
+  #Takes length of column_name and arguments from long_questions
+  country <- country %>% 
+    select(pais_factor, wave_factor, uniq_id_factor, column_name_factor, answer_factor)
+  return(country)
+}
+```
+
+### Use for factored 2016/17 files
+```{r}
+lengthen_16factor <- function(country) {
+  country_before <- country
+  country <- country %>%
+    #These are excluded because they are repeated
+    #Brings together the following columns
+    gather(column_name_factor, answer_factor, estratopri_factor:formatq_factor)
+  #Takes length of column_name and arguments from long_questions
+  country <- country %>% 
+    select(pais_factor, wave_factor, uniq_id_factor, column_name_factor, answer_factor)
+  return(country)
+}
+```
+
+
+## Applying lengthening and joining factor merged datasets with factor 16/17 datsets
+```{r}
+#Belize
+belize_long_factor <- lengthen_factor(belize_unique_factor)
+#No 2016/17
+belize_category_factor <- belize_long_factor %>%
+  left_join(factored_categories, by = 'column_name_factor')
+belize_category_factor <- belize_category_factor %>% left_join(factored_categories, by = 'column_name_factor')
+belize_category_factor <- belize_category_factor %>%
+  left_join(factored_questions, by = 'column_name_factor')
+
+
+#Argentina
+argentina_long_factor <- lengthen_factor(argentina_unique_factor)
+argentina16_long_factor <- lengthen_16factor(argentina_16_factor)
+argentina_joined_factor <- union_all(argentina_long_factor, argentina16_long_factor)
+argentina_joined_factor <- argentina_joined_factor %>%
+  left_join(factored_categories, by = 'column_name_factor')
+argentina_joined_factor <- argentina_joined_factor %>%
+  left_join(factored_questions, by = 'column_name_factor')
+argentina_total <- argentina_joined_factor %>% left_join(argentina_joined, by = 'category')
+
+t <- argentina_joined_factor %>% select(-category)
+test <- bind_cols(argentina_joined,t)
+
+
+#Brazil
+brazil_long_factor <- lengthen_factor(brazil_unique_factor)
+brazil16_long_factor <- lengthen_16factor(brazil_16_factor)
+brazil_joined_factor <- union_all(brazil_long_factor, argentina16_long_factor) 
+brazil_joined_factor <- brazil_joined_factor %>%
+  left_join(factored_categories, by = 'column_name_factor')
+brazil_joined_factor <- brazil_joined_factor %>%
+  left_join(factored_questions, by = 'column_name_factor')
+
+
+#Chile
+chile_long_factor <- lengthen_factor(chile_unique_factor)
+chile16_long_factor <- lengthen_16factor(chile_16_factor)
+chile_joined_factor <- union_all(chile_long_factor, chile16_long_factor) 
+chile_joined_factor <- chile_joined_factor %>%
+  left_join(factored_categories, by = 'column_name_factor')
+chile_joined_factor <- chile_joined_factor %>%
+  left_join(factored_questions, by = 'column_name_factor')
+
+
+#Panama
+panama_long_factor <- lengthen_factor(panama_unique_factor)
+panama16_long_factor <- lengthen_16factor(panama_16_factor)
+panama_joined_factor <- union_all(panama_long_factor, panama16_long_factor) 
+panama_joined_factor <- panama_joined_factor %>%
+  left_join(factored_categories, by = 'column_name_factor')
+panama_joined_factor <- panama_joined_factor %>%
+  left_join(factored_questions, by = 'column_name_factor')
+
+
+#Paraguay
+paraguay_long_factor <- lengthen_factor(paraguay_unique_factor)
+paraguay16_long_factor <- lengthen_16factor(paraguay_16_factor)
+paraguay_joined_factor <- union_all(paraguay_long_factor, paraguay16_long_factor) 
+paraguay_joined_factor<-  paraguay_joined_factor %>%
+  left_join(factored_categories, by = 'column_name_factor')
+paraguay_joined_factor <- paraguay_joined_factor %>%
+  left_join(factored_questions, by = 'column_name_factor')
+
+
+#Peru
+peru_long_factor <- lengthen_factor(peru_unique_factor)
+peru16_long_factor <- lengthen_16factor(peru_16_factor)
+peru_joined_factor <- union_all(peru_long_factor, peru16_long_factor) 
+peru_joined_factor <- peru_joined_factor %>%
+  left_join(factored_categories, by = 'column_name_factor')
+peru_joined_factor <- peru_joined_factor %>%
+  left_join(factored_questions, by = 'column_name_factor')
+
+#Suriname
+#suriname_long_factor <- lengthen_factor(suriname__unique_factor) 
+#suriname16_long_factor <- lengthen_16factor(suriname_16_factor)
+#suriname_joined_factor <- union_all(suriname_long_factor, suriname16_long_factor) 
+#suriname_joined_factor <- suriname_joined_factor %>% left_join(factored_categories, by = 'column_name_factor')
+#suriname_joined_factor <- suriname_joined_factor %>% left_join(unfactored_questions, by = 'column_name_factor')
+
+
+#Uruguay
+uruguay_long_factor <- lengthen_factor(uruguay_unique_factor)
+uruguay16_long_factor <- lengthen_16factor(uruguay_16_factor)
+uruguay_joined_factor <- union_all(uruguay_long_factor, uruguay16_long_factor) 
+uruguay_joined_factor <- uruguay_joined_factor %>%
+  left_join(factored_categories, by = 'column_name_factor')
+uruguay_joined_factor <- uruguay_joined_factor %>%
+  left_join(factored_questions, by = 'column_name_factor')
+
+
+#Venezuela
+venezuela_long_factor <- lengthen_factor(venezuela_unique_factor)
+venezuela16_long_factor <- lengthen_16factor(venezuela_16_factor)
+venezuela_joined_factor <- union_all(venezuela_long_factor, venezuela16_long_factor) 
+venezuela_joined_factor <- venezuela_joined_factor %>%
+  left_join(factored_categories, by = 'column_name_factor')
+venezuela_joined_factor <- venezuela_joined_factor %>%
+  left_join(factored_questions, by = 'column_name_factor')
+
+
+#Bolivia
+bolivia_long_factor <- lengthen_factor(bolivia_unique_factor)
+bolivia16_long_factor <- lengthen_16factor(bolivia_16_factor)
+bolivia_joined_factor <- union_all(bolivia_long_factor, bolivia16_long_factor) 
+bolivia_joined_factor <- bolivia_joined_factor %>% 
+  left_join(factored_categories, by = 'column_name_factor')
+bolivia_joined_factor <- bolivia_joined_factor %>%
+  left_join(factored_questions, by = 'column_name_factor')
+
+
+#Canada
+canada_long_factor <- lengthen_factor(canada_unique_factor)
+canada16_long_factor <- lengthen_16factor(canada_16_factor)
+canada_joined_factor <- union_all(canada_long_factor, canada16_long_factor) 
+canada_joined_factor <- canada_joined_factor %>%
+  left_join(factored_categories, by = 'column_name_factor')
+canada_joined_factor <- canada_joined_factor %>%
+  left_join(factored_questions, by = 'column_name_factor')
+
+
+#Colombia
+colombia_long_factor <- lengthen_factor(colombia_unique_factor)
+colombia16_long_factor <- lengthen_16factor(colombia_16_factor)
+colombia_joined_factor <- union_all(colombia_long_factor, colombia16_long_factor) 
+colombia_joined_factor <- colombia_joined_factor %>%
+  left_join(factored_categories, by = 'column_name_factor')
+colombia_joined_factor <- colombia_joined_factor %>%
+  left_join(factored_questions, by = 'column_name_factor')
+
+
+#Costa Rica
+costa_long_factor <- lengthen_factor(costa_unique_factor)
+costa16_long_factor <- lengthen_16factor(costa_16_factor)
+costa_joined_factor <- union_all(costa_long_factor, costa16_long_factor) 
+costa_joined_factor <- costa_joined_factor %>%
+  left_join(factored_categories, by = 'column_name_factor')
+costa_joined_factor <- costa_joined_factor %>%
+  left_join(factored_questions, by = 'column_name_factor')
+
+
+#Ecuador
+ecuador_long_factor <- lengthen_factor(ecuador_unique_factor)
+ecuador16_long_factor <- lengthen_16factor(ecuador_16_factor)
+ecuador_joined_factor <- union_all(ecuador_long_factor, ecuador16_long_factor) 
+ecuador_joined_factor <- ecuador_joined_factor %>%
+  left_join(factored_categories, by = 'column_name_factor')
+ecuador_joined_factor <- ecuador_joined_factor %>%
+  left_join(factored_questions, by = 'column_name_factor')
+
+
+#El Salvador
+elsalvador_long_factor <- lengthen_factor(elsalvador_unique_factor)
+elsalvador16_long_factor <- lengthen_16factor(elsalvador_16_factor)
+elsalvador_joined_factor <- union_all(elsalvador_long_factor, elsalvador16_long_factor) 
+elsalvador_joined_factor <- elsalvador_joined_factor %>%
+  left_join(factored_categories, by = 'column_name_factor')
+elsalvador_joined_factor <- elsalvador_joined_factor %>%
+  left_join(factored_questions, by = 'column_name_factor')
+
+
+#Guatemala
+guatemala_long_factor <- lengthen_factor(guatemala_unique_factor)
+guatemala16_long_factor <- lengthen_16factor(guatemala_16_factor)
+guatemala_joined_factor <- union_all(guatemala_long_factor, guatemala16_long_factor) 
+guatemala_joined_factor<- guatemala_long_factor %>% 
+  left_join(factored_categories, by = 'column_name_factor')
+guatemala_joined_factor <- guatemala_joined_factor %>%
+  left_join(factored_questions, by = 'column_name_factor')
+
+
+#Honduras
+honduras_long_factor <- lengthen_factor(honduras_unique_factor)
+honduras16_long_factor <- lengthen_16factor(honduras_16_factor)
+honduras_joined_factor <- union_all(honduras_long_factor, honduras16_long_factor) 
+honduras_joined_factor <- honduras_joined_factor %>% 
+  left_join(factored_categories, by = 'column_name_factor')
+honduras_joined_factor <- honduras_joined_factor %>%
+  left_join(factored_questions, by = 'column_name_factor')
+
+
+#Mexico
+mexico_long_factor <- lengthen_factor(mexico_unique_factor)
+mexico16_long_factor <- lengthen_16factor(mexico_16_factor)
+mexico_joined_factor <- union_all(mexico_long_factor, mexico16_long_factor)
+mexico_joined_factor <- mexico_joined_factor %>% 
+  left_join(factored_categories, by = 'column_name_factor')
+mexico_joined_factor <- mexico_joined_factor %>%
+  left_join(factored_questions, by = 'column_name_factor')
+
+
+#Nicaragua
+nicaragua_long_factor <- lengthen_factor(nicaragua_unique_factor)
+nicaragua16_long_factor <- lengthen_16factor(nicaragua_16_factor)
+nicaragua_joined_factor <- union_all(nicaragua_long_factor, nicaragua16_long_factor) 
+nicaragua_joined_factor <- nicaragua_joined_factor %>% 
+  left_join(factored_categories, by = 'column_name_factor')
+nicaragua_joined_factor <- nicaragua_joined_factor %>%
+  left_join(factored_questions, by = 'column_name_factor')
+
+
+#United States
+usa_long_factor <- lengthen_factor(usa_unique_factor)
+usa16_long_factor <- lengthen_16factor(usa_16_factor)
+usa_joined_factor <- union_all(usa_long_factor, usa16_long_factor) 
+usa_joined_factor <- usa_joined_factor %>% 
+  left_join(factored_categories, by = 'column_name_factor')
+usa_joined_factor <- usa_joined_factor %>%
+  left_join(factored_questions, by = 'column_name_factor')
+```

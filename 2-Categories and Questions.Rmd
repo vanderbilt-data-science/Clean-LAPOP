@@ -4,6 +4,8 @@ output: html_notebook
 editor_options: 
   chunk_output_type: inline
 ---
+**This should be placed before step 5, provide explanation for excel process.
+
 
 # Structure
 This document contains the most recent list of categories and columns LAPOP specificied. It comes from the Topic Menu Items_LAPOP AB Cores_07.29.19 file that Maita shared with us on 7/29. In this file they listed the topics they wanted covered and the corresponding columns from the core questionnaires.
@@ -29,6 +31,13 @@ This is a combination of the previous files called Categories and Questions, Cat
 16. Elections and Political Rights
 17. International Context
 18. Special topics
+
+
+
+
+
+
+
 
 # Vectors of columns
 ## Unfactored

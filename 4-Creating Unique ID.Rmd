@@ -5,8 +5,14 @@ editor_options:
   chunk_output_type: inline
 ---
 
-# Goal of Document
-This section makes a unique ID format for all merged country dataframes. The 2016/27 files already contain a unique identifier, and we used this as the template for making the unique ID.
+# Structure
+This section makes a unique ID for all merged country dataframes. The 2016/17 files already contain a unique identifier, and we used this as the template for making the unique ID in the merged files.
+
+First, there is a function written for the unfactored countries that is then applied to all unfactored merged countries.
+
+Then, a similar function is written for the factored countries, but in this step we add "_factor" to the end of each column name to signifiy that it belongs to the factored dataset.
+
+The unfactored and factored datasets will be joined later in the process.
 
 ## Function to make unique ID for unfactored countries
 ```{r}
