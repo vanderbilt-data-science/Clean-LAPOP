@@ -14,6 +14,7 @@ Suggested order to follow:
 3. Adding Wave Column
 4. Creating Unique ID
 5. Lengthening and Joining
+6. Subsetting Categories
 
 ## Libraries
 ```{r, message=FALSE}
@@ -118,7 +119,7 @@ If you are using the new merged files, you can skip this.
 ## Creating factored dataframes of 2016/17 questionnaires using `factor_country`
 This is the 16/17 version of the `factor_country()` used above. The same process applies.
 ```{r}
-argentina_16_factor <- factor_country("/Users/lindsayhardy/Clean-LAPOP/42076439Argentina LAPOP AmericasBarometer 2017 V1.0_W (1).dta")
+argentina_16_factor <- factor_country("42076439Argentina LAPOP AmericasBarometer 2017 V1.0_W.dta")
 venezuela_16_factor  <- factor_country("25258094Venezuela LAPOP AmericasBarometer 2016-17 V1.0_W.dta")
 bolivia_16_factor  <- factor_country("142790203Bolivia LAPOP AmericasBarometer 2017 V1.0_W.dta")
 brazil_16_factor  <- factor_country("780314464Brazil LAPOP AmericasBarometer 2017 V1.0_W.dta")
@@ -146,7 +147,7 @@ uruguay_16_factor  <- factor_country("646644681Uruguay LAPOP AmericasBarometer 2
 This is the unfactored version of the 16/17 data frames, but we needed to apply modifications for when we eventually combined the 16/17 with the merged. 
 We transformed the unique ID column to character. This does not affect the data, but is necessary for the join.
 ```{r}
-argentina_16_unfactor <- read_dta("/Users/lindsayhardy/Clean-LAPOP/42076439Argentina LAPOP AmericasBarometer 2017 V1.0_W (1).dta") %>%
+argentina_16_unfactor <- read_dta("42076439Argentina LAPOP AmericasBarometer 2017 V1.0_W.dta") %>%
   transform(uniq_id = as.character(uniq_id))
 
 venezuela_16_unfactor  <- read_dta("25258094Venezuela LAPOP AmericasBarometer 2016-17 V1.0_W.dta") %>% 

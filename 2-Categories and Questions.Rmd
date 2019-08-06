@@ -31,31 +31,26 @@ The excel file in the GitHub may not be the most recent version. If you have an 
 If the csv file is combining columns together, make sure you have dragged the column line in excel to be the width of the longest item.
 
 The reason we used `select()` was to ensure that you are only selecting the first two columns.
-```{r}
-factored_categories <- read_csv('/Users/lindsayhardy/Clean-LAPOP/Lapop Categories Factored.csv')
+```{r, message=FALSE}
+factored_categories <- read_csv('Lapop Categories Factored.csv')
 factored_categories <- factored_categories %>%
   select(column_name_factor, category)
 
-unfactored_categories <- read_csv('/Users/lindsayhardy/Clean-LAPOP/LAPOP categories unfactored.csv')
+unfactored_categories <- read_csv('LAPOP categories unfactored.csv')
 unfactored_categories <- unfactored_categories %>%
   select(column_name, category)
 
-unfactored_questions <- read_csv('/Users/lindsayhardy/Clean-LAPOP/updated unfactor questions.csv')
+unfactored_questions <- read_csv('updated unfactor questions.csv')
 unfactored_questions <- unfactored_questions %>%
   select(column_name, question)
 
-factored_questions <- read_csv('/Users/lindsayhardy/Clean-LAPOP/updated factor questions.csv')
+factored_questions <- read_csv('updated factor questions.csv')
 factored_questions <- factored_questions %>%
   select(column_name_factor, question_factor)
 ```
 
 
-
-
-
-
-
-
+# !Do not use, reference only
 
 ## Categories
 1.  Geographic

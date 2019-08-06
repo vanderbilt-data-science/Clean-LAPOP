@@ -605,42 +605,54 @@ usa_joined_factor <- usa_joined_factor %>%
 ```
 
 ## Combine the unfactored and factored versions together
+In this section we combine the unfactored and factored versions together and join the countries using `bind_cols()`. The column, answer_measure, is converted back to a numeric.
 ```{r}
+#Creating object t
 t <- belize_category_factor %>%
+  #Deselects category
   select(-category)
+#Makes data frame that combines the unfactored dataset with the factored one stored in t
 belize_total <- bind_cols(belize_category_unfactor,t)
-belize_total  <- belize_total  %>% transform(answer_measure = as.numeric(answer_measure))
+#Transforms answer_measure to a numeric
+belize_total  <- belize_total  %>%
+  transform(answer_measure = as.numeric(answer_measure))
 
 t <- argentina_joined_factor %>%
   select(-category)
 argentina_total <- bind_cols(argentina_joined,t)
-argentina_total  <- argentina_total  %>% transform(answer_measure = as.numeric(answer_measure))
+argentina_total  <- argentina_total  %>%
+  transform(answer_measure = as.numeric(answer_measure))
 
 t <- brazil_joined_factor %>%
   select(-category)
 brazil_total <- bind_cols(brazil_joined,t)
-brazil_total  <- brazil_total  %>% transform(answer_measure = as.numeric(answer_measure))
+brazil_total  <- brazil_total  %>%
+  transform(answer_measure = as.numeric(answer_measure))
 
 
 t <- chile_joined_factor %>%
   select(-category)
 chile_total <- bind_cols(chile_joined,t)
-chile_total  <- chile_total  %>% transform(answer_measure = as.numeric(answer_measure))
+chile_total  <- chile_total  %>%
+  transform(answer_measure = as.numeric(answer_measure))
 
 t <- panama_joined_factor %>%
   select(-category)
 panama_total <- bind_cols(panama_joined,t)
-panama_total  <- panama_total  %>% transform(answer_measure = as.numeric(answer_measure))
+panama_total  <- panama_total  %>%
+  transform(answer_measure = as.numeric(answer_measure))
 
 t <- paraguay_joined_factor %>%
   select(-category)
 paraguay_total <- bind_cols(paraguay_joined,t)
-paraguay_total  <- paraguay_total  %>% transform(answer_measure = as.numeric(answer_measure))
+paraguay_total  <- paraguay_total  %>%
+  transform(answer_measure = as.numeric(answer_measure))
 
 t <- peru_joined_factor %>%
   select(-category)
 peru_total <- bind_cols(peru_joined,t)
-peru_total  <- peru_total  %>% transform(answer_measure = as.numeric(answer_measure))
+peru_total  <- peru_total  %>%
+  transform(answer_measure = as.numeric(answer_measure))
 
 #t <- suriname_joined_factor %>% select(-category)
 #suriname_total <- bind_cols(suriname_joined,t)
@@ -649,67 +661,80 @@ peru_total  <- peru_total  %>% transform(answer_measure = as.numeric(answer_meas
 t <- uruguay_joined_factor %>%
   select(-category)
 uruguay_total <- bind_cols(uruguay_joined,t)
-uruguay_total  <- uruguay_total  %>% transform(answer_measure = as.numeric(answer_measure))
+uruguay_total  <- uruguay_total  %>%
+  transform(answer_measure = as.numeric(answer_measure))
 
 t <- venezuela_joined_factor %>%
   select(-category)
 venezuela_total <- bind_cols(venezuela_joined,t)
-venezuela_total  <- venezuela_total %>% transform(answer_measure = as.numeric(answer_measure))
+venezuela_total  <- venezuela_total %>%
+  transform(answer_measure = as.numeric(answer_measure))
 
 t <- bolivia_joined_factor %>%
   select(-category)
 bolivia_total <- bind_cols(bolivia_joined,t)
-bolivia_total  <- bolivia_total %>% transform(answer_measure = as.numeric(answer_measure))
+bolivia_total  <- bolivia_total %>%
+  transform(answer_measure = as.numeric(answer_measure))
 
 t <- canada_joined_factor %>%
   select(-category)
 canada_total <- bind_cols(canada_joined,t)
-canada_total  <- canada_total %>% transform(answer_measure = as.numeric(answer_measure))
+canada_total  <- canada_total %>%
+  transform(answer_measure = as.numeric(answer_measure))
 
 t <- colombia_joined_factor %>%
   select(-category)
 colombia_total <- bind_cols(colombia_joined,t)
-colombia_total  <- colombia_total %>% transform(answer_measure = as.numeric(answer_measure))
+colombia_total  <- colombia_total %>%
+  transform(answer_measure = as.numeric(answer_measure))
 
 t <- costa_joined_factor %>%
   select(-category)
 costa_total <- bind_cols(costa_joined,t)
-costa_total  <- costa_total %>% transform(answer_measure = as.numeric(answer_measure))
+costa_total  <- costa_total %>%
+  transform(answer_measure = as.numeric(answer_measure))
 
 t <- ecuador_joined_factor %>%
   select(-category)
 ecuador_total <- bind_cols(ecuador_joined,t)
-ecuador_total <- ecuador_total %>% transform(answer_measure = as.numeric(answer_measure))
+ecuador_total <- ecuador_total %>%
+  transform(answer_measure = as.numeric(answer_measure))
 
 t <- elsalvador_joined_factor %>%
   select(-category)
 elsalvador_total <- bind_cols(elsalvador_joined,t)
-elsalvador_total <- elsalvador_total %>% transform(answer_measure = as.numeric(answer_measure))
+elsalvador_total <- elsalvador_total %>%
+  transform(answer_measure = as.numeric(answer_measure))
 
 t <- guatemala_joined_factor %>%
   select(-category)
 guatemala_total <- bind_cols(guatemala_joined,t)
-guatemala_total <- guatemala_total %>% transform(answer_measure = as.numeric(answer_measure))
+guatemala_total <- guatemala_total %>%
+  transform(answer_measure = as.numeric(answer_measure))
 
 t <- honduras_joined_factor %>%
   select(-category)
 honduras_total <- bind_cols(honduras_joined,t)
-honduras_total <- honduras_total %>% transform(answer_measure = as.numeric(answer_measure))
+honduras_total <- honduras_total %>%
+  transform(answer_measure = as.numeric(answer_measure))
 
 t <- mexico_joined_factor %>%
   select(-category)
 mexico_total <- bind_cols(mexico_joined,t)
-mexico_total <- mexico_total %>% transform(answer_measure = as.numeric(answer_measure))
+mexico_total <- mexico_total %>%
+  transform(answer_measure = as.numeric(answer_measure))
 
 t <- nicaragua_joined_factor %>%
   select(-category)
 nicaragua_total <- bind_cols(nicaragua_joined, t)
-nicaragua_total <- nicaragua_total %>% transform(answer_measure = as.numeric(answer_measure))
+nicaragua_total <- nicaragua_total %>%
+  transform(answer_measure = as.numeric(answer_measure))
 
 t <- usa_joined_factor %>%
   select(-category)
 usa_total <- bind_cols(usa_joined,t)
-usa_total <- usa_total %>% transform(answer_measure = as.numeric(answer_measure))
+usa_total <- usa_total %>%
+  transform(answer_measure = as.numeric(answer_measure))
 
 ```
 
@@ -768,15 +793,24 @@ nicaragua_clean <- clean(nicaragua_total)
 usa_clean <- clean(usa_total)
 ```
 
-```{r}
 
+## Writing .csv
+In order to write a .csv file of the data, we combined all the countries using `bind_rows()` and saved it in a data frame called complete. However, because Tableau can only handle 15 million rows, we subset the data by filtering out for when wave is 2006, 2008, 2010, and 2012 and used this data frame to write the .csv.
+```{r}
+#Combines all the datasets
 complete <- bind_rows(belize_clean, argentina_clean, brazil_clean, chile_clean, panama_clean, paraguay_clean, peru_clean, uruguay_clean, venezuela_clean, bolivia_clean, canada_clean, colombia_clean, costa_clean, ecuador_clean, elsalvador_clean, guatemala_clean, honduras_clean, mexico_clean, nicaragua_clean, usa_clean)
 
+#Makes vector of desired waves
 x <- c(2006,2008,2010,2012)
-small <- complete %>% filter(wave %in% x)
+#Filters for the waves named in x
+small <- complete %>%
+  filter(category %in% x)
 
+#Writes .csv
+##This is the file that is more manageable for Tableau Public
 write_csv(small, '2008-2012 LAPOP.csv')
 
+##Has too many rows for Tableau Public, but contains the full long version.
 write_csv(complete, 'complete_LAPOP.csv')
 ```
 
