@@ -22,14 +22,14 @@ Finally, we select the five columns that we want.
 lengthen <- function(country) {
   country <- country %>%
     #Brings together the following columns
-    gather(column_name, answer, estratopri:formatq)
+    gather(column_name, answer_measure, estratopri:formatq)
   
   #Necessary when joining with 16/17
-  country <- transform(country, answer = as.character(answer))
+  country <- transform(country, answer_measure = as.character(answer_measure))
   
   #Selects the columns we want
   country <- country %>% 
-    select(pais, wave, uniq_id, column_name, answer)
+    select(pais, wave, uniq_id, column_name, answer_measure)
   return(country)
 }
 ```
@@ -39,14 +39,14 @@ lengthen <- function(country) {
 lengthen_16 <- function(country) {
   country <- country %>%
     #Brings together the following columns
-    gather(column_name, answer, estratopri:formatq)
+    gather(column_name, answer_measure, estratopri:formatq)
   
   #Necessary when joining with merged files
-  country <- transform(country, answer = as.character(answer))
+  country <- transform(country, answer_measure = as.character(answer_measure))
   
   #Selects the columns we want
   country <- country %>% 
-    select(pais, wave, uniq_id, column_name, answer)
+    select(pais, wave, uniq_id, column_name, answer_measure)
   return(country)
 }
 ```
@@ -61,12 +61,12 @@ argentina16_long_unfactor <- lengthen_16(argentina_16_unfactor)
 #Combine merged and 2016/17 (not necessary if only using merged files)
 argentina_joined <- union_all(argentina_long_unfactor, argentina16_long_unfactor) %>% 
   #Transforms answer back to numeric
-  transform(answer = as.numeric(answer))
+  transform(answer_measure = as.numeric(answer_measure))
 #Joins the excel datsets
 argentina_joined <- argentina_joined %>%
-  left_join(unfactored_categories, by = 'column_name')
-argentina_joined <- argentina_joined %>%
   left_join(unfactored_questions, by = 'column_name')
+argentina_joined <- argentina_joined %>%
+  left_join(unfactored_categories, by = 'column_name')
 #Get rid of all the categories that are NA
 argentina_joined <- argentina_joined %>%
   filter(is.na(category) == FALSE)
@@ -75,20 +75,20 @@ argentina_joined <- argentina_joined %>%
 belize_long_unfactor <- lengthen(belize_unique_unfactor)
 #No 16/17 for Belize
 belize_category_unfactor <- belize_long_unfactor %>%
-  left_join(unfactored_categories, by = 'column_name')
-belize_category_unfactor <- belize_category_unfactor %>%
   left_join(unfactored_questions, by = 'column_name')
+belize_category_unfactor <- belize_category_unfactor %>%
+  left_join(unfactored_categories, by = 'column_name')
 belize_category_unfactor <- belize_category_unfactor %>% filter(is.na(category) == FALSE)
 
 #Brazil
 brazil_long_unfactor <- lengthen(brazil_unique_unfactor)
 brazil16_long_unfactor <- lengthen(brazil_16_unfactor)
 brazil_joined <- union_all(brazil_long_unfactor, brazil16_long_unfactor) %>% 
-  transform(answer = as.numeric(answer))
-brazil_joined <- brazil_joined %>%
-  left_join(unfactored_categories, by = 'column_name')
+  transform(answer_measure = as.numeric(answer_measure))
 brazil_joined <- brazil_joined %>%
   left_join(unfactored_questions, by = 'column_name')
+brazil_joined <- brazil_joined %>%
+  left_join(unfactored_categories, by = 'column_name')
 brazil_joined <- brazil_joined %>%
   filter(is.na(category) == FALSE)
 
@@ -96,11 +96,11 @@ brazil_joined <- brazil_joined %>%
 chile_long_unfactor <- lengthen(chile_unique_unfactor)
 chile16_long_unfactor <- lengthen(chile_16_unfactor)
 chile_joined <- union_all(chile_long_unfactor, chile16_long_unfactor) %>% 
-  transform(answer = as.numeric(answer))
-chile_joined <- chile_joined %>%
-  left_join(unfactored_categories, by = 'column_name')
+  transform(answer_measure = as.numeric(answer_measure))
 chile_joined <- chile_joined %>%
   left_join(unfactored_questions, by = 'column_name')
+chile_joined <- chile_joined %>%
+  left_join(unfactored_categories, by = 'column_name')
 chile_joined <- chile_joined %>%
   filter(is.na(category) == FALSE)
 
@@ -108,11 +108,11 @@ chile_joined <- chile_joined %>%
 panama_long_unfactor <- lengthen(panama_unique_unfactor)
 panama16_long_unfactor <- lengthen(panama_16_unfactor)
 panama_joined <- union_all(panama_long_unfactor, panama16_long_unfactor) %>% 
-  transform(answer = as.numeric(answer))
-panama_joined <- panama_joined %>%
-  left_join(unfactored_categories, by = 'column_name')
+  transform(answer_measure = as.numeric(answer_measure))
 panama_joined <- panama_joined %>%
   left_join(unfactored_questions, by = 'column_name')
+panama_joined <- panama_joined %>%
+  left_join(unfactored_categories, by = 'column_name')
 panama_joined <- panama_joined %>%
   filter(is.na(category) == FALSE)
 
@@ -121,11 +121,11 @@ panama_joined <- panama_joined %>%
 paraguay_long_unfactor <- lengthen(paraguay_unique_unfactor)
 paraguay16_long_unfactor <- lengthen(paraguay_16_unfactor)
 paraguay_joined <- union_all(paraguay_long_unfactor, paraguay16_long_unfactor) %>% 
-  transform(answer = as.numeric(answer))
-paraguay_joined <-  paraguay_joined %>%
-  left_join(unfactored_categories, by = 'column_name')
+  transform(answer_measure = as.numeric(answer_measure))
 paraguay_joined <- paraguay_joined %>%
   left_join(unfactored_questions, by = 'column_name')
+paraguay_joined <-  paraguay_joined %>%
+  left_join(unfactored_categories, by = 'column_name')
 paraguay_joined  <- paraguay_joined  %>%
   filter(is.na(category) == FALSE)
 
@@ -133,11 +133,11 @@ paraguay_joined  <- paraguay_joined  %>%
 peru_long_unfactor <- lengthen(peru_unique_unfactor)
 peru16_long_unfactor <- lengthen(peru_16_unfactor)
 peru_joined <- union_all(peru_long_unfactor, peru16_long_unfactor) %>% 
-  transform(answer = as.numeric(answer))
-peru_joined <- peru_joined %>%
-  left_join(unfactored_categories, by = 'column_name')
+  transform(answer_measure = as.numeric(answer_measure))
 peru_joined <- peru_joined %>%
   left_join(unfactored_questions, by = 'column_name')
+peru_joined <- peru_joined %>%
+  left_join(unfactored_categories, by = 'column_name')
 peru_joined  <- peru_joined  %>%
   filter(is.na(category) == FALSE)
 
@@ -145,10 +145,10 @@ peru_joined  <- peru_joined  %>%
 #suriname_long_unfactor <- lengthen(suriname_unique_unfactor)
 #suriname16_long_unfactor <- lengthen(suriname_16_unfactor)
 #suriname_joined <- union_all(suriname_long_unfactor, suriname16_long_unfactor) %>% 
-#  transform(answer = as.numeric(answer))
-#suriname_joined <- suriname_joined %>% left_join(unfactored_categories, by = 'column_name')
+#  transform(answer_measure = as.numeric(answer_measure))
 #suriname_joined <- suriname_joined %>%
   #left_join(unfactored_questions, by = 'column_name')
+#suriname_joined <- suriname_joined %>% left_join(unfactored_categories, by = 'column_name')
 #suriname_joined  <- suriname_joined %>% filter(is.na(category) == FALSE)
 
 
@@ -156,11 +156,11 @@ peru_joined  <- peru_joined  %>%
 uruguay_long_unfactor <- lengthen(uruguay_unique_unfactor)
 uruguay16_long_unfactor <- lengthen(uruguay_16_unfactor)
 uruguay_joined <- union_all(uruguay_long_unfactor, uruguay16_long_unfactor) %>% 
-  transform(answer = as.numeric(answer))
-uruguay_joined <- uruguay_joined %>%
-  left_join(unfactored_categories, by = 'column_name')
+  transform(answer_measure = as.numeric(answer_measure))
 uruguay_joined <- uruguay_joined %>%
   left_join(unfactored_questions, by = 'column_name')
+uruguay_joined <- uruguay_joined %>%
+  left_join(unfactored_categories, by = 'column_name')
 uruguay_joined  <- uruguay_joined %>%
   filter(is.na(category) == FALSE)
 
@@ -168,11 +168,11 @@ uruguay_joined  <- uruguay_joined %>%
 venezuela_long_unfactor <- lengthen(venezuela_unique_unfactor)
 venezuela16_long_unfactor <- lengthen(venezuela_16_unfactor)
 venezuela_joined <- union_all(venezuela_long_unfactor, venezuela16_long_unfactor) %>% 
-  transform(answer = as.numeric(answer))
-venezuela_joined <- venezuela_joined %>%
-  left_join(unfactored_categories, by = 'column_name')
+  transform(answer_measure = as.numeric(answer_measure))
 venezuela_joined <- venezuela_joined %>%
   left_join(unfactored_questions, by = 'column_name')
+venezuela_joined <- venezuela_joined %>%
+  left_join(unfactored_categories, by = 'column_name')
 venezuela_joined  <- venezuela_joined %>%
   filter(is.na(category) == FALSE)
 
@@ -180,11 +180,11 @@ venezuela_joined  <- venezuela_joined %>%
 bolivia_long_unfactor <- lengthen(bolivia_unique_unfactor)
 bolivia16_long_unfactor <- lengthen(bolivia_16_unfactor)
 bolivia_joined <- union_all(bolivia_long_unfactor, bolivia16_long_unfactor) %>% 
-  transform(answer = as.numeric(answer))
-bolivia_joined <- bolivia_joined %>%
-  left_join(unfactored_categories, by = 'column_name')
+  transform(answer_measure = as.numeric(answer_measure))
 bolivia_joined <- bolivia_joined %>%
   left_join(unfactored_questions, by = 'column_name')
+bolivia_joined <- bolivia_joined %>%
+  left_join(unfactored_categories, by = 'column_name')
 bolivia_joined  <- bolivia_joined %>%
   filter(is.na(category) == FALSE)
 
@@ -193,11 +193,11 @@ bolivia_joined  <- bolivia_joined %>%
 canada_long_unfactor <- lengthen(canada_unique_unfactor)
 canada16_long_unfactor <- lengthen(canada_16_unfactor)
 canada_joined <- union_all(canada_long_unfactor, canada16_long_unfactor) %>% 
-  transform(answer = as.numeric(answer))
-canada_joined <- canada_joined %>%
-  left_join(unfactored_categories, by = 'column_name')
+  transform(answer_measure = as.numeric(answer_measure))
 canada_joined <- canada_joined %>%
   left_join(unfactored_questions, by = 'column_name')
+canada_joined <- canada_joined %>%
+  left_join(unfactored_categories, by = 'column_name')
 canada_joined  <- canada_joined %>%
   filter(is.na(category) == FALSE)
 
@@ -206,11 +206,11 @@ canada_joined  <- canada_joined %>%
 colombia_long_unfactor <- lengthen(colombia_unique_unfactor)
 colombia16_long_unfactor <- lengthen(colombia_16_unfactor)
 colombia_joined <- union_all(colombia_long_unfactor, colombia16_long_unfactor) %>% 
-  transform(answer = as.numeric(answer))
-colombia_joined <- colombia_joined %>%
-  left_join(unfactored_categories, by = 'column_name')
+  transform(answer_measure = as.numeric(answer_measure))
 colombia_joined <- colombia_joined %>%
   left_join(unfactored_questions, by = 'column_name')
+colombia_joined <- colombia_joined %>%
+  left_join(unfactored_categories, by = 'column_name')
 colombia_joined  <- colombia_joined %>%
   filter(is.na(category) == FALSE)
 
@@ -219,11 +219,11 @@ colombia_joined  <- colombia_joined %>%
 costa_long_unfactor <- lengthen(costa_unique_unfactor)
 costa16_long_unfactor <- lengthen(costa_16_unfactor)
 costa_joined <- union_all(costa_long_unfactor, costa16_long_unfactor) %>% 
-  transform(answer = as.numeric(answer))
-costa_joined <- costa_joined %>%
-  left_join(unfactored_categories, by = 'column_name')
+  transform(answer_measure = as.numeric(answer_measure))
 costa_joined <- costa_joined %>%
   left_join(unfactored_questions, by = 'column_name')
+costa_joined <- costa_joined %>%
+  left_join(unfactored_categories, by = 'column_name')
 costa_joined  <- costa_joined %>%
   filter(is.na(category) == FALSE)
 
@@ -232,11 +232,11 @@ costa_joined  <- costa_joined %>%
 ecuador_long_unfactor <- lengthen(ecuador_unique_unfactor)
 ecuador16_long_unfactor <- lengthen(ecuador_16_unfactor)
 ecuador_joined <- union_all(ecuador_long_unfactor, ecuador16_long_unfactor) %>% 
-  transform(answer = as.numeric(answer))
-ecuador_joined <- ecuador_joined %>%
-  left_join(unfactored_categories, by = 'column_name')
+  transform(answer_measure = as.numeric(answer_measure))
 ecuador_joined <- ecuador_joined %>%
   left_join(unfactored_questions, by = 'column_name')
+ecuador_joined <- ecuador_joined %>%
+  left_join(unfactored_categories, by = 'column_name')
 ecuador_joined <- ecuador_joined %>%
   filter(is.na(category) == FALSE)
 
@@ -245,11 +245,11 @@ ecuador_joined <- ecuador_joined %>%
 elsalvador_long_unfactor <- lengthen(elsalvador_unique_unfactor)
 elsalvador16_long_unfactor <- lengthen(elsalvador_16_unfactor)
 elsalvador_joined <- union_all(elsalvador_long_unfactor, elsalvador16_long_unfactor) %>% 
-  transform(answer = as.numeric(answer))
-elsalvador_joined <- elsalvador_joined %>%
-  left_join(unfactored_categories, by = 'column_name')
+  transform(answer_measure = as.numeric(answer_measure))
 elsalvador_joined <- elsalvador_joined %>%
   left_join(unfactored_questions, by = 'column_name')
+elsalvador_joined <- elsalvador_joined %>%
+  left_join(unfactored_categories, by = 'column_name')
 elsalvador_joined <- elsalvador_joined %>%
   filter(is.na(category) == FALSE)
 
@@ -258,11 +258,11 @@ elsalvador_joined <- elsalvador_joined %>%
 guatemala_long_unfactor <- lengthen(guatemala_unique_unfactor)
 guatemala16_long_unfactor <- lengthen(guatemala_16_unfactor)
 guatemala_joined <- union_all(guatemala_long_unfactor, guatemala16_long_unfactor) %>% 
-  transform(answer = as.numeric(answer))
-guatemala_joined <- guatemala_joined %>%
-  left_join(unfactored_categories, by = 'column_name')
+  transform(answer_measure = as.numeric(answer_measure))
 guatemala_joined <- guatemala_joined %>%
   left_join(unfactored_questions, by = 'column_name')
+guatemala_joined <- guatemala_joined %>%
+  left_join(unfactored_categories, by = 'column_name')
 guatemala_joined <- guatemala_joined %>%
   filter(is.na(category) == FALSE)
 
@@ -271,11 +271,11 @@ guatemala_joined <- guatemala_joined %>%
 honduras_long_unfactor <- lengthen(honduras_unique_unfactor)
 honduras16_long_unfactor <- lengthen(honduras_16_unfactor)
 honduras_joined <- union_all(honduras_long_unfactor, honduras16_long_unfactor) %>% 
-  transform(answer = as.numeric(answer))
-honduras_joined <- honduras_joined %>%
-  left_join(unfactored_categories, by = 'column_name')
+  transform(answer_measure = as.numeric(answer_measure))
 honduras_joined <- honduras_joined %>%
   left_join(unfactored_questions, by = 'column_name')
+honduras_joined <- honduras_joined %>%
+  left_join(unfactored_categories, by = 'column_name')
 honduras_joined <- honduras_joined %>%
   filter(is.na(category) == FALSE)
 
@@ -284,11 +284,11 @@ honduras_joined <- honduras_joined %>%
 mexico_long_unfactor <- lengthen(mexico_unique_unfactor)
 mexico16_long_unfactor <- lengthen(mexico_16_unfactor)
 mexico_joined <- union_all(mexico_long_unfactor, mexico16_long_unfactor) %>% 
-  transform(answer = as.numeric(answer))
-mexico_joined <- mexico_joined %>%
-  left_join(unfactored_categories, by = 'column_name')
+  transform(answer_measure = as.numeric(answer_measure))
 mexico_joined <- mexico_joined %>%
   left_join(unfactored_questions, by = 'column_name')
+mexico_joined <- mexico_joined %>%
+  left_join(unfactored_categories, by = 'column_name')
 mexico_joined <- mexico_joined %>%
   filter(is.na(category) == FALSE)
 
@@ -297,11 +297,11 @@ mexico_joined <- mexico_joined %>%
 nicaragua_long_unfactor <- lengthen(nicaragua_unique_unfactor)
 nicaragua16_long_unfactor <- lengthen(nicaragua_16_unfactor)
 nicaragua_joined <- union_all(nicaragua_long_unfactor, nicaragua16_long_unfactor) %>% 
-  transform(answer = as.numeric(answer))
-nicaragua_joined <- nicaragua_joined %>%
-  left_join(unfactored_categories, by = 'column_name')
+  transform(answer_measure = as.numeric(answer_measure))
 nicaragua_joined <- nicaragua_joined %>%
   left_join(unfactored_questions, by = 'column_name')
+nicaragua_joined <- nicaragua_joined %>%
+  left_join(unfactored_categories, by = 'column_name')
 nicaragua_joined <- nicaragua_joined %>%
   filter(is.na(category) == FALSE)
 
@@ -310,11 +310,11 @@ nicaragua_joined <- nicaragua_joined %>%
 usa_long_unfactor <- lengthen(usa_unique_unfactor)
 usa16_long_unfactor <- lengthen(usa_16_unfactor)
 usa_joined <- union_all(usa_long_unfactor, usa16_long_unfactor) %>% 
-  transform(answer = as.numeric(answer))
-usa_joined <- usa_joined %>%
-  left_join(unfactored_categories, by = 'column_name')
+  transform(answer_measure = as.numeric(answer_measure))
 usa_joined <- usa_joined %>%
   left_join(unfactored_questions, by = 'column_name')
+usa_joined <- usa_joined %>%
+  left_join(unfactored_categories, by = 'column_name')
 usa_joined <- usa_joined %>%
   filter(is.na(category) == FALSE)
 
@@ -329,11 +329,11 @@ These functions are almost identical to the ones above except, they have "_facto
 lengthen_factor <- function(country) {
   country <- country %>%
     #Brings together the following columns
-    gather(column_name_factor, answer_factor, estratopri_factor:formatq_factor)
+    gather(column_name_factor, answer_dimension, estratopri_factor:formatq_factor)
   
   #Selects columns that we want
   country <- country %>% 
-    select(pais_factor, wave_factor, uniq_id_factor, column_name_factor, answer_factor)
+    select(pais_factor, wave_factor, uniq_id_factor, column_name_factor, answer_dimension)
   return(country)
 }
 ```
@@ -343,14 +343,15 @@ lengthen_factor <- function(country) {
 lengthen_16factor <- function(country) {
   country <- country %>%
     #Brings together the following columns
-    gather(column_name_factor, answer_factor, estratopri_factor:formatq_factor)
+    gather(column_name_factor, answer_dimension, estratopri_factor:formatq_factor)
   
   #Selects columns that we want
   country <- country %>% 
-    select(pais_factor, wave_factor, uniq_id_factor, column_name_factor, answer_factor)
+    select(pais_factor, wave_factor, uniq_id_factor, column_name_factor, answer_dimension)
   return(country)
 }
 ```
+
 
 ## Applying `lengthen()` and adding category and question columns
 ```{r}
@@ -358,9 +359,9 @@ lengthen_16factor <- function(country) {
 belize_long_factor <- lengthen_factor(belize_unique_factor)
 #No 2016/17
 belize_category_factor <- belize_long_factor %>%
-  left_join(factored_categories, by = 'column_name_factor')
-belize_category_factor <- belize_category_factor %>%
   left_join(factored_questions, by = 'column_name_factor')
+belize_category_factor <- belize_category_factor %>%
+  left_join(factored_categories, by = 'column_name_factor')
 belize_category_factor <- belize_category_factor %>%
   filter(is.na(category) == FALSE)
 
@@ -370,9 +371,9 @@ argentina_long_factor <- lengthen_factor(argentina_unique_factor)
 argentina16_long_factor <- lengthen_16factor(argentina_16_factor)
 argentina_joined_factor <- union_all(argentina_long_factor, argentina16_long_factor)
 argentina_joined_factor <- argentina_joined_factor %>%
-  left_join(factored_categories, by = 'column_name_factor')
-argentina_joined_factor <- argentina_joined_factor %>%
   left_join(factored_questions, by = 'column_name_factor')
+argentina_joined_factor <- argentina_joined_factor %>%
+  left_join(factored_categories, by = 'column_name_factor')
 argentina_joined_factor <- argentina_joined_factor %>%
   filter(is.na(category) == FALSE)
 
@@ -382,9 +383,9 @@ brazil_long_factor <- lengthen_factor(brazil_unique_factor)
 brazil16_long_factor <- lengthen_16factor(brazil_16_factor)
 brazil_joined_factor <- union_all(brazil_long_factor, brazil16_long_factor) 
 brazil_joined_factor <- brazil_joined_factor %>%
-  left_join(factored_categories, by = 'column_name_factor')
-brazil_joined_factor <- brazil_joined_factor %>%
   left_join(factored_questions, by = 'column_name_factor')
+brazil_joined_factor <- brazil_joined_factor %>%
+  left_join(factored_categories, by = 'column_name_factor')
 brazil_joined_factor <- brazil_joined_factor %>%
   filter(is.na(category) == FALSE)
 
@@ -393,11 +394,11 @@ brazil_joined_factor <- brazil_joined_factor %>%
 #Chile
 chile_long_factor <- lengthen_factor(chile_unique_factor)
 chile16_long_factor <- lengthen_16factor(chile_16_factor)
-chile_joined_factor <- union_all(chile_long_factor, chile16_long_factor) 
-chile_joined_factor <- chile_joined_factor %>%
-  left_join(factored_categories, by = 'column_name_factor')
+chile_joined_factor <- union_all(chile_long_factor, chile16_long_factor)
 chile_joined_factor <- chile_joined_factor %>%
   left_join(factored_questions, by = 'column_name_factor')
+chile_joined_factor <- chile_joined_factor %>%
+  left_join(factored_categories, by = 'column_name_factor')
 chile_joined_factor <- chile_joined_factor %>%
   filter(is.na(category) == FALSE)
 
@@ -405,11 +406,11 @@ chile_joined_factor <- chile_joined_factor %>%
 #Panama
 panama_long_factor <- lengthen_factor(panama_unique_factor)
 panama16_long_factor <- lengthen_16factor(panama_16_factor)
-panama_joined_factor <- union_all(panama_long_factor, panama16_long_factor) 
-panama_joined_factor <- panama_joined_factor %>%
-  left_join(factored_categories, by = 'column_name_factor')
+panama_joined_factor <- union_all(panama_long_factor, panama16_long_factor)
 panama_joined_factor <- panama_joined_factor %>%
   left_join(factored_questions, by = 'column_name_factor')
+panama_joined_factor <- panama_joined_factor %>%
+  left_join(factored_categories, by = 'column_name_factor')
 panama_joined_factor <- panama_joined_factor %>%
   filter(is.na(category) == FALSE)
 
@@ -418,10 +419,10 @@ panama_joined_factor <- panama_joined_factor %>%
 paraguay_long_factor <- lengthen_factor(paraguay_unique_factor)
 paraguay16_long_factor <- lengthen_16factor(paraguay_16_factor)
 paraguay_joined_factor <- union_all(paraguay_long_factor, paraguay16_long_factor) 
-paraguay_joined_factor<-  paraguay_joined_factor %>%
-  left_join(factored_categories, by = 'column_name_factor')
 paraguay_joined_factor <- paraguay_joined_factor %>%
   left_join(factored_questions, by = 'column_name_factor')
+paraguay_joined_factor<-  paraguay_joined_factor %>%
+  left_join(factored_categories, by = 'column_name_factor')
 paraguay_joined_factor <- paraguay_joined_factor %>%
   filter(is.na(category) == FALSE)
 
@@ -431,9 +432,9 @@ peru_long_factor <- lengthen_factor(peru_unique_factor)
 peru16_long_factor <- lengthen_16factor(peru_16_factor)
 peru_joined_factor <- union_all(peru_long_factor, peru16_long_factor) 
 peru_joined_factor <- peru_joined_factor %>%
-  left_join(factored_categories, by = 'column_name_factor')
-peru_joined_factor <- peru_joined_factor %>%
   left_join(factored_questions, by = 'column_name_factor')
+peru_joined_factor <- peru_joined_factor %>%
+  left_join(factored_categories, by = 'column_name_factor')
 peru_joined_factor <- peru_joined_factor %>%
   filter(is.na(category) == FALSE)
 
@@ -441,19 +442,19 @@ peru_joined_factor <- peru_joined_factor %>%
 #suriname_long_factor <- lengthen_factor(suriname__unique_factor) 
 #suriname16_long_factor <- lengthen_16factor(suriname_16_factor)
 #suriname_joined_factor <- union_all(suriname_long_factor, suriname16_long_factor) 
-#suriname_joined_factor <- suriname_joined_factor %>% left_join(factored_categories, by = 'column_name_factor')
 #suriname_joined_factor <- suriname_joined_factor %>% left_join(unfactored_questions, by = 'column_name_factor')
+#suriname_joined_factor <- suriname_joined_factor %>% left_join(factored_categories, by = 'column_name_factor')
 #suriname_joined_factor <- suriname_joined_factor %>% filter(is.na(category) == FALSE)
 
 
 #Uruguay
 uruguay_long_factor <- lengthen_factor(uruguay_unique_factor)
 uruguay16_long_factor <- lengthen_16factor(uruguay_16_factor)
-uruguay_joined_factor <- union_all(uruguay_long_factor, uruguay16_long_factor) 
-uruguay_joined_factor <- uruguay_joined_factor %>%
-  left_join(factored_categories, by = 'column_name_factor')
+uruguay_joined_factor <- union_all(uruguay_long_factor, uruguay16_long_factor)
 uruguay_joined_factor <- uruguay_joined_factor %>%
   left_join(factored_questions, by = 'column_name_factor')
+uruguay_joined_factor <- uruguay_joined_factor %>%
+  left_join(factored_categories, by = 'column_name_factor')
 uruguay_joined_factor <- uruguay_joined_factor %>%
   filter(is.na(category) == FALSE)
 
@@ -463,9 +464,9 @@ venezuela_long_factor <- lengthen_factor(venezuela_unique_factor)
 venezuela16_long_factor <- lengthen_16factor(venezuela_16_factor)
 venezuela_joined_factor <- union_all(venezuela_long_factor, venezuela16_long_factor) 
 venezuela_joined_factor <- venezuela_joined_factor %>%
-  left_join(factored_categories, by = 'column_name_factor')
-venezuela_joined_factor <- venezuela_joined_factor %>%
   left_join(factored_questions, by = 'column_name_factor')
+venezuela_joined_factor <- venezuela_joined_factor %>%
+  left_join(factored_categories, by = 'column_name_factor')
 venezuela_joined_factor <- venezuela_joined_factor %>%
   filter(is.na(category) == FALSE)
 
@@ -473,11 +474,11 @@ venezuela_joined_factor <- venezuela_joined_factor %>%
 #Bolivia
 bolivia_long_factor <- lengthen_factor(bolivia_unique_factor)
 bolivia16_long_factor <- lengthen_16factor(bolivia_16_factor)
-bolivia_joined_factor <- union_all(bolivia_long_factor, bolivia16_long_factor) 
-bolivia_joined_factor <- bolivia_joined_factor %>% 
-  left_join(factored_categories, by = 'column_name_factor')
+bolivia_joined_factor <- union_all(bolivia_long_factor, bolivia16_long_factor)
 bolivia_joined_factor <- bolivia_joined_factor %>%
   left_join(factored_questions, by = 'column_name_factor')
+bolivia_joined_factor <- bolivia_joined_factor %>% 
+  left_join(factored_categories, by = 'column_name_factor')
 bolivia_joined_factor <- bolivia_joined_factor %>%
   filter(is.na(category) == FALSE)
 
@@ -485,11 +486,11 @@ bolivia_joined_factor <- bolivia_joined_factor %>%
 #Canada
 canada_long_factor <- lengthen_factor(canada_unique_factor)
 canada16_long_factor <- lengthen_16factor(canada_16_factor)
-canada_joined_factor <- union_all(canada_long_factor, canada16_long_factor) 
-canada_joined_factor <- canada_joined_factor %>%
-  left_join(factored_categories, by = 'column_name_factor')
+canada_joined_factor <- union_all(canada_long_factor, canada16_long_factor)
 canada_joined_factor <- canada_joined_factor %>%
   left_join(factored_questions, by = 'column_name_factor')
+canada_joined_factor <- canada_joined_factor %>%
+  left_join(factored_categories, by = 'column_name_factor')
 canada_joined_factor <- canada_joined_factor %>%
   filter(is.na(category) == FALSE)
 
@@ -499,9 +500,9 @@ colombia_long_factor <- lengthen_factor(colombia_unique_factor)
 colombia16_long_factor <- lengthen_16factor(colombia_16_factor)
 colombia_joined_factor <- union_all(colombia_long_factor, colombia16_long_factor) 
 colombia_joined_factor <- colombia_joined_factor %>%
-  left_join(factored_categories, by = 'column_name_factor')
-colombia_joined_factor <- colombia_joined_factor %>%
   left_join(factored_questions, by = 'column_name_factor')
+colombia_joined_factor <- colombia_joined_factor %>%
+  left_join(factored_categories, by = 'column_name_factor')
 colombia_joined_factor <- colombia_joined_factor %>%
   filter(is.na(category) == FALSE)
 
@@ -511,22 +512,10 @@ costa_long_factor <- lengthen_factor(costa_unique_factor)
 costa16_long_factor <- lengthen_16factor(costa_16_factor)
 costa_joined_factor <- union_all(costa_long_factor, costa16_long_factor) 
 costa_joined_factor <- costa_joined_factor %>%
-  left_join(factored_categories, by = 'column_name_factor')
-costa_joined_factor <- costa_joined_factor %>%
   left_join(factored_questions, by = 'column_name_factor')
 costa_joined_factor <- costa_joined_factor %>%
-  filter(is.na(category) == FALSE)
-
-#Costa Rica
-costa_long_unfactor <- lengthen(costa_unique_unfactor)
-costa16_long_unfactor <- lengthen(costa_16_unfactor)
-costa_joined <- union_all(costa_long_unfactor, costa16_long_unfactor) %>% 
-  transform(answer = as.numeric(answer))
-costa_joined <- costa_joined %>%
-  left_join(unfactored_categories, by = 'column_name')
-costa_joined <- costa_joined %>%
-  left_join(unfactored_questions, by = 'column_name')
-costa_joined  <- costa_joined %>%
+  left_join(factored_categories, by = 'column_name_factor')
+costa_joined_factor <- costa_joined_factor %>%
   filter(is.na(category) == FALSE)
 
 
@@ -535,9 +524,9 @@ ecuador_long_factor <- lengthen_factor(ecuador_unique_factor)
 ecuador16_long_factor <- lengthen_16factor(ecuador_16_factor)
 ecuador_joined_factor <- union_all(ecuador_long_factor, ecuador16_long_factor) 
 ecuador_joined_factor <- ecuador_joined_factor %>%
-  left_join(factored_categories, by = 'column_name_factor')
-ecuador_joined_factor <- ecuador_joined_factor %>%
   left_join(factored_questions, by = 'column_name_factor')
+ecuador_joined_factor <- ecuador_joined_factor %>%
+  left_join(factored_categories, by = 'column_name_factor')
 ecuador_joined_factor <- ecuador_joined_factor %>%
   filter(is.na(category) == FALSE)
 
@@ -547,9 +536,9 @@ elsalvador_long_factor <- lengthen_factor(elsalvador_unique_factor)
 elsalvador16_long_factor <- lengthen_16factor(elsalvador_16_factor)
 elsalvador_joined_factor <- union_all(elsalvador_long_factor, elsalvador16_long_factor) 
 elsalvador_joined_factor <- elsalvador_joined_factor %>%
-  left_join(factored_categories, by = 'column_name_factor')
-elsalvador_joined_factor <- elsalvador_joined_factor %>%
   left_join(factored_questions, by = 'column_name_factor')
+elsalvador_joined_factor <- elsalvador_joined_factor %>%
+  left_join(factored_categories, by = 'column_name_factor')
 elsalvador_joined_factor <- elsalvador_joined_factor %>%
   filter(is.na(category) == FALSE)
 
@@ -558,10 +547,10 @@ elsalvador_joined_factor <- elsalvador_joined_factor %>%
 guatemala_long_factor <- lengthen_factor(guatemala_unique_factor)
 guatemala16_long_factor <- lengthen_16factor(guatemala_16_factor)
 guatemala_joined_factor <- union_all(guatemala_long_factor, guatemala16_long_factor) 
-guatemala_joined_factor<- guatemala_joined_factor %>% 
-  left_join(factored_categories, by = 'column_name_factor')
 guatemala_joined_factor <- guatemala_joined_factor %>%
   left_join(factored_questions, by = 'column_name_factor')
+guatemala_joined_factor<- guatemala_joined_factor %>% 
+  left_join(factored_categories, by = 'column_name_factor')
 guatemala_joined_factor <- guatemala_joined_factor %>%
   filter(is.na(category) == FALSE)
 
@@ -570,10 +559,10 @@ guatemala_joined_factor <- guatemala_joined_factor %>%
 honduras_long_factor <- lengthen_factor(honduras_unique_factor)
 honduras16_long_factor <- lengthen_16factor(honduras_16_factor)
 honduras_joined_factor <- union_all(honduras_long_factor, honduras16_long_factor) 
-honduras_joined_factor <- honduras_joined_factor %>% 
-  left_join(factored_categories, by = 'column_name_factor')
 honduras_joined_factor <- honduras_joined_factor %>%
   left_join(factored_questions, by = 'column_name_factor')
+honduras_joined_factor <- honduras_joined_factor %>% 
+  left_join(factored_categories, by = 'column_name_factor')
 honduras_joined_factor <- honduras_joined_factor %>%
   filter(is.na(category) == FALSE)
 
@@ -582,10 +571,10 @@ honduras_joined_factor <- honduras_joined_factor %>%
 mexico_long_factor <- lengthen_factor(mexico_unique_factor)
 mexico16_long_factor <- lengthen_16factor(mexico_16_factor)
 mexico_joined_factor <- union_all(mexico_long_factor, mexico16_long_factor)
-mexico_joined_factor <- mexico_joined_factor %>% 
-  left_join(factored_categories, by = 'column_name_factor')
 mexico_joined_factor <- mexico_joined_factor %>%
   left_join(factored_questions, by = 'column_name_factor')
+mexico_joined_factor <- mexico_joined_factor %>% 
+  left_join(factored_categories, by = 'column_name_factor')
 mexico_joined_factor <- mexico_joined_factor %>%
   filter(is.na(category) == FALSE)
 
@@ -594,10 +583,10 @@ mexico_joined_factor <- mexico_joined_factor %>%
 nicaragua_long_factor <- lengthen_factor(nicaragua_unique_factor)
 nicaragua16_long_factor <- lengthen_16factor(nicaragua_16_factor)
 nicaragua_joined_factor <- union_all(nicaragua_long_factor, nicaragua16_long_factor) 
-nicaragua_joined_factor <- nicaragua_joined_factor %>% 
-  left_join(factored_categories, by = 'column_name_factor')
 nicaragua_joined_factor <- nicaragua_joined_factor %>%
   left_join(factored_questions, by = 'column_name_factor')
+nicaragua_joined_factor <- nicaragua_joined_factor %>% 
+  left_join(factored_categories, by = 'column_name_factor')
 nicaragua_joined_factor <- nicaragua_joined_factor %>%
   filter(is.na(category) == FALSE)
 
@@ -606,10 +595,10 @@ nicaragua_joined_factor <- nicaragua_joined_factor %>%
 usa_long_factor <- lengthen_factor(usa_unique_factor)
 usa16_long_factor <- lengthen_16factor(usa_16_factor)
 usa_joined_factor <- union_all(usa_long_factor, usa16_long_factor) 
-usa_joined_factor <- usa_joined_factor %>% 
-  left_join(factored_categories, by = 'column_name_factor')
 usa_joined_factor <- usa_joined_factor %>%
   left_join(factored_questions, by = 'column_name_factor')
+usa_joined_factor <- usa_joined_factor %>% 
+  left_join(factored_categories, by = 'column_name_factor')
 usa_joined_factor <- usa_joined_factor %>%
   filter(is.na(category) == FALSE)
 
@@ -620,111 +609,172 @@ usa_joined_factor <- usa_joined_factor %>%
 t <- belize_category_factor %>%
   select(-category)
 belize_total <- bind_cols(belize_category_unfactor,t)
-belize_spread
+belize_total  <- belize_total  %>% transform(answer_measure = as.numeric(answer_measure))
 
 t <- argentina_joined_factor %>%
   select(-category)
 argentina_total <- bind_cols(argentina_joined,t)
-
+argentina_total  <- argentina_total  %>% transform(answer_measure = as.numeric(answer_measure))
 
 t <- brazil_joined_factor %>%
   select(-category)
 brazil_total <- bind_cols(brazil_joined,t)
+brazil_total  <- brazil_total  %>% transform(answer_measure = as.numeric(answer_measure))
+
 
 t <- chile_joined_factor %>%
   select(-category)
 chile_total <- bind_cols(chile_joined,t)
+chile_total  <- chile_total  %>% transform(answer_measure = as.numeric(answer_measure))
 
 t <- panama_joined_factor %>%
   select(-category)
 panama_total <- bind_cols(panama_joined,t)
+panama_total  <- panama_total  %>% transform(answer_measure = as.numeric(answer_measure))
 
 t <- paraguay_joined_factor %>%
   select(-category)
 paraguay_total <- bind_cols(paraguay_joined,t)
+paraguay_total  <- paraguay_total  %>% transform(answer_measure = as.numeric(answer_measure))
 
 t <- peru_joined_factor %>%
   select(-category)
 peru_total <- bind_cols(peru_joined,t)
+peru_total  <- peru_total  %>% transform(answer_measure = as.numeric(answer_measure))
 
 #t <- suriname_joined_factor %>% select(-category)
 #suriname_total <- bind_cols(suriname_joined,t)
+#suriname_total  <- suriname_total  %>% transform(answer_measure = as.numeric(answer_measure))
 
 t <- uruguay_joined_factor %>%
   select(-category)
 uruguay_total <- bind_cols(uruguay_joined,t)
+uruguay_total  <- uruguay_total  %>% transform(answer_measure = as.numeric(answer_measure))
 
 t <- venezuela_joined_factor %>%
   select(-category)
 venezuela_total <- bind_cols(venezuela_joined,t)
+venezuela_total  <- venezuela_total %>% transform(answer_measure = as.numeric(answer_measure))
 
 t <- bolivia_joined_factor %>%
   select(-category)
 bolivia_total <- bind_cols(bolivia_joined,t)
+bolivia_total  <- bolivia_total %>% transform(answer_measure = as.numeric(answer_measure))
 
 t <- canada_joined_factor %>%
   select(-category)
 canada_total <- bind_cols(canada_joined,t)
+canada_total  <- canada_total %>% transform(answer_measure = as.numeric(answer_measure))
 
 t <- colombia_joined_factor %>%
   select(-category)
 colombia_total <- bind_cols(colombia_joined,t)
+colombia_total  <- colombia_total %>% transform(answer_measure = as.numeric(answer_measure))
 
 t <- costa_joined_factor %>%
   select(-category)
-#costa_total <- bind_cols(costa_joined,t)
+costa_total <- bind_cols(costa_joined,t)
+costa_total  <- costa_total %>% transform(answer_measure = as.numeric(answer_measure))
 
 t <- ecuador_joined_factor %>%
   select(-category)
 ecuador_total <- bind_cols(ecuador_joined,t)
+ecuador_total <- ecuador_total %>% transform(answer_measure = as.numeric(answer_measure))
 
 t <- elsalvador_joined_factor %>%
   select(-category)
 elsalvador_total <- bind_cols(elsalvador_joined,t)
+elsalvador_total <- elsalvador_total %>% transform(answer_measure = as.numeric(answer_measure))
 
 t <- guatemala_joined_factor %>%
   select(-category)
 guatemala_total <- bind_cols(guatemala_joined,t)
+guatemala_total <- guatemala_total %>% transform(answer_measure = as.numeric(answer_measure))
 
 t <- honduras_joined_factor %>%
   select(-category)
 honduras_total <- bind_cols(honduras_joined,t)
+honduras_total <- honduras_total %>% transform(answer_measure = as.numeric(answer_measure))
 
 t <- mexico_joined_factor %>%
   select(-category)
 mexico_total <- bind_cols(mexico_joined,t)
+mexico_total <- mexico_total %>% transform(answer_measure = as.numeric(answer_measure))
 
 t <- nicaragua_joined_factor %>%
   select(-category)
-nicaragua_total <- bind_cols(nicaragua_joined,t)
+nicaragua_total <- bind_cols(nicaragua_joined, t)
+nicaragua_total <- nicaragua_total %>% transform(answer_measure = as.numeric(answer_measure))
 
 t <- usa_joined_factor %>%
   select(-category)
 usa_total <- bind_cols(usa_joined,t)
+usa_total <- usa_total %>% transform(answer_measure = as.numeric(answer_measure))
+
 ```
 
-
 ```{r}
-unfactor <- argentina_total %>% select(pais:question_unfactor)
-arg_un <- tidy_spread(unfactor)
-factor <- argentina_total %>% select(pais_factor:question_factor)
-arg_f <- tidy_spread_factor(factor)
-```
-
-
-
-
-# !Just for reference atm.
-```{r}
-tidy_spread <- function(x){
-  x <- x  %>% select(-column_name) %>%
-    spread(question_unfactor, answer)
+clean <- function(country){
+  country <- country %>% 
+    select(-pais, -wave_factor, -uniq_id, -column_name, -column_name_factor, -question_factor) %>% 
+    rename(country = pais_factor)
+  return(country)
 }
 ```
 
+
 ```{r}
-tidy_spread_factor <- function(x){
-  x <- x %>% select(-column_name_factor) %>%
-    spread(question_factor, answer_factor)
-}
+
+belize_clean <- clean(belize_total)
+
+argentina_clean <- clean(argentina_total)
+
+brazil_clean <- clean(brazil_total)
+
+chile_clean <- clean(chile_total)
+
+panama_clean <- clean(panama_total)
+
+paraguay_clean <- clean(paraguay_total)
+
+peru_clean <- clean(peru_total)
+
+#suriname_clean <- clean(suriname_total)
+
+uruguay_clean <- clean(uruguay_total)
+
+venezuela_clean <- clean(venezuela_total)
+
+bolivia_clean <- clean(bolivia_total)
+
+canada_clean <- clean(canada_total)
+
+colombia_clean <- clean(colombia_total)
+
+costa_clean <- clean(costa_total)
+
+ecuador_clean <- clean(ecuador_total)
+
+elsalvador_clean <- clean(elsalvador_total)
+
+guatemala_clean <- clean(guatemala_total)
+
+honduras_clean <- clean(honduras_total)
+
+mexico_clean <- clean(mexico_total)
+
+nicaragua_clean <- clean(nicaragua_total)
+
+usa_clean <- clean(usa_total)
 ```
+
+```{r}
+
+complete <- bind_rows(belize_clean, argentina_clean, brazil_clean, chile_clean, panama_clean, paraguay_clean, peru_clean, uruguay_clean, venezuela_clean, bolivia_clean, canada_clean, colombia_clean, costa_clean, ecuador_clean, elsalvador_clean, guatemala_clean, honduras_clean, mexico_clean, nicaragua_clean, usa_clean)
+
+write_csv(complete, 'complete_LAPOP.csv')
+```
+
+
+
+

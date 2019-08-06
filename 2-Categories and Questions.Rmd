@@ -42,7 +42,7 @@ unfactored_categories <- unfactored_categories %>%
 
 unfactored_questions <- read_csv('/Users/lindsayhardy/Clean-LAPOP/updated unfactor questions.csv')
 unfactored_questions <- unfactored_questions %>%
-  select(column_name, question_unfactor)
+  select(column_name, question)
 
 factored_questions <- read_csv('/Users/lindsayhardy/Clean-LAPOP/updated factor questions.csv')
 factored_questions <- factored_questions %>%
