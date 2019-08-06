@@ -772,6 +772,11 @@ usa_clean <- clean(usa_total)
 
 complete <- bind_rows(belize_clean, argentina_clean, brazil_clean, chile_clean, panama_clean, paraguay_clean, peru_clean, uruguay_clean, venezuela_clean, bolivia_clean, canada_clean, colombia_clean, costa_clean, ecuador_clean, elsalvador_clean, guatemala_clean, honduras_clean, mexico_clean, nicaragua_clean, usa_clean)
 
+x <- c(2006,2008,2010,2012)
+small <- complete %>% filter(wave %in% x)
+
+write_csv(small, '2008-2012 LAPOP.csv')
+
 write_csv(complete, 'complete_LAPOP.csv')
 ```
 
