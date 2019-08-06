@@ -1,0 +1,42 @@
+---
+title: "6-Subsetting Categories"
+output: html_notebook
+editor_options: 
+  chunk_output_type: inline
+---
+
+# Structure of code
+This creates subsets of the categories to hopefully work around the row limit in Tableau Public. We created these groups based on similarities between the kinds of questions asked.
+
+## Groups
+1. Politics
+2. Institutions
+3. Interpersonal
+4. Individual
+
+### Politics
+These categories ask questions related to political beliefs and political leanings.
+```{r}
+politics <- list("The Economy", "Civic and Political Engagement", "Political/Electoral Engagement", "Foreign Relations")
+```
+
+### Institutions
+List of categories that ask about perception of institutions in their country.
+```{r}
+institutions <- list("Local Government", "Evaluation of Institutions, Political System, and Other Persons", "Support for Democracy and Democratic Institutions", "Corruption")
+```
+
+### Interpersonal
+List of categories that deal with interpersonal conflicts.
+```{r}
+interpersonal <- list("Crime, Insecurity, and Policy Preferences", "Political Tolerance", "Migration", "Gender", "Social Media")
+```
+
+### Individual
+These categories ask questions regarding information on the individual level.
+```{r}
+individual <- list("Climate Change/Disaster Risk Reduction", "Political and Religious Orientation", "Sample Identification/Geographic", "Socio-Demographic Characteristics")
+```
+
+
+
