@@ -6,8 +6,10 @@ editor_options:
 ---
 
 # Overall Structure of the code
+### Source
 In this file, we read in the data from the [LAPOP Datasets](http://datasets.americasbarometer.org/database/index.php). In order to do this, you need to download them to your machine and place them in this file.
 
+### Workflow
 Suggested order to follow:
 1. Reading in Data
 2. Categories and Questions
@@ -16,14 +18,17 @@ Suggested order to follow:
 5. Lengthening and Joining
 6. Subsetting Categories
 
+### Factored vs. Unfactored
+The data in the Stata files are factored, meaning that a yes or no question would be entered in as 0 and 1. These numbers are then assigned labels as such: 0 - "yes" and 1 - "no", and we refer to data frames where the labels are visible in the observations as *factored*. When data frames use only the numbered observations, we refer to this as *unfactored*.
+
+We use both versions of the data frames for ease of use in Tableau Public. Unfactored data frames allow us to perform calculations in Tableau Public later on, and the factored data frames provide reader-friendly text to the graphics.
+
 ## Libraries
+These packages contain the functions that are necessary to run the code below. These can be installed using `install.packages()`, and then you should run the code chunk below so they are ready to be used.
 ```{r, message=FALSE}
 library(labelled)
 library(sjmisc)
-library(tidyr)
 library(tidyverse)
-library(dplyr)
-library(haven)
 library(assertr)
 ```
 

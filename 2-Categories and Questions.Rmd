@@ -24,9 +24,7 @@ Some of these questions are not complete, and are highlighted in red and has an 
 Make sure if you are adding a column name, that it does not repeat any of the ones already written.
 
 ## Reading in csv files
-You will need to replace the file name below with the file name that is listed on your computer. The file should be in the [LAPOP Repo](https://github.com/lhardy1/Clean-LAPOP).
-
-The excel file in the GitHub may not be the most recent version. If you have an updated version, be sure to save it to your working directory.
+You will need to replace the file name below with the file name that is listed on your computer. The most recent version of the files should be provided to you by LAPOP.
 
 If the csv file is combining columns together, make sure you have dragged the column line in excel to be the width of the longest item.
 
