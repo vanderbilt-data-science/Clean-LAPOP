@@ -31,6 +31,9 @@ These files will need to be placed into the working directory of your project in
     + Lengthens countries into tidy format
     + Joins the questions and category columns by column_name
 
+6. Subsetting Categories
+    + Separates questions into groups by topics
+
 # Team
 * Jesse Spencer-Smith | Chief Data Scientist at the Vanderbilt Data Scientist Institute
 * Lindsey Fox | Senior IT Consultant for Research
