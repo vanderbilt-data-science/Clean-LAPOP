@@ -8,7 +8,7 @@ editor_options:
 # Structure
 In this document, we lengthened all of the data frames we created before, combined the 2016/17 datasets with their respecitve factored and unfactored versions, and merged the unfactored and factored versions together.
 
-We realize that it would have been easier to have written a single function for this process, so if you wanna make one, go for it! :)
+Lengthening the data frames allows for us to put the data in a tidy format. Tidy data is a way of organizing data that makes it easy to visualize. This was developed by Hadley Wickham, and you can read more about tidy data [here](https://vita.had.co.nz/papers/tidy-data.pdf). When we simply read in the datasets, there are hundreds of columns, but by lengthening the data frame, we narrow the column down to five and it is easier to manage.
 
 ## Functions to lengthen unfactored versions
 The first thing that we do is create a long, tidy version of the data. This makes it easier to filter and select what we want later on. We gathered the data so that "column_name" would have all the column names and "answer" would have all the observations to the corresponding column name.
@@ -16,6 +16,8 @@ The first thing that we do is create a long, tidy version of the data. This make
 Then, we transformed answer to a character which is necessary for the later combination with the 2016/17 data frame. If you are not merging, you *do not* need to transform the answer column.
 
 Finally, we select the five columns that we want.
+
+We realize that it would have been easier to have written a single function for this process, so if you wanna make one, go for it! :)
 
 ### For merged unfactored datasets
 ```{r}
