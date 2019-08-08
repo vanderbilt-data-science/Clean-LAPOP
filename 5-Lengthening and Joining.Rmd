@@ -676,6 +676,8 @@ jamaica_joined_factor <- jamaica_joined_factor %>%
 
 ## Combine the unfactored and factored versions together
 In this section we combine the unfactored and factored versions together and join the countries using `bind_cols()`. The column, answer_measure, is converted back to a numeric.
+
+We used the variable t just for convience. It stands for total.
 ```{r}
 #Creating object t
 t <- belize_category_factor %>%
@@ -817,37 +819,36 @@ t <- jamaica_joined_factor %>%
 jamaica_total <- bind_cols(jamaica_joined,t)
 jamaica_total <- jamaica_total %>%
   transform(answer_measure = as.numeric(answer_measure))
-
 ```
 
-#Creating a list of unwated variables
+# Creating a list of unwated variables
+These variables are not to be shown in the visualizations, so in order to remove them from the datasets above, we created a vector with the variable names that will then be applied to a function that removes them.
 
-These variables are not to be shown in the visualizations, so we made a list of them to utilize in the next function.
-If you want more variables to not be shown, just add them to the list.
+If in the future you want to remove more variables, just add them to the list and run the same function.
 
 ```{r}
 variables <- c('ls3r', 'a4r', 'cp4ar', 'np1r', 'np2r', 'prot3r', 'prot7r', 'jc15ar', 'vic1extr', 'vic1hogarr',
 'jc10rr', 'jc13rr', 'sgl1r', 'm1r', 'cp5r', 'cp6r', 'cp7r', 'cp8r', 'cp9r', 'cp13r', 'cp20r', 'it1r', 'pn4r', 'pol1r', 'exc7r', 'community' ,'anyvictim', 'aoj11r', 'sd2r', 'sd3r', 'sd6r', 'coupr', 'b1r', 'b2r', 'b3r', 'b4r', 'b6r', 'b12r', 'b32r','n11r', 'n9r', 'mil3r', 'mil4r', 'eff1r', 'eff2r', 'mil7r', 'ing4r', 'ros1r', 'ros4r', 'psar', 'psa5r', 'psa2r', 'd1r', 'd2r', 'd3r', 'd4r', 'd5r', 'tolr', 'tol2r','bar2x2', 'exc2r', 'exc6r', 'ecexc11r', 'exc11r', 'exc13r', 'exc14r', 'exc15r', 'exc16r', 'exc20r', 'exctot', 'exctot5r', 'exctot3r', 'corvic', 'vb2r', 'mujer', 'edr', 'edad', 'age1', 'age2', 'age3', 'age4', 'age5', 'age6', 'q5br', 'q10dr', 'housewife', 'etidr', 'indigenous', 'black', 'white', 'mestizo', 'mulatto', 'other', 'quintall', 'ed2r', 'intid', 'ideology', 'ti', 'q11nr', 'q5bnr')
-
 ```
-#Final clean
-This function uses the list made above and removes the column names that are in the list variables. It also gets the country ready to be combined with the other countries fully.
+
+# Final clean
+This function uses the list made above to remove the desire variables. It also further formats the data frame into the shape it needs to be when we bind all the countries together.
+
 ```{r}
 clean <- function(country){
-  #filters the varaibles
+  #Filters out the column names that are not in the list, variables.
   country <- country %>%
    filter(!(column_name %in% variables)) %>%
-    #selects the variables that are no longer needed
+    #Selects the columns that are no longer needed
     select(-wave_factor, -uniq_id, -column_name, -column_name_factor, -question_factor) %>% 
-    #renames pais_factor to country
+    #Renames pais_factor to country
     rename(country = pais_factor)
   return(country)
 }
 ```
 
-
+## Applying `clean()` to all countries
 ```{r}
-
 belize_clean <- clean(belize_total)
 
 argentina_clean <- clean(argentina_total)
@@ -896,23 +897,25 @@ jamaica_clean <- clean(jamaica_total)
 ```
 
 
-##Combining and choosing
-In order to write a .csv file of the data, we combined all the countries using `bind_rows()` and saved it in a data frame called complete. However, because Tableau can only handle 15 million rows, we subset the data by filtering out for when wave is 2006, 2008, 2010, and 2012 and used this data frame to write the .csv.
+# Combining and choosing
+In order to write a .csv file of the data, we combined all the countries using `bind_rows()` and saved it in a data frame called complete. However, because Tableau Public can only handle 15 million rows, we subset the data by filtering out for when wave is 2006, 2008, 2010, and 2012 and used this data frame to write the .csv.
+
 We also removed the countries and their specific years that are not public. If you want to show some of them just remove or comment out the line. If you want to remove more countries and years, just use the same format shown below.
+
 ```{r}
-#Combines all the datasets
+#Combines all the datasets into single data frame
 complete <- bind_rows(belize_clean, argentina_clean, brazil_clean, chile_clean, panama_clean, paraguay_clean, peru_clean, uruguay_clean, venezuela_clean, bolivia_clean, canada_clean, colombia_clean, costa_clean, ecuador_clean, elsalvador_clean, guatemala_clean, honduras_clean, mexico_clean, nicaragua_clean, usa_clean)
 
-complete <- complete %>% filter(!(pais == 41 & wave > 2008))
-complete <- complete %>% filter(!(pais == 40 & wave > 2008))
-complete <- complete %>% filter(!(pais == 16 & wave > 2008))
-complete <- complete %>% filter(!(pais == 13 & wave > 2008))
-complete <- complete %>% filter(!(pais == 17 & wave > 2008))
-complete <- complete %>% filter(!(pais == 10 & wave > 2008))
-complete <- complete %>% filter(!(pais == 27 & wave > 2008 & wave < 2014))
-complete <- complete %>% filter(!(pais == 35 & wave > 2008 & wave < 2014))
-complete <- complete %>% filter(!(pais == 9 & wave < 2014))
-
+complete <- complete %>% 
+  filter(!(pais == 41 & wave > 2008)) %>%
+  filter(!(pais == 40 & wave > 2008)) %>%
+  filter(!(pais == 16 & wave > 2008)) %>%
+  filter(!(pais == 13 & wave > 2008)) %>%
+  filter(!(pais == 17 & wave > 2008)) %>%
+  filter(!(pais == 10 & wave > 2008)) %>%
+  filter(!(pais == 27 & wave > 2008 & wave < 2014)) %>%
+  filter(!(pais == 35 & wave > 2008 & wave < 2014)) %>%
+  filter(!(pais == 9 & wave < 2014))
 ```
 
 
