@@ -835,7 +835,7 @@ clean <- function(country){
   country <- country %>%
    filter(!(column_name %in% variables)) %>%
     #Selects the columns that are no longer needed
-    select(-wave_factor, -uniq_id, -column_name, -column_name_factor, -question_factor) %>% 
+    select(-wave_factor, -uniq_id, -column_name, -column_name_factor, -question_factor, weights_factor) %>% 
     #Renames pais_factor to country
     rename(country = pais_factor)
   return(country)
@@ -911,7 +911,14 @@ complete <- complete %>%
   filter(!(pais == 27 & wave > 2008 & wave < 2014)) %>%
   filter(!(pais == 35 & wave > 2008 & wave < 2014)) %>%
   filter(!(pais == 9 & wave < 2014))
+
 ```
+
+```{r}
+test <- complete %>% filter(wave < 2014)
+
+```
+
 
 
 
