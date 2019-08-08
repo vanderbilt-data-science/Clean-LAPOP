@@ -39,6 +39,7 @@ making_uniqueID <- function(country){
 ```
 
 #### Applying `making_uniqueID` to all unfactored, merged countries
+Note: Guayana and Jamaica are written in English only. This will affect the way the tableau looks, so if you do not want them in your visualizations, you can comment them out by adding a hashtag # before it. 
 ```{r}
 argentina_unique_unfactor <- making_uniqueID(argentina_unfactor)
 belize_unique_unfactor <- making_uniqueID(belize_unfactor)
@@ -51,9 +52,9 @@ costa_unique_unfactor <- making_uniqueID(costa_unfactor)
 ecuador_unique_unfactor <- making_uniqueID(ecuador_unfactor)
 elsalvador_unique_unfactor <- making_uniqueID(elsalvador_unfactor)
 guatemala_unique_unfactor <- making_uniqueID(guatemala_unfactor)
-#guyana_unique_unfactor <- making_uniqueID(guyana_unfactor)
+guyana_unique_unfactor <- making_uniqueID(guyana_unfactor)
 honduras_unique_unfactor <- making_uniqueID(honduras_unfactor)
-#jamaica_unique_unfactor <- making_uniqueID(jamaica_unfactor)
+jamaica_unique_unfactor <- making_uniqueID(jamaica_unfactor)
 mexico_unique_unfactor <- making_uniqueID(mexico_unfactor)
 nicaragua_unique_unfactor <- making_uniqueID(nicaragua_unfactor)
 panama_unique_unfactor <- making_uniqueID(panama_unfactor)
@@ -92,6 +93,7 @@ making_uniqueID_factor <- function(country){
 
 
 #### Applying `making_uniqueID_factor` to all countries
+The note about Guyana and Jamiaca apply here as well.
 ```{r}
 argentina_unique_factor <- making_uniqueID_factor(argentina_factor)
 belize_unique_factor <- making_uniqueID_factor(belize_factor)
@@ -104,9 +106,9 @@ costa_unique_factor <- making_uniqueID_factor(costa_factor)
 ecuador_unique_factor <- making_uniqueID_factor(ecuador_factor)
 elsalvador_unique_factor <- making_uniqueID_factor(elsalvador_factor)
 guatemala_unique_factor <- making_uniqueID_factor(guatemala_factor)
-#guyana_unique_factor <- making_uniqueID_factor(guyana_factor)
+guyana_unique_factor <- making_uniqueID_factor(guyana_factor)
 honduras_unique_factor <- making_uniqueID_factor(honduras_factor)
-#jamaica_unique_factor <- making_uniqueID_factor(jamaica_factor)
+jamaica_unique_factor <- making_uniqueID_factor(jamaica_factor)
 mexico_unique_factor <- making_uniqueID_factor(mexico_factor)
 nicaragua_unique_factor <- making_uniqueID_factor(nicaragua_factor)
 panama_unique_factor <- making_uniqueID_factor(panama_factor)
