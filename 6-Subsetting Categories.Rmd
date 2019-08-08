@@ -42,8 +42,6 @@ individual <- c("Climate Change/Disaster Risk Reduction", "Political and Religio
 ## Writing .csv
 This is a similar process to the "Writing .csv" portion of step 5, however this makes data frames out of overall topics.
 ```{r}
-#Combines all the datasets
-complete <- bind_rows(belize_clean, argentina_clean, brazil_clean, chile_clean, panama_clean, paraguay_clean, peru_clean, uruguay_clean, venezuela_clean, bolivia_clean, canada_clean, colombia_clean, costa_clean, ecuador_clean, elsalvador_clean, guatemala_clean, honduras_clean, mexico_clean, nicaragua_clean, usa_clean)
 
 #Makes dataset for politics list
 pol_small <- complete %>%
