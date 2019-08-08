@@ -124,7 +124,7 @@ If you are using the new merged files, you can skip this.
 ## Creating factored dataframes of 2016/17 questionnaires using `factor_country`
 This is the 16/17 version of the `factor_country()` used above. The same process applies.
 ```{r}
-argentina_16_factor <- factor_country("42076439Argentina LAPOP AmericasBarometer 2017 V1.0_W.dta")
+argentina_16_factor <- factor_country("/Users/lindsayhardy/Clean-LAPOP/42076439Argentina LAPOP AmericasBarometer 2017 V1.0_W (1).dta")
 venezuela_16_factor  <- factor_country("25258094Venezuela LAPOP AmericasBarometer 2016-17 V1.0_W.dta")
 bolivia_16_factor  <- factor_country("142790203Bolivia LAPOP AmericasBarometer 2017 V1.0_W.dta")
 brazil_16_factor  <- factor_country("780314464Brazil LAPOP AmericasBarometer 2017 V1.0_W.dta")

@@ -155,14 +155,11 @@ peru_joined  <- peru_joined  %>%
   filter(is.na(category) == FALSE)
 
 #Suriname
-#suriname_long_unfactor <- lengthen(suriname_unique_unfactor)
-#suriname16_long_unfactor <- lengthen(suriname_16_unfactor)
-#suriname_joined <- union_all(suriname_long_unfactor, suriname16_long_unfactor) %>% 
-#  transform(answer_measure = as.numeric(answer_measure))
-#suriname_joined <- suriname_joined %>%
-  #left_join(unfactored_questions, by = 'column_name')
-#suriname_joined <- suriname_joined %>% left_join(unfactored_categories, by = 'column_name')
-#suriname_joined  <- suriname_joined %>% filter(is.na(category) == FALSE)
+suriname_long_unfactor <- lengthen(suriname_unique_unfactor)
+suriname_joined <- suriname_long_unfactor %>%
+  left_join(unfactored_questions, by = 'column_name')
+suriname_joined <- suriname_joined %>% left_join(unfactored_categories, by = 'column_name')
+suriname_joined  <- suriname_joined %>% filter(is.na(category) == FALSE)
 
 
 #Uruguay
@@ -366,8 +363,8 @@ These functions are almost identical to the ones above except, they have "_facto
 lengthen_factor <- function(country) {
   #makes sure the weight is saved
   weight <- country %>%
-    select(wt)
-  weight <- weight %>% rename(weights_factor = wt)
+    select(wt_factor)
+ weight <- weight %>% rename(weights_factor = wt_factor)
     #Brings together the following columns
   country <- bind_cols(country,weight)
   country <- country %>%
@@ -386,8 +383,8 @@ lengthen_factor <- function(country) {
 lengthen_16factor <- function(country) {
   #makes sure the weight is saved
   weight <- country %>%
-    select(wt)
-  weight <- weight %>% rename(weights_factor = wt)
+    select(wt_factor)
+  weight <- weight %>% rename(weights_factor = wt_factor) %>% transform(weights_factor = as.numeric(weights_factor))
     #Brings together the following columns
   country <- bind_cols(country,weight)
   country <- country %>%
@@ -488,12 +485,10 @@ peru_joined_factor <- peru_joined_factor %>%
   filter(is.na(category) == FALSE)
 
 #Suriname
-#suriname_long_factor <- lengthen_factor(suriname__unique_factor) 
-#suriname16_long_factor <- lengthen_16factor(suriname_16_factor)
-#suriname_joined_factor <- union_all(suriname_long_factor, suriname16_long_factor) 
-#suriname_joined_factor <- suriname_joined_factor %>% left_join(unfactored_questions, by = 'column_name_factor')
-#suriname_joined_factor <- suriname_joined_factor %>% left_join(factored_categories, by = 'column_name_factor')
-#suriname_joined_factor <- suriname_joined_factor %>% filter(is.na(category) == FALSE)
+suriname_long_factor <- lengthen_factor(suriname_unique_factor) 
+suriname_joined_factor <- suriname_long_factor %>% left_join(factored_questions, by = 'column_name_factor')
+suriname_joined_factor <- suriname_joined_factor %>% left_join(factored_categories, by = 'column_name_factor')
+suriname_joined_factor <- suriname_joined_factor %>% filter(is.na(category) == FALSE)
 
 
 #Uruguay
@@ -726,9 +721,9 @@ peru_total <- bind_cols(peru_joined,t)
 peru_total  <- peru_total  %>%
   transform(answer_measure = as.numeric(answer_measure))
 
-#t <- suriname_joined_factor %>% select(-category)
-#suriname_total <- bind_cols(suriname_joined,t)
-#suriname_total  <- suriname_total  %>% transform(answer_measure = as.numeric(answer_measure))
+t <- suriname_joined_factor %>% select(-category)
+suriname_total <- bind_cols(suriname_joined,t)
+suriname_total  <- suriname_total  %>% transform(answer_measure = as.numeric(answer_measure))
 
 t <- uruguay_joined_factor %>%
   select(-category)
@@ -863,7 +858,7 @@ paraguay_clean <- clean(paraguay_total)
 
 peru_clean <- clean(peru_total)
 
-#suriname_clean <- clean(suriname_total)
+suriname_clean <- clean(suriname_total)
 
 uruguay_clean <- clean(uruguay_total)
 
@@ -904,7 +899,7 @@ We also removed the countries and their specific years that are not public. If y
 
 ```{r}
 #Combines all the datasets into single data frame
-complete <- bind_rows(belize_clean, argentina_clean, brazil_clean, chile_clean, panama_clean, paraguay_clean, peru_clean, uruguay_clean, venezuela_clean, bolivia_clean, canada_clean, colombia_clean, costa_clean, ecuador_clean, elsalvador_clean, guatemala_clean, honduras_clean, mexico_clean, nicaragua_clean, usa_clean)
+complete <- bind_rows(belize_clean, argentina_clean, brazil_clean, chile_clean, panama_clean, paraguay_clean, peru_clean, uruguay_clean, venezuela_clean, bolivia_clean, canada_clean, colombia_clean, costa_clean, ecuador_clean, elsalvador_clean, guatemala_clean, honduras_clean, mexico_clean, nicaragua_clean, usa_clean, suriname_clean, guyana_clean, jamaica_clean)
 
 complete <- complete %>% 
   filter(!(pais == 41 & wave > 2008)) %>%
