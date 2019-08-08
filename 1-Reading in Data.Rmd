@@ -152,7 +152,7 @@ uruguay_16_factor  <- factor_country("646644681Uruguay LAPOP AmericasBarometer 2
 This is the unfactored version of the 16/17 data frames, but we needed to apply modifications for when we eventually combined the 16/17 with the merged. 
 We transformed the unique ID column to character. This does not affect the data, but is necessary for the join.
 ```{r}
-argentina_16_unfactor <- read_dta("42076439Argentina LAPOP AmericasBarometer 2017 V1.0_W.dta") %>%
+argentina_16_unfactor <- read_dta("/Users/lindsayhardy/Clean-LAPOP/42076439Argentina LAPOP AmericasBarometer 2017 V1.0_W (1).dta") %>%
   transform(uniq_id = as.character(uniq_id))
 
 venezuela_16_unfactor  <- read_dta("25258094Venezuela LAPOP AmericasBarometer 2016-17 V1.0_W.dta") %>% 
