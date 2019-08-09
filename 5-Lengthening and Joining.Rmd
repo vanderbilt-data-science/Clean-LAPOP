@@ -260,6 +260,7 @@ complete <- complete %>%
 test2 <- complete %>% filter(wave < 2014)
 test3 <- complete %>% filter(wave > 2014)
 
+write_csv(complete, "t.csv")
 write_csv(test2, "test2.csv")
 write_csv(test3, "test3.csv")
 ```
