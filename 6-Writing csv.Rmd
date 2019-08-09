@@ -1,0 +1,41 @@
+---
+title: "6-Writing .csv"
+output: html_notebook
+editor_options: 
+  chunk_output_type: inline
+---
+
+# Combining and choosing
+In order to write a .csv file of the data, we combined all the countries using `bind_rows()` and saved it in a data frame called complete. However, because Tableau Public can only handle 15 million rows, we subset the data by filtering out for when wave is 2006, 2008, 2010, and 2012 and used this data frame to write the .csv.
+
+We also removed the countries and their specific years that are not public. If you want to show some of them just remove or comment out the line. If you want to remove more countries and years, just use the same format shown below.
+
+```{r}
+#Combines all the datasets into single data frame
+complete <- bind_rows(belize_clean, argentina_clean, brazil_clean, chile_clean, panama_clean, paraguay_clean, peru_clean, uruguay_clean, venezuela_clean, bolivia_clean, canada_clean, colombia_clean, costa_clean, ecuador_clean, elsalvador_clean, guatemala_clean, honduras_clean, mexico_clean, nicaragua_clean, usa_clean, suriname_clean, guyana_clean, jamaica_clean)
+
+complete <- complete %>% 
+  filter(!(pais == 41 & wave > 2008)) %>%
+  filter(!(pais == 40 & wave > 2008)) %>%
+  filter(!(pais == 16 & wave > 2008)) %>%
+  filter(!(pais == 13 & wave > 2008)) %>%
+  filter(!(pais == 17 & wave > 2008)) %>%
+  filter(!(pais == 10 & wave > 2008)) %>%
+  filter(!(pais == 27 & wave > 2008 & wave < 2014)) %>%
+  filter(!(pais == 35 & wave > 2008 & wave < 2014)) %>%
+  filter(!(pais == 9 & wave < 2014))
+
+```
+
+```{r}
+test2 <- complete %>%
+  filter(wave < 2014)
+test3 <- complete %>%
+  filter(wave > 2014)
+
+write_csv(test2, "test2.csv")
+write_csv(test3, "test3.csv")
+```
+
+
+
