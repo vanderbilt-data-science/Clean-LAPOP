@@ -46,8 +46,9 @@ Tutorials to Tableau Public can be accessed [here](https://public.tableau.com/en
     + Lengthens countries into tidy format
     + Joins the questions and category columns by column_name
 
-6. Subsetting Categories
-    + Separates questions into groups by topics
+6. Writing .csv
+    + Separates datasets by year
+    + Writes .csv files to use in Tableau Public
 
 # Team
 * Jesse Spencer-Smith | Chief Data Scientist at the Vanderbilt Data Scientist Institute
