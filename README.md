@@ -14,6 +14,7 @@ You will need to download all of the merged files that exist for each country in
 
 In order to run this code, you will also need to install the following packages using `install.packages()`:
 * [tidyverse](https://www.tidyverse.org/packages/)
+* [haven](https://cran.r-project.org/web/packages/haven/haven.pdf)
 * [labelled](https://cran.r-project.org/web/packages/labelled/vignettes/intro_labelled.html)
 * [sjmisc](https://cran.r-project.org/web/packages/sjmisc/sjmisc.pdf)
 * [assertr](https://cran.r-project.org/web/packages/assertr/vignettes/assertr.html)
