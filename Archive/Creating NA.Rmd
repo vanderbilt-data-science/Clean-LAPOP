@@ -1,0 +1,48 @@
+---
+title: "6-creating NA"
+output: html_notebook
+editor_options: 
+  chunk_output_type: inline
+---
+
+#For reference only
+After talking with LAPOP they asked us to leave these responses in the data
+
+```{r}
+
+#Replaces the columns that have "No se le preguntó en este país o año" and others with NA
+turn_to_NA <- function(country){
+  country <- set_na(country, na = c("No se le preguntó en este país o año", "Not asked in this country or year","No Aplica", "No Sabe", "No responde"), as.tag = TRUE)
+}
+
+
+
+```
+
+```{r}
+argentina_na <- turn_to_NA(argentina_unique)
+belize_na <- turn_to_NA(belize_unique)
+bolivia_na <- turn_to_NA(bolivia_unique)
+brazil_na <- turn_to_NA(brazil_unique)
+canada_na <- turn_to_NA(canada_unique)
+chile_na <- turn_to_NA(chile_unique)
+colombia_na <- turn_to_NA(colombia_unique)
+costa_na <- turn_to_NA(costa_unique)
+ecuador_na <- turn_to_NA(ecuador_unique)
+elsalvador_na <- turn_to_NA(elsalvador_unique)
+guatemala_na <- turn_to_NA(guatemala_unique)
+#guyana_na <- turn_to_NA(guyana_unique)
+honduras_na <- turn_to_NA(honduras_unique)
+#jamaica_na <- turn_to_NA(jamaica_unique)
+mexico_na <- turn_to_NA(mexico_unique)
+nicaragua_na <- turn_to_NA(nicaragua_unique)
+panama_na <- turn_to_NA(panama_unique)
+paraguay_na <- turn_to_NA(paraguay_unique)
+peru_na <- turn_to_NA(peru_unique)
+suriname_na <- turn_to_NA(suriname_unique)
+usa_na <- turn_to_NA(usa_unique)
+uruguay_na <- turn_to_NA(uruguay_unique)
+venezuela_na <- turn_to_NA(venezuela_unique)
+```
+
+

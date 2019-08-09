@@ -1,0 +1,137 @@
+---
+title: "4-Combining vb11_12 and vb11_10"
+output: html_notebook
+editor_options: 
+  chunk_output_type: inline
+---
+#Goal of Document
+This combines two columns together that were used for the same data but for seperate years. We might not need to do this in the future with the tidy data
+
+
+
+#PART A
+
+```{r}
+vb_combine_factor <- function(country) {
+  country <- country %>% #
+  #Converting the columns from factors to characters
+  mutate_at(vars(`vb11_10-factor`, `vb11_10-factor`), as.character) %>% 
+  #Creating new column that is vb_combined
+  mutate(`vb_combined-factor` = ifelse(is.na(`vb11_10-factor`), `vb11_10-factor`, `vb11_10-factor`))
+
+  var_label(country$`vb_combined-factor`) <- "¿Con cuál partido político simpatiza usted?"
+  
+  return(country)
+}
+```
+
+
+```{r}
+argentina_vb_factor <- vb_combine_factor(argentina_factor)
+belize_vb_factor <- vb_combine_factor(belize_shrink_factor)
+bolivia_vb_factor <- vb_combine_factor(bolivia_shrink_factor)
+brazil_vb_factor <- vb_combine_factor(brazil_shrink_factor)
+canada_vb_factor <- vb_combine_factor(canada_shrink_factor)
+chile_vb_factor<- vb_combine_factor(chile_shrink_factor)
+colombia_vb_factor <- vb_combine_factor(colombia_shrink_factor)
+costa_vb_factor <- vb_combine_factor(costa_shrink_factor)
+ecuador_vb_factor <- vb_combine_factor(ecuador_shrink_factor)
+elsalvador_vb_factor <- vb_combine_factor(elsalvador_shrink_factor)
+guatemala_vb_factor <- vb_combine_factor(guatemala_shrink_factor)
+#guyana_vb_factor <- vb_combine_factor(guyana_shrink_factor) Commented out because it is English-only
+honduras_vb_factor <- vb_combine_factor(honduras_shrink_factor)
+#jamaica_vb_factor <- vb_combine_factor(jamaica_shrink_factor) Commented out because it is English-only
+mexico_vb_factor <- vb_combine_factor(mexico_shrink_factor)
+nicaragua_vb_factor <- vb_combine_factor(nicaragua_shrink_factor)
+panama_vb_factor <- vb_combine_factor(panama_shrink_factor)
+paraguay_vb_factor <- vb_combine_factor(paraguay_shrink_factor)
+peru_vb_factor <- vb_combine_factor(peru_shrink_factor)
+suriname_vb_factor <- vb_combine_factor(suriname_shrink_factor)
+usa_vb_factor <- vb_combine_factor(usa_shrink_factor)
+uruguay_vb_factor <- vb_combine_factor(uruguay_shrink_factor)
+venezuela_vb_factor <- vb_combine_factor(venezuela_shrink_factor)
+```
+
+```{r}
+
+vb_combine <- function(country) {
+  country <- country %>% #
+  #Converting the columns from factors to characters
+  mutate_at(vars(vb11_10, vb11_12), as.character) %>% 
+  #Creating new column that is vb_combined
+  mutate(vb_combined = ifelse(is.na(vb11_10), vb11_12, vb11_10))
+
+  var_label(country$vb_combined) <- "¿Con cuál partido político simpatiza usted?"
+  
+  return(country)
+}
+```
+
+```{r}
+argentina_vb_unfactor <- vb_combine(argentina_unfactor)
+argentina_vb_unfactor <- vb_combine(argentina_shrink_unfactor)
+belize_vb_unfactor <- vb_combine(belize_unfactor)
+bolivia_vb_unfactor <- vb_combine(bolivia_shrink_unfactor)
+brazil_vb_unfactor <- vb_combine(brazil_shrink_unfactor)
+canada_vb_unfactor <- vb_combine(canada_shrink_unfactor)
+chile_vb_unfactor <- vb_combine(chile_shrink_unfactor)
+colombia_vb_unfactor <- vb_combine(colombia_shrink_unfactor)
+costa_vb_unfactor <- vb_combine(costa_shrink_unfactor)
+ecuador_vb_unfactor <- vb_combine(ecuador_shrink_unfactor)
+elsalvador_vb_unfactor <- vb_combine(elsalvador_shrink_unfactor)
+guatemala_vb_unfactor <- vb_combine(guatemala_shrink_unfactor)
+#guyana_vb_unfactor <- vb_combine(guyana_shrink_unfactor) Commented out because it is English-only
+honduras_vb_unfactor <- vb_combine(honduras_shrink_unfactor)
+#jamaica_vb_unfactor <- vb_combine(jamaica_shrink_unfactor) Commented out because it is English-only
+mexico_vb_unfactor <- vb_combine(mexico_shrink_unfactor)
+nicaragua_vb_unfactor <- vb_combine(nicaragua_shrink_unfactor)
+panama_vb_unfactor <- vb_combine(panama_shrink_unfactor)
+paraguay_vb_unfactor <- vb_combine(paraguay_shrink_unfactor)
+peru_vb_unfactor <- vb_combine(peru_shrink_unfactor)
+suriname_vb_unfactor <- vb_combine(suriname_shrink_unfactor)
+usa_vb_unfactor <- vb_combine(usa_shrink_unfactor)
+uruguay_vb_unfactor <- vb_combine(uruguay_shrink_unfactor)
+venezuela_vb_unfactor <- vb_combine(venezuela_shrink_unfactor)
+```
+
+#For reference only: Alternate
+```{r}
+
+vb_combine <- function(country) {
+  country <- country %>% #
+  #Converting the columns from factors to characters
+  mutate_at(vars(vb11_10, vb11_12), as.character) %>% 
+  #Creating new column that is vb_combined
+  mutate(vb_combined = ifelse(is.na(vb11_10), vb11_12, vb11_10))
+
+  var_label(country$vb_combined) <- "¿Con cuál partido político simpatiza usted?"
+  
+  return(country)
+}
+```
+
+```{r}
+argentina_vb <- vb_combine(argentina_shrink)
+belize_vb <- vb_combine(belize_shrink)
+bolivia_vb <- vb_combine(bolivia_shrink)
+brazil_vb <- vb_combine(brazil_shrink)
+canada_vb <- vb_combine(canada_shrink)
+chile_vb <- vb_combine(chile_shrink)
+colombia_vb <- vb_combine(colombia_shrink)
+costa_vb <- vb_combine(costa_shrink)
+ecuador_vb <- vb_combine(ecuador_shrink)
+elsalvador_vb <- vb_combine(elsalvador_shrink)
+guatemala_vb <- vb_combine(guatemala_shrink)
+#guyana_vb <- vb_combine(guyana_shrink) Commented out because it is English-only
+honduras_vb <- vb_combine(honduras_shrink)
+#jamaica_vb <- vb_combine(jamaica_shrink) Commented out because it is English-only
+mexico_vb <- vb_combine(mexico_shrink)
+nicaragua_vb <- vb_combine(nicaragua_shrink)
+panama_vb <- vb_combine(panama_shrink)
+paraguay_vb <- vb_combine(paraguay_shrink)
+peru_vb <- vb_combine(peru_shrink)
+suriname_vb <- vb_combine(suriname_shrink)
+usa_vb <- vb_combine(usa_shrink)
+uruguay_vb <- vb_combine(uruguay_shrink)
+venezuela_vb <- vb_combine(venezuela_shrink)
+```

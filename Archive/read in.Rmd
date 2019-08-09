@@ -1,0 +1,291 @@
+---
+title: "1-Reading in Data"
+output: html_notebook
+---
+
+##Structure of the code
+The code contains two parts: Part A which works only with one specific dataframe to divide it up by factored or unfactored, and Part B that works with two dataframes - the factored and unfactored version.
+
+For example, Part A would contain only the Argentina dataframe, with columns specified by factored/unfactored. Whereas Part B would have something along the lines of argentina_factored and argentina_unfactored, where each dataframe is EITHER factored or unfactored, not both.
+
+Some functions are repeated in both sections so that you don't have to jump back and forth across parts if you are only trying to look at one.
+
+Suggested order to follow:
+1-Reading in Data
+
+#Libraries
+```{r, message=FALSE}
+library(labelled)
+library(sjmisc)
+library(tidyr)
+library(tidyverse)
+library(dplyr)
+library(haven)
+library(assertr)
+```
+
+
+#PART A
+Creating factored and unfactored dataframes
+```{r}
+factor_country <- function(country){
+  #Reads file for the country
+  country <- read_dta(country)
+  #Factors all the columns
+  country <- as_factor(country)
+  
+  #Starts list x
+  x <- 1
+  
+  #Changes name of column to add "factor"
+  while(x <= length(country)){
+      colnames(country)[x] <- paste(colnames(country)[x], "factor", sep = "_")
+     x <- x + 1
+  }
+  country
+}
+```
+
+# Creating factored dataframes using `factor_country`
+```{r}
+panama_factor <- factor_country("1909860951Panama LAPOP merge 2004-2014 v3.0_W_dta.zip")
+argentina_factor <- factor_country("1326054827Argentina LAPOP merge 2008-2014 v3.0_W_dta.zip")
+bolivia_factor <- factor_country("1500779614Bolivia LAPOP merge 2004-2014 v3.0_W_dta.zip")
+brazil_factor <- factor_country("1058457654Brazil LAPOP merge 2007-2014 v3.0_W_dta.zip")
+belize_factor <- factor_country("1866361808Belize LAPOP merge 2008-2014 v3.0_W_dta.zip")
+canada_factor <- factor_country("257165704Canada LAPOP merge 2006-2014 v3.0_W_dta.zip")
+chile_factor <- factor_country("1651690880Chile LAPOP merge 2006-2014 v3.0_W_dta.zip")
+colombia_factor <- factor_country("26761406Colombia LAPOP merge 2004-2014 v3.0_W_dta.zip")
+costa_factor <- factor_country("312640706CostaRica LAPOP merge 2004-2014 v3.0_W_dta.zip")
+ecuador_factor <- factor_country("1562314955Ecuador LAPOP merge 2004-2014 v3.0_W_dta.zip")
+elsalvador_factor <- factor_country("71618678ElSalvador LAPOP merge 2004-2014 v3.0_W_dta.zip")
+guatemala_factor <- factor_country("833541857Guatemala LAPOP merge 2004-2014 v3.0_W_dta.zip")
+guyana_factor <- factor_country("1293237393Guyana LAPOP merge 2006-2014 v3.0_W_dta.zip")
+paraguay_factor <- factor_country("450650714Paraguay LAPOP merge 2006-2014 v3.0_W_dta.zip")
+honduras_factor <- factor_country("125162980Honduras LAPOP merge 2004-2014 v3.0_W_dta.zip")
+jamaica_factor <- factor_country("1518553693Jamaica LAPOP merge 2006-2014 v3.0_W_dta.zip")
+mexico_factor <- factor_country("1467358429Mexico LAPOP merge 2004-2014 v3.0_W_dta.zip")
+nicaragua_factor <- factor_country("420919900Nicaragua LAPOP merge 2004-2014 v3.0_W_dta.zip")
+peru_factor <- factor_country("897206140Peru LAPOP merge 2006-2014 v3.0_W_dta.zip")
+suriname_factor <- factor_country("2028239474Suriname LAPOP merge 2010-2014 v3.0_W_dta.zip")
+usa_factor <- factor_country("1355754260UnitedStates LAPOP merge 2006-2014 v3.0_W_dta.zip")
+uruguay_factor <- factor_country("1222977998Uruguay LAPOP merge 2007-2014 v3.0_W_dta.zip")
+venezuela_factor <- factor_country("1165310382Venezuela LAPOP merge 2007-2014 v3.0_W_dta.zip")
+```
+
+# Creating unfactored dataframes using `read_dta`
+```{r}
+panama_unfactor <- read_dta("1909860951Panama LAPOP merge 2004-2014 v3.0_W_dta.zip")
+argentina_unfactor <- read_dta("1326054827Argentina LAPOP merge 2008-2014 v3.0_W_dta.zip")
+bolivia_unfactor <- read_dta("1500779614Bolivia LAPOP merge 2004-2014 v3.0_W_dta.zip")
+brazil_unfactor <- read_dta("1058457654Brazil LAPOP merge 2007-2014 v3.0_W_dta.zip")
+belize_unfactor <- read_dta("1866361808Belize LAPOP merge 2008-2014 v3.0_W_dta.zip")
+canada_unfactor <- read_dta("257165704Canada LAPOP merge 2006-2014 v3.0_W_dta.zip")
+chile_unfactor <- read_dta("1651690880Chile LAPOP merge 2006-2014 v3.0_W_dta.zip")
+colombia_unfactor <- read_dta("26761406Colombia LAPOP merge 2004-2014 v3.0_W_dta.zip")
+costa_unfactor <- read_dta("312640706CostaRica LAPOP merge 2004-2014 v3.0_W_dta.zip")
+ecuador_unfactor <- read_dta("1562314955Ecuador LAPOP merge 2004-2014 v3.0_W_dta.zip")
+elsalvador_unfactor <- read_dta("71618678ElSalvador LAPOP merge 2004-2014 v3.0_W_dta.zip")
+guatemala_unfactor <- read_dta("833541857Guatemala LAPOP merge 2004-2014 v3.0_W_dta.zip")
+guyana_unfactor <- read_dta("1293237393Guyana LAPOP merge 2006-2014 v3.0_W_dta.zip")
+paraguay_unfactor <- read_dta("450650714Paraguay LAPOP merge 2006-2014 v3.0_W_dta.zip")
+honduras_unfactor <- read_dta("125162980Honduras LAPOP merge 2004-2014 v3.0_W_dta.zip")
+jamaica_unfactor <- read_dta("1518553693Jamaica LAPOP merge 2006-2014 v3.0_W_dta.zip")
+mexico_unfactor <- read_dta("1467358429Mexico LAPOP merge 2004-2014 v3.0_W_dta.zip")
+nicaragua_unfactor <- read_dta("420919900Nicaragua LAPOP merge 2004-2014 v3.0_W_dta.zip")
+peru_unfactor <- read_dta("897206140Peru LAPOP merge 2006-2014 v3.0_W_dta.zip")
+suriname_unfactor <- read_dta("2028239474Suriname LAPOP merge 2010-2014 v3.0_W_dta.zip")
+usa_unfactor <- read_dta("1355754260UnitedStates LAPOP merge 2006-2014 v3.0_W_dta.zip")
+uruguay_unfactor <- read_dta("1222977998Uruguay LAPOP merge 2007-2014 v3.0_W_dta.zip")
+venezuela_unfactor <- read_dta("1165310382Venezuela LAPOP merge 2007-2014 v3.0_W_dta.zip")
+```
+
+
+# Creating factored dataframes of 2016/17 questionnaires using `factor_country`
+```{r}
+argentina_16_factor <- factor_country("/Users/lindsayhardy/Clean-LAPOP/42076439Argentina LAPOP AmericasBarometer 2017 V1.0_W (1).dta")
+venezuela_16_factor  <- factor_country("25258094Venezuela LAPOP AmericasBarometer 2016-17 V1.0_W.dta")
+bolivia_16_factor  <- factor_country("142790203Bolivia LAPOP AmericasBarometer 2017 V1.0_W.dta")
+brazil_16_factor  <- factor_country("780314464Brazil LAPOP AmericasBarometer 2017 V1.0_W.dta")
+canada_16_factor  <- factor_country("576555173Canada LAPOP AmericasBarometer 2017 V1.0_W.dta")
+chile_16_factor  <- factor_country("336280178Chile LAPOP AmericasBarometer 2017 V1.0_W.dta")
+colombia_16_factor  <- factor_country("1966987763Colombia LAPOP AmericasBarometer 2016 V1.0_W.dta")
+costa_16_factor  <- factor_country("1636511905CostaRica LAPOP AmericasBarometer 2016 V1.0_W.dta")
+ecuador_16_factor  <- factor_country("1061044693Ecuador LAPOP AmericasBarometer 2016-17 V1.0_W.dta")
+elsalvador_16_factor  <- factor_country("381267663ElSalvador LAPOP AmericasBarometer 2016 V1.0_W.dta")
+guatemala_16_factor  <- factor_country("823416394Guatemala LAPOP AmericasBarometer 2017 V1.0_W.dta")
+guyana_16_factor  <- factor_country("1740874324Guyana LAPOP AmericasBarometer 2016 V1.0_W.dta")
+honduras_16_factor  <- factor_country("1252173714Honduras LAPOP AmericasBarometer 2016 V1.0_W.dta")
+jamaica_16_factor  <- factor_country("428805428Jamaica LAPOP AmericasBarometer 2017 V1.0_W.dta")
+mexico_16_factor  <- factor_country("275973272Mexico LAPOP AmericasBarometer 2017 V1.0_W.dta")
+nicaragua_16_factor  <- factor_country("1862548546Nicaragua LAPOP AmericasBarometer 2016 V1.0_W.dta")
+panama_16_factor  <- factor_country("2078678947Panama LAPOP AmericasBarometer 2017 V1.0_W.dta")
+paraguay_16_factor <- factor_country("1311870907Paraguay LAPOP AmericasBarometer 2016 V1.0 W.dta")
+peru_16_factor  <- factor_country("83639715Peru_LAPOP_AmericasBarometer_2017_V1.1_W.dta")
+usa_16_factor  <- factor_country("2133069031United States LAPOP AmericasBarometer 2017 V1.0_W.dta")
+uruguay_16_factor  <- factor_country("646644681Uruguay LAPOP AmericasBarometer 2017 V1.0_W.dta")
+```
+
+
+# Creating unfactored dataframes of 2016/17 questionnaires using `read_dta`
+```{r}
+argentina_16_unfactor <- read_dta("/Users/lindsayhardy/Clean-LAPOP/42076439Argentina LAPOP AmericasBarometer 2017 V1.0_W (1).dta") %>%
+  transform(uniq_id = as.character(uniq_id))
+
+venezuela_16_unfactor  <- read_dta("25258094Venezuela LAPOP AmericasBarometer 2016-17 V1.0_W.dta") %>% 
+  transform(uniq_id = as.character(uniq_id))
+
+bolivia_16_unfactor  <- read_dta("142790203Bolivia LAPOP AmericasBarometer 2017 V1.0_W.dta") %>% 
+  transform(uniq_id = as.character(uniq_id))
+
+brazil_16_unfactor  <- read_dta("780314464Brazil LAPOP AmericasBarometer 2017 V1.0_W.dta") %>% 
+  transform(uniq_id = as.character(uniq_id))
+
+canada_16_unfactor  <- read_dta("576555173Canada LAPOP AmericasBarometer 2017 V1.0_W.dta") %>% 
+  transform(uniq_id = as.character(uniq_id))
+
+chile_16_unfactor  <- read_dta("336280178Chile LAPOP AmericasBarometer 2017 V1.0_W.dta") %>% 
+  transform(uniq_id = as.character(uniq_id))
+
+colombia_16_unfactor  <- read_dta("1966987763Colombia LAPOP AmericasBarometer 2016 V1.0_W.dta") %>% 
+  transform(uniq_id = as.character(uniq_id))
+
+costa_16_unfactor  <- read_dta("1636511905CostaRica LAPOP AmericasBarometer 2016 V1.0_W.dta") %>% 
+  transform(uniq_id = as.character(uniq_id))
+
+ecuador_16_unfactor  <- read_dta("1061044693Ecuador LAPOP AmericasBarometer 2016-17 V1.0_W.dta") %>% 
+  transform(uniq_id = as.character(uniq_id))
+
+elsalvador_16_unfactor  <- read_dta("381267663ElSalvador LAPOP AmericasBarometer 2016 V1.0_W.dta") %>% 
+  transform(uniq_id = as.character(uniq_id))
+
+guatemala_16_unfactor  <- read_dta("823416394Guatemala LAPOP AmericasBarometer 2017 V1.0_W.dta") %>% 
+  transform(uniq_id = as.character(uniq_id))
+
+guyana_16_unfactor  <- read_dta("1740874324Guyana LAPOP AmericasBarometer 2016 V1.0_W.dta") %>% 
+  transform(uniq_id = as.character(uniq_id))
+
+honduras_16_unfactor  <- read_dta("1252173714Honduras LAPOP AmericasBarometer 2016 V1.0_W.dta") %>% 
+  transform(uniq_id = as.character(uniq_id))
+
+jamaica_16_unfactor  <- read_dta("428805428Jamaica LAPOP AmericasBarometer 2017 V1.0_W.dta") %>% 
+  transform(uniq_id = as.character(uniq_id))
+
+mexico_16_unfactor  <- read_dta("275973272Mexico LAPOP AmericasBarometer 2017 V1.0_W.dta") %>% 
+  transform(uniq_id = as.character(uniq_id))
+
+nicaragua_16_unfactor  <- read_dta("1862548546Nicaragua LAPOP AmericasBarometer 2016 V1.0_W.dta") %>% 
+  transform(uniq_id = as.character(uniq_id))
+
+panama_16_unfactor  <- read_dta("2078678947Panama LAPOP AmericasBarometer 2017 V1.0_W.dta") %>% 
+  transform(uniq_id = as.character(uniq_id))
+
+paraguay_16_unfactor <- read_dta("1311870907Paraguay LAPOP AmericasBarometer 2016 V1.0 W.dta") %>% 
+  transform(uniq_id = as.character(uniq_id))
+
+peru_16_unfactor  <- read_dta("83639715Peru_LAPOP_AmericasBarometer_2017_V1.1_W.dta") %>% 
+  transform(uniq_id = as.character(uniq_id))
+
+usa_16_unfactor  <- read_dta("2133069031United States LAPOP AmericasBarometer 2017 V1.0_W.dta") %>% 
+  transform(uniq_id = as.character(uniq_id))
+
+uruguay_16_unfactor  <- read_dta("646644681Uruguay LAPOP AmericasBarometer 2017 V1.0_W.dta") %>% 
+  transform(uniq_id = as.character(uniq_id))
+```
+
+
+
+
+#For Reference only: Alternate
+Step 1 - read in the data
+Step 2 - split it up into what needs to be factored vs what doesn't
+Step 3 - return the new data set of the combined unfactored and factored version
+```{r}
+#Function used to factor the entire data frame
+factor_country <- function(country) {
+  country_factor <- as_factor(country)
+  return(country_factor)
+}
+
+#Makes a list that will store column names that need to be factored
+factor <- rep(NA, 900)
+i <- 1
+x <- 1
+
+#Makes a list of columns that should be factored then makes dataframe of columns that should remain unfactored
+factor_unfactor_combine <- function(filename){
+  #Reads in the data
+  country <- read_dta(filename)
+  #Makes a list of all the columns that are present in the country
+  columns <- attributes(country)$names
+  #Creates a dataframe that the unfactored data can be held in
+  unfactor <- data_frame('extra' = country$pais)
+  
+  #Factored version of the country
+  pais <- as_factor(country %>%
+                      select(pais))
+  #Removes Pais column
+  country <- country %>%
+    select(-pais)
+  #Combines country and pais
+  country <- cbind(country, pais)
+  
+  #Loops through each of the columns, determining if it needs to be factored or not
+  while(x <= length(columns)){
+    #Stores one of the columns in d, have to use !!! syms because columns is in a string list format
+    d <- (country %>%
+            select(!!! syms(columns[x])))
+    #If 6,7,8,9, or 10 are in d
+    if((6 %in% d[[unlist(columns[x])]] || 7 %in% d[[unlist(columns[x])]] || 8 %in% d[[unlist(columns[x])]] || 9 %in% d[[unlist(columns[x])]] || 10 %in% d[[unlist(columns[x])]])){
+      #If it is, then add to the dataframe created earlier
+      unfactor <- cbind(unfactor, d)
+    } else{
+      #If it isn't, then add the column name to the factor list
+      factor[i] <- unlist(columns[x])
+      i <- i + 1
+    }
+    x <-  x + 1
+  }
+  
+  #Remove "extra", the column originally used to create the dataframe
+  unfactor <- unfactor %>%
+    select(-extra)
+  #Select the columns that should be factored, shrink country down to just those columns and factor it
+  factor <- factor[!is.na(factor)]
+  country <- country[factor]
+  factored_country <- factor_country(country)
+  #Combine unfactored and factored together
+  full_country <- cbind(factored_country, unfactor)
+  
+  return(full_country)
+}
+```
+
+
+#Applying `factor_unfactor_combine()` to all countries
+```{r}
+panama <- factor_unfactor_combine("1909860951Panama LAPOP merge 2004-2014 v3.0_W_dta.zip")
+argentina <- factor_unfactor_combine("1326054827Argentina LAPOP merge 2008-2014 v3.0_W_dta.zip")
+bolivia <- factor_unfactor_combine("1500779614Bolivia LAPOP merge 2004-2014 v3.0_W_dta.zip")
+brazil <- factor_unfactor_combine("1058457654Brazil LAPOP merge 2007-2014 v3.0_W_dta.zip")
+belize <- factor_unfactor_combine("1866361808Belize LAPOP merge 2008-2014 v3.0_W_dta.zip")
+canada <- factor_unfactor_combine("257165704Canada LAPOP merge 2006-2014 v3.0_W_dta.zip")
+chile <- factor_unfactor_combine("1651690880Chile LAPOP merge 2006-2014 v3.0_W_dta.zip")
+colombia <- factor_unfactor_combine("26761406Colombia LAPOP merge 2004-2014 v3.0_W_dta.zip")
+costa <- factor_unfactor_combine("312640706CostaRica LAPOP merge 2004-2014 v3.0_W_dta.zip")
+ecuador <- factor_unfactor_combine("1562314955Ecuador LAPOP merge 2004-2014 v3.0_W_dta.zip")
+elsalvador <- factor_unfactor_combine("71618678ElSalvador LAPOP merge 2004-2014 v3.0_W_dta.zip")
+guatemala <- factor_unfactor_combine("833541857Guatemala LAPOP merge 2004-2014 v3.0_W_dta.zip")
+guyana <- factor_unfactor_combine("1293237393Guyana LAPOP merge 2006-2014 v3.0_W_dta.zip")
+paraguay <- factor_unfactor_combine("450650714Paraguay LAPOP merge 2006-2014 v3.0_W_dta.zip")
+honduras <- factor_unfactor_combine("125162980Honduras LAPOP merge 2004-2014 v3.0_W_dta.zip")
+jamaica <- factor_unfactor_combine("1518553693Jamaica LAPOP merge 2006-2014 v3.0_W_dta.zip")
+mexico <- factor_unfactor_combine("1467358429Mexico LAPOP merge 2004-2014 v3.0_W_dta.zip")
+nicaragua <- factor_unfactor_combine("420919900Nicaragua LAPOP merge 2004-2014 v3.0_W_dta.zip")
+peru <- factor_unfactor_combine("897206140Peru LAPOP merge 2006-2014 v3.0_W_dta.zip")
+suriname <- factor_unfactor_combine("2028239474Suriname LAPOP merge 2010-2014 v3.0_W_dta.zip")
+usa <- factor_unfactor_combine("1355754260UnitedStates LAPOP merge 2006-2014 v3.0_W_dta.zip")
+uruguay <- factor_unfactor_combine("1222977998Uruguay LAPOP merge 2007-2014 v3.0_W_dta.zip")
+venezuela <- factor_unfactor_combine("1165310382Venezuela LAPOP merge 2007-2014 v3.0_W_dta.zip")
+```
+
