@@ -283,3 +283,15 @@ jamaica_clean <- unmerged(jamaica_unique_unfactor, jamaica_16_unfactor, jamaica_
 ```
 
 
+## Combining all clean versions
+
+Making list of all the data frames
+```{r}
+total_clean <- list(argentina_clean, belize_clean, brazil_clean, chile_clean, panama_clean, paraguay_clean, peru_clean, uruguay_clean, venezuela_clean, bolivia_clean, canada_clean, colombia_clean, costa_clean, ecuador_clean, elsalvador_clean, guatemala_clean, honduras_clean, mexico_clean, nicaragua_clean, usa_clean, suriname_clean, guyana_clean, jamaica_clean)
+```
+
+Combining dataframes - outputs data frame with 25 million rows. Going to look into `pivot_wider()` for spreading the data and getting below the maximum row limit with Tableau Public.
+```{r}
+combined_clean <- bind_rows(total_clean)
+```
+
