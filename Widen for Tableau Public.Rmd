@@ -1,0 +1,101 @@
+---
+title: "Widen for Tableau Public"
+output: html_notebook
+editor_options: 
+  chunk_output_type: inline
+---
+
+# Testing `janitor`
+```{r}
+library(janitor)
+```
+
+## `clean_names()`
+```{r}
+test_df <- as.data.frame(matrix(ncol = 6))
+names(test_df) <- c("firstName", "ábc@!", "% successful (2009)", "REPEAT VALUE", "REPEAT VALUE")
+```
+
+```{r}
+test_df %>% 
+  clean_names()
+```
+
+## Testing with LAPOP values
+```{r}
+argentina_16_factor %>% 
+  clean_names()
+
+bolivia_16_factor %>% 
+  clean_names()
+```
+
+## `compare_df_cols()`
+
+```{r}
+df1 <- data.frame(a = 1:2, b = c("big", "small")) # a factor by default
+df2 <- data.frame(a = 10:12, b = c("medium", "small", "big"), c = 0, stringsAsFactors = FALSE)
+df3 <- df1 %>%
+  dplyr::mutate(b = as.character(b))
+
+compare_df_cols(df1, df2, df3)
+
+compare_df_cols(df1, df2, df3, return = "mismatch")
+compare_df_cols(df1, df2, df3, return = "mismatch", bind_method = "rbind") # default is dplyr::bind_rows
+```
+
+## Applying with Argentina and Bolivia
+
+```{r}
+compare_df_cols(argentina_16_factor, bolivia_16_factor)
+```
+
+```{r}
+test1 <- argentina_16_factor %>% 
+  select(-q2_factor)
+test <- semi_join(test1, bolivia_16_factor, by = NULL)
+```
+
+```{r}
+compare_df_cols(argentina_clean, bolivia_clean)
+```
+
+## Alternate approach
+In the long format, try unique() on country name
+
+We need country, wave, and questions to create a new data frame with `unique()`. Then we need to create a function that gets - `group_by()` - these columns, makes them unique, creates a new column with its count - `summarize(n())` - and finally filters down to the ones that occur in all datasets - `filter(x >= total # of countries)`.
+
+*Current total number of countries is 20*
+
+I am first going to test on Argentina and Bolivia.
+### Collecting all questions
+```{r}
+argentina_narrow <- argentina_clean %>% 
+  #Narrows data frame to two variables
+  select(country, question) %>% 
+  #Returns each question once
+  unique()
+
+#Repeating the process
+bolivia_narrow <- bolivia_clean %>% 
+  #Narrows data frame to two variables
+  select(country, question) %>% 
+  #Returns each question once
+  unique()
+```
+
+### Filter common questions
+```{r}
+find_common_questions <- function(country1, country2){
+  left_join(country1, country2, by = "country") %>% 
+    group_by(question) %>% 
+    summarize(count = n()) %>% 
+    #Only doing two because its between 2 countries right now
+    filter(count == 2)
+}
+
+first_test <- find_common_questions(argentina_narrow, bolivia_narrow)
+
+first_test
+```
+
