@@ -82,7 +82,7 @@ argentina_narrow <- argentina_clean %>%
 bolivia_narrow <- bolivia_clean %>% 
   #Narrows data frame to two variables
   select(country, question) %>% 
-  mutate(country = as.character(country))
+  mutate(country = as.character(country)) %>% 
   #Returns each question once
   unique()
 
@@ -104,6 +104,15 @@ countries <- list(argentina_clean, belize_clean, bolivia_clean, brazil_clean, ca
 
 #Narrowing countries to just have two columns
 combined_questions <- map_dfr(countries, select_questions)
+
+
+#Frequency table for total number of questions
+combined_questions %>% 
+  tabyl(question)
+
+combined_questions %>% 
+  select(country) %>% 
+  unique()
 
 #Checking total number of unique questions
 number_without_repeats <- combined_questions %>% 

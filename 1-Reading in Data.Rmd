@@ -62,12 +62,15 @@ If you want to change the files that are being read in, you can either make a ne
 
 ## Creating factored dataframes using `factor_country`
 ```{r}
-panama_factor <- factor_country("1909860951Panama LAPOP merge 2004-2014 v3.0_W_dta.zip")
+panama_factor <- factor_country("1909860951Panama LAPOP merge 2004-2014 v3.0_W_dta.zip") %>% 
+  mutate(pais_factor = recode(pais_factor, Panamá = "Panama"))
 argentina_factor <- factor_country("1326054827Argentina LAPOP merge 2008-2014 v3.0_W_dta.zip")
 bolivia_factor <- factor_country("1500779614Bolivia LAPOP merge 2004-2014 v3.0_W_dta.zip")
-brazil_factor <- factor_country("1058457654Brazil LAPOP merge 2007-2014 v3.0_W_dta.zip")
+brazil_factor <- factor_country("1058457654Brazil LAPOP merge 2007-2014 v3.0_W_dta.zip") %>% 
+  mutate(pais_factor = recode(pais_factor, Brasil = "Brazil"))
 belize_factor <- factor_country("1866361808Belize LAPOP merge 2008-2014 v3.0_W_dta.zip")
-canada_factor <- factor_country("257165704Canada LAPOP merge 2006-2014 v3.0_W_dta.zip")
+canada_factor <- factor_country("257165704Canada LAPOP merge 2006-2014 v3.0_W_dta.zip") %>% 
+  mutate(pais_factor = recode(pais_factor, Canadá = "Canada"))
 chile_factor <- factor_country("1651690880Chile LAPOP merge 2006-2014 v3.0_W_dta.zip")
 colombia_factor <- factor_country("26761406Colombia LAPOP merge 2004-2014 v3.0_W_dta.zip")
 costa_factor <- factor_country("312640706CostaRica LAPOP merge 2004-2014 v3.0_W_dta.zip")
@@ -78,9 +81,11 @@ guyana_factor <- factor_country("1293237393Guyana LAPOP merge 2006-2014 v3.0_W_d
 paraguay_factor <- factor_country("450650714Paraguay LAPOP merge 2006-2014 v3.0_W_dta.zip")
 honduras_factor <- factor_country("125162980Honduras LAPOP merge 2004-2014 v3.0_W_dta.zip")
 jamaica_factor <- factor_country("1518553693Jamaica LAPOP merge 2006-2014 v3.0_W_dta.zip")
-mexico_factor <- factor_country("1467358429Mexico LAPOP merge 2004-2014 v3.0_W_dta.zip")
+mexico_factor <- factor_country("1467358429Mexico LAPOP merge 2004-2014 v3.0_W_dta.zip") %>% 
+  mutate(pais_factor = recode(pais_factor, México = "Mexico"))
 nicaragua_factor <- factor_country("420919900Nicaragua LAPOP merge 2004-2014 v3.0_W_dta.zip")
-peru_factor <- factor_country("897206140Peru LAPOP merge 2006-2014 v3.0_W_dta.zip")
+peru_factor <- factor_country("897206140Peru LAPOP merge 2006-2014 v3.0_W_dta.zip") %>% 
+  mutate(pais_factor = recode(pais_factor, Perú = "Peru"))
 suriname_factor <- factor_country("2028239474Suriname LAPOP merge 2010-2014 v3.0_W_dta.zip")
 usa_factor <- factor_country("1355754260UnitedStates LAPOP merge 2006-2014 v3.0_W_dta.zip")
 uruguay_factor <- factor_country("1222977998Uruguay LAPOP merge 2007-2014 v3.0_W_dta.zip")
@@ -128,7 +133,8 @@ This is the 16/17 version of the `factor_country()` used above. The same process
 argentina_16_factor <- factor_country("42076439Argentina LAPOP AmericasBarometer 2017 V1.0_W.dta")
 venezuela_16_factor  <- factor_country("25258094Venezuela LAPOP AmericasBarometer 2016-17 V1.0_W.dta")
 bolivia_16_factor  <- factor_country("142790203Bolivia LAPOP AmericasBarometer 2017 V1.0_W.dta")
-brazil_16_factor  <- factor_country("780314464Brazil LAPOP AmericasBarometer 2017 V1.0_W.dta")
+brazil_16_factor  <- factor_country("780314464Brazil LAPOP AmericasBarometer 2017 V1.0_W.dta") %>% 
+  mutate(pais_factor = recode(pais_factor, Brasil = "Brazil"))
 canada_16_factor  <- factor_country("576555173Canada LAPOP AmericasBarometer 2017 V1.0_W.dta")
 chile_16_factor  <- factor_country("336280178Chile LAPOP AmericasBarometer 2017 V1.0_W.dta")
 colombia_16_factor  <- factor_country("1966987763Colombia LAPOP AmericasBarometer 2016 V1.0_W.dta")
@@ -139,11 +145,14 @@ guatemala_16_factor  <- factor_country("823416394Guatemala LAPOP AmericasBaromet
 guyana_16_factor  <- factor_country("1740874324Guyana LAPOP AmericasBarometer 2016 V1.0_W.dta")
 honduras_16_factor  <- factor_country("1252173714Honduras LAPOP AmericasBarometer 2016 V1.0_W.dta")
 jamaica_16_factor  <- factor_country("428805428Jamaica LAPOP AmericasBarometer 2017 V1.0_W.dta")
-mexico_16_factor  <- factor_country("275973272Mexico LAPOP AmericasBarometer 2017 V1.0_W.dta")
+mexico_16_factor  <- factor_country("275973272Mexico LAPOP AmericasBarometer 2017 V1.0_W.dta") %>% 
+  mutate(pais_factor = recode(pais_factor, México = "Mexico"))
 nicaragua_16_factor  <- factor_country("1862548546Nicaragua LAPOP AmericasBarometer 2016 V1.0_W.dta")
-panama_16_factor  <- factor_country("2078678947Panama LAPOP AmericasBarometer 2017 V1.0_W.dta")
+panama_16_factor  <- factor_country("2078678947Panama LAPOP AmericasBarometer 2017 V1.0_W.dta") %>% 
+  mutate(pais_factor = recode(pais_factor, Panamá = "Panama"))
 paraguay_16_factor <- factor_country("1311870907Paraguay LAPOP AmericasBarometer 2016 V1.0 W.dta")
-peru_16_factor  <- factor_country("83639715Peru_LAPOP_AmericasBarometer_2017_V1.1_W.dta")
+peru_16_factor  <- factor_country("83639715Peru_LAPOP_AmericasBarometer_2017_V1.1_W.dta") %>% 
+  mutate(pais_factor = recode(pais_factor, Perú = "Peru"))
 usa_16_factor  <- factor_country("2133069031United States LAPOP AmericasBarometer 2017 V1.0_W.dta")
 uruguay_16_factor  <- factor_country("646644681Uruguay LAPOP AmericasBarometer 2017 V1.0_W.dta")
 ```
