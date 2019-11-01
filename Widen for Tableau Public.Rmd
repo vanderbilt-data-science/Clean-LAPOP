@@ -8,6 +8,7 @@ editor_options:
 # Testing `janitor`
 ```{r}
 library(janitor)
+library(rlang)
 ```
 
 ## `clean_names()`
@@ -65,7 +66,7 @@ In the long format, try unique() on country name
 
 We need country, wave, and questions to create a new data frame with `unique()`. Then we need to create a function that gets - `group_by()` - these columns, makes them unique, creates a new column with its count - `summarize(n())` - and finally filters down to the ones that occur in all datasets - `filter(x >= total # of countries)`.
 
-*Current total number of countries is 20*
+*Current total number of countries is 23*
 
 I am first going to test on Argentina and Bolivia.
 ### Collecting all questions
@@ -73,6 +74,7 @@ I am first going to test on Argentina and Bolivia.
 argentina_narrow <- argentina_clean %>% 
   #Narrows data frame to two variables
   select(country, question) %>% 
+  mutate(country = as.character(country)) %>% 
   #Returns each question once
   unique()
 
@@ -80,18 +82,40 @@ argentina_narrow <- argentina_clean %>%
 bolivia_narrow <- bolivia_clean %>% 
   #Narrows data frame to two variables
   select(country, question) %>% 
+  mutate(country = as.character(country))
   #Returns each question once
   unique()
+
+#test1 <- bind_rows(argentina_narrow, bolivia_narrow)
+str(argentina_narrow)
+
+select_questions <- function(country_df){
+  country_df %>% 
+    select(country, question) %>% 
+    mutate(country = as.character(country)) %>% 
+    unique()
+}
+
+#test1 <- select_questions(belize_clean)
+
+countries <- list(argentina_clean, belize_clean, bolivia_clean, brazil_clean, canada_clean, chile_clean, colombia_clean, costa_clean, ecuador_clean, elsalvador_clean, guatemala_clean, guyana_clean, honduras_clean, jamaica_clean, mexico_clean, nicaragua_clean, panama_clean, paraguay_clean, peru_clean, suriname_clean, uruguay_clean, usa_clean, venezuela_clean)
+
+#length(countries) There are 23 countries
+
+combined_questions <- map_dfr(countries, select_questions)
+
+number_of_repeats <- combined_questions %>% 
+  n_distinct()
+
+number_of_repeats
 ```
 
 ### Filter common questions
 ```{r}
 find_common_questions <- function(country1, country2){
-  left_join(country1, country2, by = "country") %>% 
-    group_by(question) %>% 
-    summarize(count = n()) %>% 
-    #Only doing two because its between 2 countries right now
-    filter(count == 2)
+  left_join(country1, country2, by = "question") %>% 
+    filter(!is.na(country.x)) %>% 
+    filter(!is.na(country.y))
 }
 
 first_test <- find_common_questions(argentina_narrow, bolivia_narrow)
