@@ -118,6 +118,11 @@ common_questions <- combined_questions %>%
   unique()
 
 common_questions
+
+#Trying to just keep the ones that are in the list...
+isolated <- argentina_narrow %>% 
+  select(question) %>% 
+  filter(question %in% common_questions)
 ```
 
 ### Filter common questions
