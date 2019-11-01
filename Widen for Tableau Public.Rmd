@@ -105,7 +105,7 @@ countries <- list(argentina_clean, belize_clean, bolivia_clean, brazil_clean, ca
 combined_questions <- map_dfr(countries, select_questions)
 
 number_of_repeats <- combined_questions %>% 
-  n_distinct()
+  n_distinct("question")
 
 number_of_repeats
 ```
