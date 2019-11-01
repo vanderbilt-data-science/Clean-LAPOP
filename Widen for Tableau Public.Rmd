@@ -102,12 +102,22 @@ countries <- list(argentina_clean, belize_clean, bolivia_clean, brazil_clean, ca
 
 #length(countries) There are 23 countries
 
+#Narrowing countries to just have two columns
 combined_questions <- map_dfr(countries, select_questions)
 
-number_of_repeats <- combined_questions %>% 
-  n_distinct("question")
+#Checking total number of unique questions
+number_without_repeats <- combined_questions %>% 
+  select(question) %>% 
+  n_distinct()
 
-number_of_repeats
+number_without_repeats #Returns 119
+
+#Finding all the questions without repeats
+common_questions <- combined_questions %>% 
+  select(question) %>% 
+  unique()
+
+common_questions
 ```
 
 ### Filter common questions
