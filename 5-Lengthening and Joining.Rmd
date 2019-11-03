@@ -33,7 +33,7 @@ lengthen <- function(country) {
   country <- transform(country, answer_measure = as.character(answer_measure))
   #Selects the columns we want
   country <- country %>% 
-    select(pais, wave, uniq_id, column_name, answer_measure, weights)
+    select(pais, wave, person_id, column_name, answer_measure, weights)
   return(country)
 }
 ```
@@ -57,7 +57,7 @@ lengthen_16 <- function(country) {
   
   #Selects the columns we want
   country <- country %>% 
-    select(pais, wave, uniq_id, column_name, answer_measure, weights)
+    select(pais, wave, person_id, column_name, answer_measure, weights)
   return(country)
 }
 ```
@@ -81,7 +81,7 @@ lengthen_factor <- function(country) {
   
   #Selects columns that we want
   country <- country %>% 
-    select(pais_factor, wave_factor, uniq_id_factor, column_name_factor, answer_dimension, weights_factor)
+    select(pais_factor, wave_factor, person_id_factor, column_name_factor, answer_dimension, weights_factor)
   return(country)
 }
 ```
@@ -102,7 +102,7 @@ lengthen_16factor <- function(country) {
   
   #Selects columns that we want
   country <- country %>% 
-    select(pais_factor, wave_factor, uniq_id_factor, column_name_factor, answer_dimension, weights_factor)
+    select(pais_factor, wave_factor, person_id_factor, column_name_factor, answer_dimension, weights_factor)
   return(country)
 }
 ```
@@ -146,7 +146,7 @@ clean <- function(country){
   country <- country %>%
    filter(!(column_name %in% variables)) %>%
     #Selects the columns that are no longer needed
-    select(-wave_factor, -uniq_id, -column_name, -column_name_factor, -question_factor, -weights_factor) %>% 
+    select(-wave_factor, -person_id, -column_name, -column_name_factor, -question_factor, -weights_factor) %>% 
     #Renames pais_factor to country
     rename(country = pais_factor)
   return(country)

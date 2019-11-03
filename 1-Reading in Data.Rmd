@@ -62,11 +62,10 @@ If you want to change the files that are being read in, you can either make a ne
 
 ## Creating factored dataframes using `factor_country`
 ```{r}
-panama_factor <- factor_country("1909860951Panama LAPOP merge 2004-2014 v3.0_W_dta.zip") %>% 
-  mutate(pais_factor = recode(pais_factor, Panamá = "Panama"))
 argentina_factor <- factor_country("1326054827Argentina LAPOP merge 2008-2014 v3.0_W_dta.zip")
 bolivia_factor <- factor_country("1500779614Bolivia LAPOP merge 2004-2014 v3.0_W_dta.zip")
 brazil_factor <- factor_country("1058457654Brazil LAPOP merge 2007-2014 v3.0_W_dta.zip") %>% 
+  #Correcting for inconsistencies in accents
   mutate(pais_factor = recode(pais_factor, Brasil = "Brazil"))
 belize_factor <- factor_country("1866361808Belize LAPOP merge 2008-2014 v3.0_W_dta.zip")
 canada_factor <- factor_country("257165704Canada LAPOP merge 2006-2014 v3.0_W_dta.zip") %>% 
@@ -78,12 +77,15 @@ ecuador_factor <- factor_country("1562314955Ecuador LAPOP merge 2004-2014 v3.0_W
 elsalvador_factor <- factor_country("71618678ElSalvador LAPOP merge 2004-2014 v3.0_W_dta.zip")
 guatemala_factor <- factor_country("833541857Guatemala LAPOP merge 2004-2014 v3.0_W_dta.zip")
 guyana_factor <- factor_country("1293237393Guyana LAPOP merge 2006-2014 v3.0_W_dta.zip")
-paraguay_factor <- factor_country("450650714Paraguay LAPOP merge 2006-2014 v3.0_W_dta.zip")
 honduras_factor <- factor_country("125162980Honduras LAPOP merge 2004-2014 v3.0_W_dta.zip")
 jamaica_factor <- factor_country("1518553693Jamaica LAPOP merge 2006-2014 v3.0_W_dta.zip")
 mexico_factor <- factor_country("1467358429Mexico LAPOP merge 2004-2014 v3.0_W_dta.zip") %>% 
   mutate(pais_factor = recode(pais_factor, México = "Mexico"))
 nicaragua_factor <- factor_country("420919900Nicaragua LAPOP merge 2004-2014 v3.0_W_dta.zip")
+panama_factor <- factor_country("1909860951Panama LAPOP merge 2004-2014 v3.0_W_dta.zip") %>% 
+  #Correcting for inconsistencies in accents
+  mutate(pais_factor = recode(pais_factor, Panamá = "Panama"))
+paraguay_factor <- factor_country("450650714Paraguay LAPOP merge 2006-2014 v3.0_W_dta.zip")
 peru_factor <- factor_country("897206140Peru LAPOP merge 2006-2014 v3.0_W_dta.zip") %>% 
   mutate(pais_factor = recode(pais_factor, Perú = "Peru"))
 suriname_factor <- factor_country("2028239474Suriname LAPOP merge 2010-2014 v3.0_W_dta.zip")
@@ -95,7 +97,6 @@ venezuela_factor <- factor_country("1165310382Venezuela LAPOP merge 2007-2014 v3
 ## Creating unfactored dataframes using `read_dta`
 This is where we read in the unfactored data.
 ```{r}
-panama_unfactor <- read_dta("1909860951Panama LAPOP merge 2004-2014 v3.0_W_dta.zip")
 argentina_unfactor <- read_dta("1326054827Argentina LAPOP merge 2008-2014 v3.0_W_dta.zip")
 bolivia_unfactor <- read_dta("1500779614Bolivia LAPOP merge 2004-2014 v3.0_W_dta.zip")
 brazil_unfactor <- read_dta("1058457654Brazil LAPOP merge 2007-2014 v3.0_W_dta.zip")
@@ -108,11 +109,12 @@ ecuador_unfactor <- read_dta("1562314955Ecuador LAPOP merge 2004-2014 v3.0_W_dta
 elsalvador_unfactor <- read_dta("71618678ElSalvador LAPOP merge 2004-2014 v3.0_W_dta.zip")
 guatemala_unfactor <- read_dta("833541857Guatemala LAPOP merge 2004-2014 v3.0_W_dta.zip")
 guyana_unfactor <- read_dta("1293237393Guyana LAPOP merge 2006-2014 v3.0_W_dta.zip")
-paraguay_unfactor <- read_dta("450650714Paraguay LAPOP merge 2006-2014 v3.0_W_dta.zip")
 honduras_unfactor <- read_dta("125162980Honduras LAPOP merge 2004-2014 v3.0_W_dta.zip")
 jamaica_unfactor <- read_dta("1518553693Jamaica LAPOP merge 2006-2014 v3.0_W_dta.zip")
 mexico_unfactor <- read_dta("1467358429Mexico LAPOP merge 2004-2014 v3.0_W_dta.zip")
 nicaragua_unfactor <- read_dta("420919900Nicaragua LAPOP merge 2004-2014 v3.0_W_dta.zip")
+panama_unfactor <- read_dta("1909860951Panama LAPOP merge 2004-2014 v3.0_W_dta.zip")
+paraguay_unfactor <- read_dta("450650714Paraguay LAPOP merge 2006-2014 v3.0_W_dta.zip")
 peru_unfactor <- read_dta("897206140Peru LAPOP merge 2006-2014 v3.0_W_dta.zip")
 suriname_unfactor <- read_dta("2028239474Suriname LAPOP merge 2010-2014 v3.0_W_dta.zip")
 usa_unfactor <- read_dta("1355754260UnitedStates LAPOP merge 2006-2014 v3.0_W_dta.zip")
@@ -131,7 +133,6 @@ If you are using the new merged files, you can skip this.
 This is the 16/17 version of the `factor_country()` used above. The same process applies.
 ```{r}
 argentina_16_factor <- factor_country("42076439Argentina LAPOP AmericasBarometer 2017 V1.0_W.dta")
-venezuela_16_factor  <- factor_country("25258094Venezuela LAPOP AmericasBarometer 2016-17 V1.0_W.dta")
 bolivia_16_factor  <- factor_country("142790203Bolivia LAPOP AmericasBarometer 2017 V1.0_W.dta")
 brazil_16_factor  <- factor_country("780314464Brazil LAPOP AmericasBarometer 2017 V1.0_W.dta") %>% 
   mutate(pais_factor = recode(pais_factor, Brasil = "Brazil"))
@@ -155,6 +156,7 @@ peru_16_factor  <- factor_country("83639715Peru_LAPOP_AmericasBarometer_2017_V1.
   mutate(pais_factor = recode(pais_factor, Perú = "Peru"))
 usa_16_factor  <- factor_country("2133069031United States LAPOP AmericasBarometer 2017 V1.0_W.dta")
 uruguay_16_factor  <- factor_country("646644681Uruguay LAPOP AmericasBarometer 2017 V1.0_W.dta")
+venezuela_16_factor  <- factor_country("25258094Venezuela LAPOP AmericasBarometer 2016-17 V1.0_W.dta")
 ```
 
 
@@ -163,9 +165,6 @@ This is the unfactored version of the 16/17 data frames, but we needed to apply 
 We transformed the unique ID column to character. This does not affect the data, but is necessary for the join.
 ```{r}
 argentina_16_unfactor <- read_dta("42076439Argentina LAPOP AmericasBarometer 2017 V1.0_W.dta") %>%
-  transform(uniq_id = as.character(uniq_id))
-
-venezuela_16_unfactor  <- read_dta("25258094Venezuela LAPOP AmericasBarometer 2016-17 V1.0_W.dta") %>% 
   transform(uniq_id = as.character(uniq_id))
 
 bolivia_16_unfactor  <- read_dta("142790203Bolivia LAPOP AmericasBarometer 2017 V1.0_W.dta") %>% 
@@ -223,5 +222,8 @@ usa_16_unfactor  <- read_dta("2133069031United States LAPOP AmericasBarometer 20
   transform(uniq_id = as.character(uniq_id))
 
 uruguay_16_unfactor  <- read_dta("646644681Uruguay LAPOP AmericasBarometer 2017 V1.0_W.dta") %>% 
+  transform(uniq_id = as.character(uniq_id))
+
+venezuela_16_unfactor  <- read_dta("25258094Venezuela LAPOP AmericasBarometer 2016-17 V1.0_W.dta") %>% 
   transform(uniq_id = as.character(uniq_id))
 ```
