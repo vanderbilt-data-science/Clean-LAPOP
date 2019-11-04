@@ -129,46 +129,54 @@ common_questions <- question_frequency %>%
 
 str(common_questions)
 
+#Testing to see if semi_join works
+arg_question_test <- semi_join(argentina_clean, common_questions, by = "question")
 
+#Function for joining dataframes to ensure each country has only the common questions
+total_common_questions <- function(country, question_dfr) {
+  country %>% 
+    semi_join(question_dfr, by = "question")
+}
 
-test <- semi_join(argentina_clean, common_questions, by = "question")
+#Test to make sure the function works
+bol_question_test <- total_common_questions(bolivia_clean, common_questions)
 
-test %>% 
-  tabyl(question)
-  
+countries_common_only <- reduce2(countries, common_questions, total_common_questions)
 ```
 
+
+## !DO NOT USE REFERENCE ONLY
 ```{r}
 #Checking total number of unique questions
-number_without_repeats <- combined_questions %>% 
-  select(question) %>% 
-  n_distinct()
+#number_without_repeats <- combined_questions %>% 
+  #select(question) %>% 
+  #n_distinct()
 
-number_without_repeats #Returns 119
+#number_without_repeats #Returns 119
 
 #Finding all the questions without repeats
-common_questions <- combined_questions %>% 
-  select(question) %>% 
-  unique()
+#common_questions <- combined_questions %>% 
+  #select(question) %>% 
+  #unique()
 
-common_questions
+#common_questions
 
 #Trying to just keep the ones that are in the list...
-isolated <- argentina_narrow %>% 
-  select(question) %>% 
-  filter(question %in% common_questions)
+# isolated <- argentina_narrow %>% 
+#   select(question) %>% 
+#   filter(question %in% common_questions)
 ```
 
 ### Filter common questions
 ```{r}
-find_common_questions <- function(country1, country2){
-  left_join(country1, country2, by = "question") %>% 
-    filter(!is.na(country.x)) %>% 
-    filter(!is.na(country.y))
-}
-
-first_test <- find_common_questions(argentina_narrow, bolivia_narrow)
-
-first_test
+# find_common_questions <- function(country1, country2){
+#   left_join(country1, country2, by = "question") %>% 
+#     filter(!is.na(country.x)) %>% 
+#     filter(!is.na(country.y))
+# }
+# 
+# first_test <- find_common_questions(argentina_narrow, bolivia_narrow)
+# 
+# first_test
 ```
 
