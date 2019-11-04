@@ -31,3 +31,21 @@ countries_common_only <- countries_common_only %>%
   pivot_wider(names_from = category_question, values_from = answer_measure)
 ```
 
+Ran into error saying that values are not uniquely identified. Going to try to identify duplicates
+```{r}
+test0 <- countries_common_only %>% 
+  select(country, wave, person_id_factor, weights, category_question, answer_measure) %>% 
+  filter(country == c("Argentina", "Bolivia")) %>% 
+  pivot_wider(names_from = category_question, values_from = answer_measure)
+```
+
+Error occurs again here going to look into other arguments in `pivot_wider()`
+```{r}
+test1 <- countries_common_only %>% 
+  select(country, wave, person_id_factor, weights, category_question, answer_measure) %>% 
+  filter(country == c("Argentina", "Bolivia")) %>% 
+  pivot_wider(names_from = category_question, names_repair = "unique", values_from = answer_measure)
+```
+
+
+

@@ -1,5 +1,5 @@
 ---
-title: "Widen for Tableau Public"
+title: "Finding Common Questions"
 output: html_notebook
 editor_options: 
   chunk_output_type: inline
@@ -88,7 +88,10 @@ bolivia_narrow <- bolivia_clean %>%
 
 #test1 <- bind_rows(argentina_narrow, bolivia_narrow)
 #str(argentina_narrow)
+```
 
+## Creating single dataframe with all countries and common questions
+```{r}
 #Making a function that can be iterated multiple times
 select_questions <- function(country_df){
   country_df %>% 
@@ -97,7 +100,7 @@ select_questions <- function(country_df){
     unique()
 }
 
-#test1 <- select_questions(belize_clean)
+#test <- select_questions(belize_clean)
 
 #Creating a list with all the clean data frames
 countries <- list(argentina_clean, belize_clean, bolivia_clean, brazil_clean, canada_clean, chile_clean, colombia_clean, costa_clean, ecuador_clean, elsalvador_clean, guatemala_clean, guyana_clean, honduras_clean, jamaica_clean, mexico_clean, nicaragua_clean, panama_clean, paraguay_clean, peru_clean, suriname_clean, uruguay_clean, usa_clean, venezuela_clean)
@@ -127,28 +130,19 @@ common_questions <- question_frequency %>%
   filter(n == 23) %>% 
   select(question)
 
-str(common_questions)
+#str(common_questions)
 
 #Testing to see if semi_join works
 semi_join(argentina_clean, common_questions, by = "question")
-
-
 
 #Function for joining dataframes to ensure each country has only the common questions
 find_common <- function(country_dfr, questions_dfr) {
   semi_join(country_dfr, questions_dfr, by = "question")
 }
 
-#Test to make sure the function works
-test <- total_common_questions(countries, common_questions)
-test
-
-#Trying out `map()`
+#Applying `map_dfr` to create combined dataframe
 countries_common_only <- map_dfr(countries, find_common, common_questions)
-
-semi_join(countries, common_questions, by = "question")
 ```
-
 
 ## !DO NOT USE REFERENCE ONLY
 ```{r}
