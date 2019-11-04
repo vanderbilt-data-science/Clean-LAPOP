@@ -44,46 +44,6 @@ add_wave_factor_2016 <- function(country){
 
 # 2016/17 datasets, factored and unfactored
 ```{r}
-#Colombia
-colombia_16_factor <- add_wave_factor_2016(colombia_16_factor)
-colombia_16_unfactor <- add_wave_unfactor_2016(colombia_16_unfactor)
-
-#Costa Rica
-costa_16_factor <- add_wave_factor_2016(costa_16_factor)
-costa_16_unfactor <- add_wave_unfactor_2016(costa_16_unfactor)
-
-#Ecuador
-ecuador_16_factor <- add_wave_factor_2016(ecuador_16_factor)
-ecuador_16_unfactor <- add_wave_unfactor_2016(ecuador_16_unfactor)
-
-#El Salvador
-elsalvador_16_factor <- add_wave_factor_2016(elsalvador_16_factor)
-elsalvador_16_unfactor <- add_wave_unfactor_2016(elsalvador_16_unfactor)
-
-#Guyana
-guyana_16_factor <- add_wave_factor_2016(guyana_16_factor)
-guyana_16_unfactor <- add_wave_unfactor_2016(guyana_16_unfactor)
-
-#Honduras
-honduras_16_factor <- add_wave_factor_2016(honduras_16_factor)
-honduras_16_unfactor <- add_wave_unfactor_2016(honduras_16_unfactor)
-
-#Nicaragua
-nicaragua_16_factor <- add_wave_factor_2016(nicaragua_16_factor)
-nicaragua_16_unfactor <- add_wave_unfactor_2016(nicaragua_16_unfactor)
-
-#Paraguay
-paraguay_16_factor <- add_wave_factor_2016(paraguay_16_factor)
-paraguay_16_unfactor <- add_wave_unfactor_2016(paraguay_16_unfactor)
-
-#Ecuador
-ecuador_16_factor <- add_wave_factor_2016(ecuador_16_factor) 
-ecuador_16_unfactor <- add_wave_unfactor_2016(ecuador_16_unfactor)
-
-#Venezuela
-venezuela_16_factor <- add_wave_factor_2016(venezuela_16_factor) 
-venezuela_16_unfactor <- add_wave_unfactor_2016(venezuela_16_unfactor)
-
 #Argentina
 argentina_16_factor <- add_wave_factor_2016(argentina_16_factor)
 argentina_16_unfactor <- add_wave_unfactor_2016(argentina_16_unfactor)
@@ -104,9 +64,33 @@ canada_16_unfactor <- add_wave_unfactor_2016(canada_16_unfactor)
 chile_16_factor <- add_wave_factor_2016(chile_16_factor)
 chile_16_unfactor <- add_wave_unfactor_2016(chile_16_unfactor)
 
+#Colombia
+colombia_16_factor <- add_wave_factor_2016(colombia_16_factor)
+colombia_16_unfactor <- add_wave_unfactor_2016(colombia_16_unfactor)
+
+#Costa Rica
+costa_16_factor <- add_wave_factor_2016(costa_16_factor)
+costa_16_unfactor <- add_wave_unfactor_2016(costa_16_unfactor)
+
+#Ecuador
+ecuador_16_factor <- add_wave_factor_2016(ecuador_16_factor)
+ecuador_16_unfactor <- add_wave_unfactor_2016(ecuador_16_unfactor)
+
+#El Salvador
+elsalvador_16_factor <- add_wave_factor_2016(elsalvador_16_factor)
+elsalvador_16_unfactor <- add_wave_unfactor_2016(elsalvador_16_unfactor)
+
 #Guatemala
 guatemala_16_factor  <- add_wave_factor_2016(guatemala_16_factor)
 guatemala_16_unfactor <- add_wave_unfactor_2016(guatemala_16_unfactor) 
+
+#Guyana
+guyana_16_factor <- add_wave_factor_2016(guyana_16_factor)
+guyana_16_unfactor <- add_wave_unfactor_2016(guyana_16_unfactor)
+
+#Honduras
+honduras_16_factor <- add_wave_factor_2016(honduras_16_factor)
+honduras_16_unfactor <- add_wave_unfactor_2016(honduras_16_unfactor)
 
 #Jamaica
 jamaica_16_factor  <- add_wave_factor_2016(jamaica_16_factor) 
@@ -116,9 +100,17 @@ jamaica_16_unfactor <- add_wave_unfactor_2016(jamaica_16_unfactor)
 mexico_16_factor <- add_wave_factor_2016(mexico_16_factor)
 mexico_16_unfactor <- add_wave_unfactor_2016(mexico_16_unfactor)
 
+#Nicaragua
+nicaragua_16_factor <- add_wave_factor_2016(nicaragua_16_factor)
+nicaragua_16_unfactor <- add_wave_unfactor_2016(nicaragua_16_unfactor)
+
 #Panama
 panama_16_factor <- add_wave_factor_2016(panama_16_factor)
 panama_16_unfactor <- add_wave_unfactor_2016(panama_16_unfactor)
+
+#Paraguay
+paraguay_16_factor <- add_wave_factor_2016(paraguay_16_factor)
+paraguay_16_unfactor <- add_wave_unfactor_2016(paraguay_16_unfactor)
 
 #Peru
 peru_16_factor <- add_wave_factor_2016(peru_16_factor)
@@ -131,4 +123,8 @@ usa_16_unfactor <- add_wave_unfactor_2016(usa_16_unfactor)
 #Uruguay
 uruguay_16_factor <- add_wave_factor_2016(uruguay_16_factor) 
 uruguay_16_unfactor <- add_wave_unfactor_2016(uruguay_16_unfactor)
+
+#Venezuela
+venezuela_16_factor <- add_wave_factor_2016(venezuela_16_factor) 
+venezuela_16_unfactor <- add_wave_unfactor_2016(venezuela_16_unfactor)
 ```

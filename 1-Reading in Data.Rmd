@@ -65,10 +65,11 @@ If you want to change the files that are being read in, you can either make a ne
 argentina_factor <- factor_country("1326054827Argentina LAPOP merge 2008-2014 v3.0_W_dta.zip")
 bolivia_factor <- factor_country("1500779614Bolivia LAPOP merge 2004-2014 v3.0_W_dta.zip")
 brazil_factor <- factor_country("1058457654Brazil LAPOP merge 2007-2014 v3.0_W_dta.zip") %>% 
-  #Correcting for inconsistencies in accents
+  #Correcting for inconsistencies in spelling
   mutate(pais_factor = recode(pais_factor, Brasil = "Brazil"))
 belize_factor <- factor_country("1866361808Belize LAPOP merge 2008-2014 v3.0_W_dta.zip")
 canada_factor <- factor_country("257165704Canada LAPOP merge 2006-2014 v3.0_W_dta.zip") %>% 
+  #Correcting for inconsistencies in accents
   mutate(pais_factor = recode(pais_factor, Canadá = "Canada"))
 chile_factor <- factor_country("1651690880Chile LAPOP merge 2006-2014 v3.0_W_dta.zip")
 colombia_factor <- factor_country("26761406Colombia LAPOP merge 2004-2014 v3.0_W_dta.zip")
@@ -80,6 +81,7 @@ guyana_factor <- factor_country("1293237393Guyana LAPOP merge 2006-2014 v3.0_W_d
 honduras_factor <- factor_country("125162980Honduras LAPOP merge 2004-2014 v3.0_W_dta.zip")
 jamaica_factor <- factor_country("1518553693Jamaica LAPOP merge 2006-2014 v3.0_W_dta.zip")
 mexico_factor <- factor_country("1467358429Mexico LAPOP merge 2004-2014 v3.0_W_dta.zip") %>% 
+  #Correcting for inconsistencies in accents
   mutate(pais_factor = recode(pais_factor, México = "Mexico"))
 nicaragua_factor <- factor_country("420919900Nicaragua LAPOP merge 2004-2014 v3.0_W_dta.zip")
 panama_factor <- factor_country("1909860951Panama LAPOP merge 2004-2014 v3.0_W_dta.zip") %>% 
@@ -87,6 +89,7 @@ panama_factor <- factor_country("1909860951Panama LAPOP merge 2004-2014 v3.0_W_d
   mutate(pais_factor = recode(pais_factor, Panamá = "Panama"))
 paraguay_factor <- factor_country("450650714Paraguay LAPOP merge 2006-2014 v3.0_W_dta.zip")
 peru_factor <- factor_country("897206140Peru LAPOP merge 2006-2014 v3.0_W_dta.zip") %>% 
+  #Correcting for inconsistencies in accents
   mutate(pais_factor = recode(pais_factor, Perú = "Peru"))
 suriname_factor <- factor_country("2028239474Suriname LAPOP merge 2010-2014 v3.0_W_dta.zip")
 usa_factor <- factor_country("1355754260UnitedStates LAPOP merge 2006-2014 v3.0_W_dta.zip")
@@ -130,100 +133,141 @@ Because there is no pre-existing merge that include 2016/17 data, we are reading
 If you are using the new merged files, you can skip this.
 
 ## Creating factored dataframes of 2016/17 questionnaires using `factor_country`
-This is the 16/17 version of the `factor_country()` used above. The same process applies.
+This is the 16/17 version of the `factor_country()` used above. The same process applies, but we have renamed the `uniq_id` column to `person_id` for clarification.
 ```{r}
-argentina_16_factor <- factor_country("42076439Argentina LAPOP AmericasBarometer 2017 V1.0_W.dta")
-bolivia_16_factor  <- factor_country("142790203Bolivia LAPOP AmericasBarometer 2017 V1.0_W.dta")
-brazil_16_factor  <- factor_country("780314464Brazil LAPOP AmericasBarometer 2017 V1.0_W.dta") %>% 
+factor16_country <- function(country){
+  #Reads file for the country
+  country <- read_dta(country)
+  #Factors all the columns
+  country <- as_factor(country) %>% 
+    rename(person_id = uniq_id)
+  
+  #Starts list x
+  x <- 1
+  
+  #Changes name of column to add "factor"
+  while(x <= length(country)){
+      colnames(country)[x] <- paste(colnames(country)[x], "factor", sep = "_")
+     x <- x + 1
+  }
+  country
+}
+```
+
+```{r}
+argentina_16_factor <- factor16_country("42076439Argentina LAPOP AmericasBarometer 2017 V1.0_W.dta")
+bolivia_16_factor  <- factor16_country("142790203Bolivia LAPOP AmericasBarometer 2017 V1.0_W.dta")
+brazil_16_factor  <- factor16_country("780314464Brazil LAPOP AmericasBarometer 2017 V1.0_W.dta") %>% 
   mutate(pais_factor = recode(pais_factor, Brasil = "Brazil"))
-canada_16_factor  <- factor_country("576555173Canada LAPOP AmericasBarometer 2017 V1.0_W.dta")
-chile_16_factor  <- factor_country("336280178Chile LAPOP AmericasBarometer 2017 V1.0_W.dta")
-colombia_16_factor  <- factor_country("1966987763Colombia LAPOP AmericasBarometer 2016 V1.0_W.dta")
-costa_16_factor  <- factor_country("1636511905CostaRica LAPOP AmericasBarometer 2016 V1.0_W.dta")
-ecuador_16_factor  <- factor_country("1061044693Ecuador LAPOP AmericasBarometer 2016-17 V1.0_W.dta")
-elsalvador_16_factor  <- factor_country("381267663ElSalvador LAPOP AmericasBarometer 2016 V1.0_W.dta")
-guatemala_16_factor  <- factor_country("823416394Guatemala LAPOP AmericasBarometer 2017 V1.0_W.dta")
-guyana_16_factor  <- factor_country("1740874324Guyana LAPOP AmericasBarometer 2016 V1.0_W.dta")
-honduras_16_factor  <- factor_country("1252173714Honduras LAPOP AmericasBarometer 2016 V1.0_W.dta")
-jamaica_16_factor  <- factor_country("428805428Jamaica LAPOP AmericasBarometer 2017 V1.0_W.dta")
-mexico_16_factor  <- factor_country("275973272Mexico LAPOP AmericasBarometer 2017 V1.0_W.dta") %>% 
+canada_16_factor  <- factor16_country("576555173Canada LAPOP AmericasBarometer 2017 V1.0_W.dta")
+chile_16_factor  <- factor16_country("336280178Chile LAPOP AmericasBarometer 2017 V1.0_W.dta")
+colombia_16_factor  <- factor16_country("1966987763Colombia LAPOP AmericasBarometer 2016 V1.0_W.dta")
+costa_16_factor  <- factor16_country("1636511905CostaRica LAPOP AmericasBarometer 2016 V1.0_W.dta")
+ecuador_16_factor  <- factor16_country("1061044693Ecuador LAPOP AmericasBarometer 2016-17 V1.0_W.dta")
+elsalvador_16_factor  <- factor16_country("381267663ElSalvador LAPOP AmericasBarometer 2016 V1.0_W.dta")
+guatemala_16_factor  <- factor16_country("823416394Guatemala LAPOP AmericasBarometer 2017 V1.0_W.dta")
+guyana_16_factor  <- factor16_country("1740874324Guyana LAPOP AmericasBarometer 2016 V1.0_W.dta")
+honduras_16_factor  <- factor16_country("1252173714Honduras LAPOP AmericasBarometer 2016 V1.0_W.dta")
+jamaica_16_factor  <- factor16_country("428805428Jamaica LAPOP AmericasBarometer 2017 V1.0_W.dta")
+mexico_16_factor  <- factor16_country("275973272Mexico LAPOP AmericasBarometer 2017 V1.0_W.dta") %>% 
   mutate(pais_factor = recode(pais_factor, México = "Mexico"))
-nicaragua_16_factor  <- factor_country("1862548546Nicaragua LAPOP AmericasBarometer 2016 V1.0_W.dta")
-panama_16_factor  <- factor_country("2078678947Panama LAPOP AmericasBarometer 2017 V1.0_W.dta") %>% 
+nicaragua_16_factor  <- factor16_country("1862548546Nicaragua LAPOP AmericasBarometer 2016 V1.0_W.dta")
+panama_16_factor  <- factor16_country("2078678947Panama LAPOP AmericasBarometer 2017 V1.0_W.dta") %>% 
   mutate(pais_factor = recode(pais_factor, Panamá = "Panama"))
-paraguay_16_factor <- factor_country("1311870907Paraguay LAPOP AmericasBarometer 2016 V1.0 W.dta")
-peru_16_factor  <- factor_country("83639715Peru_LAPOP_AmericasBarometer_2017_V1.1_W.dta") %>% 
+paraguay_16_factor <- factor16_country("1311870907Paraguay LAPOP AmericasBarometer 2016 V1.0 W.dta")
+peru_16_factor  <- factor16_country("83639715Peru_LAPOP_AmericasBarometer_2017_V1.1_W.dta") %>% 
   mutate(pais_factor = recode(pais_factor, Perú = "Peru"))
-usa_16_factor  <- factor_country("2133069031United States LAPOP AmericasBarometer 2017 V1.0_W.dta")
-uruguay_16_factor  <- factor_country("646644681Uruguay LAPOP AmericasBarometer 2017 V1.0_W.dta")
-venezuela_16_factor  <- factor_country("25258094Venezuela LAPOP AmericasBarometer 2016-17 V1.0_W.dta")
+usa_16_factor  <- factor16_country("2133069031United States LAPOP AmericasBarometer 2017 V1.0_W.dta")
+uruguay_16_factor  <- factor16_country("646644681Uruguay LAPOP AmericasBarometer 2017 V1.0_W.dta")
+venezuela_16_factor  <- factor16_country("25258094Venezuela LAPOP AmericasBarometer 2016-17 V1.0_W.dta")
 ```
 
 
 ## Creating unfactored dataframes of 2016/17 questionnaires using `read_dta`
 This is the unfactored version of the 16/17 data frames, but we needed to apply modifications for when we eventually combined the 16/17 with the merged. 
-We transformed the unique ID column to character. This does not affect the data, but is necessary for the join.
+We renamed the unique ID column to `person_id` and transformed it to a character. This does not affect the data, but is necessary for the join.
 ```{r}
 argentina_16_unfactor <- read_dta("42076439Argentina LAPOP AmericasBarometer 2017 V1.0_W.dta") %>%
-  transform(uniq_id = as.character(uniq_id))
+  rename(person_id = uniq_id) %>% 
+  transform(person_id = as.character(person_id))
 
 bolivia_16_unfactor  <- read_dta("142790203Bolivia LAPOP AmericasBarometer 2017 V1.0_W.dta") %>% 
-  transform(uniq_id = as.character(uniq_id))
+  rename(person_id = uniq_id) %>% 
+  transform(person_id = as.character(person_id))
 
 brazil_16_unfactor  <- read_dta("780314464Brazil LAPOP AmericasBarometer 2017 V1.0_W.dta") %>% 
-  transform(uniq_id = as.character(uniq_id))
+  rename(person_id = uniq_id) %>% 
+  transform(person_id = as.character(person_id))
 
 canada_16_unfactor  <- read_dta("576555173Canada LAPOP AmericasBarometer 2017 V1.0_W.dta") %>% 
-  transform(uniq_id = as.character(uniq_id))
+  rename(person_id = uniq_id) %>% 
+  transform(person_id = as.character(person_id))
 
 chile_16_unfactor  <- read_dta("336280178Chile LAPOP AmericasBarometer 2017 V1.0_W.dta") %>% 
-  transform(uniq_id = as.character(uniq_id))
+  rename(person_id = uniq_id) %>% 
+  transform(person_id = as.character(person_id))
 
 colombia_16_unfactor  <- read_dta("1966987763Colombia LAPOP AmericasBarometer 2016 V1.0_W.dta") %>% 
-  transform(uniq_id = as.character(uniq_id))
+  rename(person_id = uniq_id) %>% 
+  transform(person_id = as.character(person_id))
 
 costa_16_unfactor  <- read_dta("1636511905CostaRica LAPOP AmericasBarometer 2016 V1.0_W.dta") %>% 
-  transform(uniq_id = as.character(uniq_id))
+  rename(person_id = uniq_id) %>% 
+  transform(person_id = as.character(person_id))
 
 ecuador_16_unfactor  <- read_dta("1061044693Ecuador LAPOP AmericasBarometer 2016-17 V1.0_W.dta") %>% 
-  transform(uniq_id = as.character(uniq_id))
+  rename(person_id = uniq_id) %>% 
+  transform(person_id = as.character(person_id))
 
 elsalvador_16_unfactor  <- read_dta("381267663ElSalvador LAPOP AmericasBarometer 2016 V1.0_W.dta") %>% 
-  transform(uniq_id = as.character(uniq_id))
+  rename(person_id = uniq_id) %>% 
+  transform(person_id = as.character(person_id))
 
-guatemala_16_unfactor  <- read_dta("823416394Guatemala LAPOP AmericasBarometer 2017 V1.0_W.dta") %>% 
-  transform(uniq_id = as.character(uniq_id))
+guatemala_16_unfactor  <- read_dta("823416394Guatemala LAPOP AmericasBarometer 2017 V1.0_W.dta") %>%
+  rename(person_id = uniq_id) %>% 
+  transform(person_id = as.character(person_id))
 
 guyana_16_unfactor  <- read_dta("1740874324Guyana LAPOP AmericasBarometer 2016 V1.0_W.dta") %>% 
-  transform(uniq_id = as.character(uniq_id))
+  rename(person_id = uniq_id) %>% 
+  transform(person_id = as.character(person_id))
 
 honduras_16_unfactor  <- read_dta("1252173714Honduras LAPOP AmericasBarometer 2016 V1.0_W.dta") %>% 
-  transform(uniq_id = as.character(uniq_id))
+  rename(person_id = uniq_id) %>% 
+  transform(person_id = as.character(person_id))
 
 jamaica_16_unfactor  <- read_dta("428805428Jamaica LAPOP AmericasBarometer 2017 V1.0_W.dta") %>% 
-  transform(uniq_id = as.character(uniq_id))
+  rename(person_id = uniq_id) %>% 
+  transform(person_id = as.character(person_id))
 
 mexico_16_unfactor  <- read_dta("275973272Mexico LAPOP AmericasBarometer 2017 V1.0_W.dta") %>% 
-  transform(uniq_id = as.character(uniq_id))
+  rename(person_id = uniq_id) %>% 
+  transform(person_id = as.character(person_id))
 
 nicaragua_16_unfactor  <- read_dta("1862548546Nicaragua LAPOP AmericasBarometer 2016 V1.0_W.dta") %>% 
-  transform(uniq_id = as.character(uniq_id))
+  rename(person_id = uniq_id) %>% 
+  transform(person_id = as.character(person_id))
 
 panama_16_unfactor  <- read_dta("2078678947Panama LAPOP AmericasBarometer 2017 V1.0_W.dta") %>% 
-  transform(uniq_id = as.character(uniq_id))
+  rename(person_id = uniq_id) %>% 
+  transform(person_id = as.character(person_id))
 
 paraguay_16_unfactor <- read_dta("1311870907Paraguay LAPOP AmericasBarometer 2016 V1.0 W.dta") %>% 
-  transform(uniq_id = as.character(uniq_id))
+  rename(person_id = uniq_id) %>% 
+  transform(person_id = as.character(person_id))
 
 peru_16_unfactor  <- read_dta("83639715Peru_LAPOP_AmericasBarometer_2017_V1.1_W.dta") %>% 
-  transform(uniq_id = as.character(uniq_id))
+  rename(person_id = uniq_id) %>% 
+  transform(person_id = as.character(person_id))
 
 usa_16_unfactor  <- read_dta("2133069031United States LAPOP AmericasBarometer 2017 V1.0_W.dta") %>% 
-  transform(uniq_id = as.character(uniq_id))
+  rename(person_id = uniq_id) %>% 
+  transform(person_id = as.character(person_id))
 
 uruguay_16_unfactor  <- read_dta("646644681Uruguay LAPOP AmericasBarometer 2017 V1.0_W.dta") %>% 
-  transform(uniq_id = as.character(uniq_id))
+  rename(person_id = uniq_id) %>% 
+  transform(person_id = as.character(person_id))
 
 venezuela_16_unfactor  <- read_dta("25258094Venezuela LAPOP AmericasBarometer 2016-17 V1.0_W.dta") %>% 
-  transform(uniq_id = as.character(uniq_id))
+  rename(person_id = uniq_id) %>% 
+  transform(person_id = as.character(person_id))
 ```
