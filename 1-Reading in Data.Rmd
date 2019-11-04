@@ -92,7 +92,9 @@ peru_factor <- factor_country("897206140Peru LAPOP merge 2006-2014 v3.0_W_dta.zi
   #Correcting for inconsistencies in accents
   mutate(pais_factor = recode(pais_factor, Perú = "Peru"))
 suriname_factor <- factor_country("2028239474Suriname LAPOP merge 2010-2014 v3.0_W_dta.zip")
-usa_factor <- factor_country("1355754260UnitedStates LAPOP merge 2006-2014 v3.0_W_dta.zip")
+usa_factor <- factor_country("1355754260UnitedStates LAPOP merge 2006-2014 v3.0_W_dta.zip") %>% 
+  #Correcting for inconsistencies in spelling
+  mutate(pais_factor = recode(pais_factor, "Estados Unidos" = "United States"))
 uruguay_factor <- factor_country("1222977998Uruguay LAPOP merge 2007-2014 v3.0_W_dta.zip")
 venezuela_factor <- factor_country("1165310382Venezuela LAPOP merge 2007-2014 v3.0_W_dta.zip")
 ```
@@ -177,7 +179,9 @@ panama_16_factor  <- factor16_country("2078678947Panama LAPOP AmericasBarometer 
 paraguay_16_factor <- factor16_country("1311870907Paraguay LAPOP AmericasBarometer 2016 V1.0 W.dta")
 peru_16_factor  <- factor16_country("83639715Peru_LAPOP_AmericasBarometer_2017_V1.1_W.dta") %>% 
   mutate(pais_factor = recode(pais_factor, Perú = "Peru"))
-usa_16_factor  <- factor16_country("2133069031United States LAPOP AmericasBarometer 2017 V1.0_W.dta")
+usa_16_factor  <- factor16_country("2133069031United States LAPOP AmericasBarometer 2017 V1.0_W.dta") %>% 
+  #Correcting for inconsistencies in spelling
+  mutate(pais_factor = recode(pais_factor, "Estados Unidos" = "United States"))
 uruguay_16_factor  <- factor16_country("646644681Uruguay LAPOP AmericasBarometer 2017 V1.0_W.dta")
 venezuela_16_factor  <- factor16_country("25258094Venezuela LAPOP AmericasBarometer 2016-17 V1.0_W.dta")
 ```

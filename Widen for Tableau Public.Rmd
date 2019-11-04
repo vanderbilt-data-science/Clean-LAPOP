@@ -6,7 +6,7 @@ editor_options:
 ---
 
 # Testing `janitor`
-```{r}
+```{r, message=FALSE}
 library(janitor)
 library(rlang)
 ```
@@ -87,8 +87,9 @@ bolivia_narrow <- bolivia_clean %>%
   unique()
 
 #test1 <- bind_rows(argentina_narrow, bolivia_narrow)
-str(argentina_narrow)
+#str(argentina_narrow)
 
+#Making a function that can be iterated multiple times
 select_questions <- function(country_df){
   country_df %>% 
     select(country, question) %>% 
@@ -98,22 +99,46 @@ select_questions <- function(country_df){
 
 #test1 <- select_questions(belize_clean)
 
+#Creating a list with all the clean data frames
 countries <- list(argentina_clean, belize_clean, bolivia_clean, brazil_clean, canada_clean, chile_clean, colombia_clean, costa_clean, ecuador_clean, elsalvador_clean, guatemala_clean, guyana_clean, honduras_clean, jamaica_clean, mexico_clean, nicaragua_clean, panama_clean, paraguay_clean, peru_clean, suriname_clean, uruguay_clean, usa_clean, venezuela_clean)
 
-#length(countries) There are 23 countries
+length(countries) #There are 23 countries
 
-#Narrowing countries to just have two columns
+#Narrowing countries to just have two columns and combining into one data frame
 combined_questions <- map_dfr(countries, select_questions)
+length(combined_questions)
 
 
 #Frequency table for total number of questions
-combined_questions %>% 
+question_frequency <- combined_questions %>% 
   tabyl(question)
 
+#Checking to make sure no countries were repeated
 combined_questions %>% 
   select(country) %>% 
   unique()
 
+#Checking structure of object `question_frequency`
+str(question_frequency)
+
+#Isolating common questions
+common_questions <- question_frequency %>% 
+  select(n, question) %>% 
+  filter(n == 23) %>% 
+  select(question)
+
+str(common_questions)
+
+
+
+test <- semi_join(argentina_clean, common_questions, by = "question")
+
+test %>% 
+  tabyl(question)
+  
+```
+
+```{r}
 #Checking total number of unique questions
 number_without_repeats <- combined_questions %>% 
   select(question) %>% 
