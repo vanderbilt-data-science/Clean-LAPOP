@@ -12,7 +12,7 @@ Now that we finally have a single dataframe with all the countries with only the
 In order to do this we are going to:
 
 * combine columns into the format of "category:question text"
-* select the necessary columns (country, wave, person_id, weight, category:question text)
+* select the necessary columns (country, wave, person_id, weight, category_question, answer_measure)
 
 ```{r}
 library(rlang)
@@ -22,5 +22,12 @@ library(rlang)
 ```{r}
 countries_common_only <- countries_common_only %>% 
   unite(category_question, category, question, sep = ":")
+```
+
+## Pivoting Wider
+```{r}
+countries_common_only <- countries_common_only %>% 
+  select(country, wave, person_id_factor, weights, category_question, answer_measure) %>% 
+  pivot_wider(names_from = category_question, values_from = answer_measure)
 ```
 
