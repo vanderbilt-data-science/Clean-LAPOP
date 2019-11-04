@@ -130,18 +130,23 @@ common_questions <- question_frequency %>%
 str(common_questions)
 
 #Testing to see if semi_join works
-arg_question_test <- semi_join(argentina_clean, common_questions, by = "question")
+semi_join(argentina_clean, common_questions, by = "question")
+
+
 
 #Function for joining dataframes to ensure each country has only the common questions
-total_common_questions <- function(country, question_dfr) {
-  country %>% 
-    semi_join(question_dfr, by = "question")
+find_common <- function(country_dfr, questions_dfr) {
+  semi_join(country_dfr, questions_dfr, by = "question")
 }
 
 #Test to make sure the function works
-bol_question_test <- total_common_questions(bolivia_clean, common_questions)
+test <- total_common_questions(countries, common_questions)
+test
 
-countries_common_only <- reduce2(countries, common_questions, total_common_questions)
+#Trying out `map()`
+countries_common_only <- map_dfr(countries, find_common, common_questions)
+
+semi_join(countries, common_questions, by = "question")
 ```
 
 
