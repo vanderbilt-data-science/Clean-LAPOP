@@ -1,0 +1,26 @@
+---
+title: "Widening for Tableau Public"
+output: html_notebook
+editor_options: 
+  chunk_output_type: inline
+---
+
+# Structure
+
+Now that we finally have a single dataframe with all the countries with only the common questions, we need to widen it so that it fits within Tableau Public's limit.
+
+In order to do this we are going to:
+
+* combine columns into the format of "category:question text"
+* select the necessary columns (country, wave, person_id, weight, category:question text)
+
+```{r}
+library(rlang)
+```
+
+## Combining category and question
+```{r}
+countries_common_only <- countries_common_only %>% 
+  unite(category_question, category, question, sep = ":")
+```
+
