@@ -15,7 +15,7 @@ In order to do this we are going to:
 * select the necessary columns (country, wave, person_id, weight, category_question, answer_measure)
 
 ```{r}
-library(rlang)
+library(assertr)
 ```
 
 ## Combining category and question
@@ -46,6 +46,13 @@ test1 <- countries_common_only %>%
   filter(country == c("Argentina", "Bolivia")) %>% 
   pivot_wider(names_from = category_question, names_repair = "unique", values_from = answer_measure)
 ```
+
+## Searching for duplicates
+```{r}
+countries_common_only %>% 
+  assert(is_uniq, person_id_factor)
+```
+
 
 
 
