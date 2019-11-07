@@ -38,10 +38,25 @@ test0 <- countries_common_only %>%
   filter(country == c("Argentina", "Bolivia")) %>% 
   pivot_wider(names_from = category_question, values_from = answer_measure)
 ```
+```{r}
+test0 <- countries_common_only %>% 
+  select(country, wave, person_id_factor, weights, category_question, answer_measure) %>% 
+  filter(country ==  "Bolivia") %>% 
+  pivot_wider(names_from = category_question, values_from = answer_measure)
+```
+
+Going to try adding in a row number
+```{r}
+test1 <- countries_common_only %>% 
+  select(country, wave, person_id_factor, weights, category_question, answer_measure) %>% 
+  mutate(row_num = row_number()) %>% 
+  filter(country == c("Argentina", "Bolivia")) %>% 
+  pivot_wider(names_from = category_question, values_from = answer_measure)
+```
 
 Error occurs again here going to look into other arguments in `pivot_wider()`
 ```{r}
-test1 <- countries_common_only %>% 
+test2 <- countries_common_only %>% 
   select(country, wave, person_id_factor, weights, category_question, answer_measure) %>% 
   filter(country == c("Argentina", "Bolivia")) %>% 
   pivot_wider(names_from = category_question, names_repair = "unique", values_from = answer_measure)
