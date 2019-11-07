@@ -21,7 +21,7 @@ making_uniqueID <- function(country){
   country <- mutate(country,
                     idnum = ifelse(idnum_14 == '',
                                    idnum,
-                                   paste(idnum,idnum_14,sep = "/"))) %>%
+                                   paste(idnum,idnum_14,sep = "_"))) %>%
     #Makes new column, person_id
     mutate(.,
            person_id = paste(
@@ -74,7 +74,7 @@ making_uniqueID_factor <- function(country){
   country <- mutate(country,
                     idnum_factor = ifelse(idnum_14_factor == '',
                                    idnum_factor,
-                                   paste(idnum_factor,idnum_14_factor, sep = "/"))) %>%
+                                   paste(idnum_factor,idnum_14_factor, sep = "_"))) %>%
     #Makes new column, uniq_id_factor
     mutate(.,
            person_id_factor = paste(

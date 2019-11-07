@@ -161,88 +161,89 @@ check_unique_factor(venezuela_unique_factor)
 These end up pretty much with the same results as aboved except Honduras only has 2 repeats instead of five. Not sure what's up with that.
 
 ## Testing the 2016 waves
+All of the datasets from the 2016 waves are unique.
 ```{r}
 #Argentina
 check_unique_factor(argentina_16_factor)
 check_unique(argentina_16_unfactor)
 
 #Bolivia
-bolivia_16_factor <- add_wave_factor_2016(bolivia_16_factor)
-bolivia_16_unfactor <- add_wave_unfactor_2016(bolivia_16_unfactor)
+check_unique_factor(bolivia_16_factor)
+check_unique(bolivia_16_unfactor)
 
 #Brazil
-brazil_16_factor <- add_wave_factor_2016(brazil_16_factor)
-brazil_16_unfactor <- add_wave_unfactor_2016(brazil_16_unfactor)
+check_unique_factor(brazil_16_factor)
+check_unique(brazil_16_unfactor)
 
 #Canada
-canada_16_factor <- add_wave_factor_2016(canada_16_factor)
-canada_16_unfactor <- add_wave_unfactor_2016(canada_16_unfactor)
+check_unique_factor(canada_16_factor)
+check_unique(canada_16_unfactor)
 
 #Chile
-chile_16_factor <- add_wave_factor_2016(chile_16_factor)
-chile_16_unfactor <- add_wave_unfactor_2016(chile_16_unfactor)
+check_unique_factor(chile_16_factor)
+check_unique(chile_16_unfactor)
 
 #Colombia
-colombia_16_factor <- add_wave_factor_2016(colombia_16_factor)
-colombia_16_unfactor <- add_wave_unfactor_2016(colombia_16_unfactor)
+check_unique_factor(colombia_16_factor)
+check_unique(colombia_16_unfactor)
 
 #Costa Rica
-costa_16_factor <- add_wave_factor_2016(costa_16_factor)
-costa_16_unfactor <- add_wave_unfactor_2016(costa_16_unfactor)
+check_unique_factor(costa_16_factor)
+check_unique(costa_16_unfactor)
 
 #Ecuador
-ecuador_16_factor <- add_wave_factor_2016(ecuador_16_factor)
-ecuador_16_unfactor <- add_wave_unfactor_2016(ecuador_16_unfactor)
+check_unique_factor(ecuador_16_factor)
+check_unique(ecuador_16_unfactor)
 
 #El Salvador
-elsalvador_16_factor <- add_wave_factor_2016(elsalvador_16_factor)
-elsalvador_16_unfactor <- add_wave_unfactor_2016(elsalvador_16_unfactor)
+check_unique_factor(elsalvador_16_factor)
+check_unique(elsalvador_16_unfactor)
 
 #Guatemala
-guatemala_16_factor  <- add_wave_factor_2016(guatemala_16_factor)
-guatemala_16_unfactor <- add_wave_unfactor_2016(guatemala_16_unfactor) 
+check_unique_factor(guatemala_16_factor)
+check_unique(guatemala_16_unfactor) 
 
 #Guyana
-guyana_16_factor <- add_wave_factor_2016(guyana_16_factor)
-guyana_16_unfactor <- add_wave_unfactor_2016(guyana_16_unfactor)
+check_unique_factor(guyana_16_factor)
+check_unique(guyana_16_unfactor)
 
 #Honduras
-honduras_16_factor <- add_wave_factor_2016(honduras_16_factor)
-honduras_16_unfactor <- add_wave_unfactor_2016(honduras_16_unfactor)
+check_unique_factor(honduras_16_factor)
+check_unique(honduras_16_unfactor)
 
 #Jamaica
-jamaica_16_factor  <- add_wave_factor_2016(jamaica_16_factor) 
-jamaica_16_unfactor <- add_wave_unfactor_2016(jamaica_16_unfactor)
+check_unique_factor(jamaica_16_factor) 
+check_unique(jamaica_16_unfactor)
 
 #Mexico
-mexico_16_factor <- add_wave_factor_2016(mexico_16_factor)
-mexico_16_unfactor <- add_wave_unfactor_2016(mexico_16_unfactor)
+check_unique_factor(mexico_16_factor)
+check_unique(mexico_16_unfactor)
 
 #Nicaragua
-nicaragua_16_factor <- add_wave_factor_2016(nicaragua_16_factor)
-nicaragua_16_unfactor <- add_wave_unfactor_2016(nicaragua_16_unfactor)
+check_unique_factor(nicaragua_16_factor)
+check_unique(nicaragua_16_unfactor)
 
 #Panama
-panama_16_factor <- add_wave_factor_2016(panama_16_factor)
-panama_16_unfactor <- add_wave_unfactor_2016(panama_16_unfactor)
+check_unique_factor(panama_16_factor)
+check_unique(panama_16_unfactor)
 
 #Paraguay
-paraguay_16_factor <- add_wave_factor_2016(paraguay_16_factor)
-paraguay_16_unfactor <- add_wave_unfactor_2016(paraguay_16_unfactor)
+check_unique_factor(paraguay_16_factor)
+check_unique(paraguay_16_unfactor)
 
 #Peru
-peru_16_factor <- add_wave_factor_2016(peru_16_factor)
-peru_16_unfactor <- add_wave_unfactor_2016(peru_16_unfactor)
+check_unique_factor(peru_16_factor)
+check_unique(peru_16_unfactor)
 
 #United States
-usa_16_factor <- add_wave_factor_2016(usa_16_factor)
-usa_16_unfactor <- add_wave_unfactor_2016(usa_16_unfactor)
+check_unique_factor(usa_16_factor)
+check_unique(usa_16_unfactor)
 
 #Uruguay
-uruguay_16_factor <- add_wave_factor_2016(uruguay_16_factor) 
-uruguay_16_unfactor <- add_wave_unfactor_2016(uruguay_16_unfactor)
+check_unique_factor(uruguay_16_factor) 
+check_unique(uruguay_16_unfactor)
 
 #Venezuela
-venezuela_16_factor <- add_wave_factor_2016(venezuela_16_factor) 
-venezuela_16_unfactor <- add_wave_unfactor_2016(venezuela_16_unfactor)
+check_unique_factor(venezuela_16_factor) 
+check_unique(venezuela_16_unfactor)
 ```
