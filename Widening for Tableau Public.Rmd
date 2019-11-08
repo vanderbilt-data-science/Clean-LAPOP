@@ -105,11 +105,29 @@ test2 <- countries_common_only %>%
   pivot_wider(names_from = category_question, names_repair = "unique", values_from = answer_measure)
 ```
 
-## Searching for duplicates
+## Pivoting individual countries to then later combine
+Here is a character vector with the countries that currently have unique IDs. Still said that same error that longer object length is not a multiple of shorter object length, but will come back to this.
 ```{r}
-countries_common_only %>% 
-  assert(is_uniq, person_id_factor)
+current_countries <- countries_common_only %>% 
+  filter(country == c("Argentina", "Belize", "Brazil", "Chile", "Guyana", "Nicaragua", "Panama", "Paraguay", "Peru", "Suriname", "United States", "Uruguay", "Venezuela"))
 ```
+
+### Function to pivot each country
+```{r}
+widen_unique_countries <- function(country_df, country_name){
+  country_df %>% 
+    select(country, wave, person_id_factor, weights, category_question, answer_measure) %>% 
+    filter(country == country_name) %>% 
+    pivot_wider(names_from = category_question, values_from = answer_measure)
+}
+```
+
+```{r}
+arg_uniq <- widen_unique_countries(countries_common_only, "Argentina")
+bel_uniq <- widen_unique_countries(countries_common_only, "Belice")
+first_combined <- rbind(arg_uniq, bel_uniq)
+```
+
 
 
 
