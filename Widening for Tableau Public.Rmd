@@ -24,26 +24,40 @@ countries_common_only <- countries_common_only %>%
   unite(category_question, category, question, sep = ":")
 ```
 
-## Pivoting Wider
+## Pivoting Wider (!Runs error because answer_measure not uniquely identified)
 ```{r}
 countries_common_only <- countries_common_only %>% 
   select(country, wave, person_id_factor, weights, category_question, answer_measure) %>% 
   pivot_wider(names_from = category_question, values_from = answer_measure)
 ```
 
-Ran into error saying that values are not uniquely identified. Going to try to identify duplicates
+Ran into error saying that values are not uniquely identified. Going to try to identify duplicates. 
+Check "Testing Wide Unique ID.Rmd" for results
 ```{r}
 test0 <- countries_common_only %>% 
   select(country, wave, person_id_factor, weights, category_question, answer_measure) %>% 
   filter(country == c("Argentina", "Bolivia")) %>% 
   pivot_wider(names_from = category_question, values_from = answer_measure)
 ```
+
 ```{r}
 test0 <- countries_common_only %>% 
   select(country, wave, person_id_factor, weights, category_question, answer_measure) %>% 
-  filter(country ==  "Bolivia") %>% 
+  filter(country ==  "Guyana") %>% 
   pivot_wider(names_from = category_question, values_from = answer_measure)
 ```
+
+## Pivoting countries that have confirmed unique IDs
+```{r}
+wide_confirmed_countries <- countries_common_only %>% 
+  select(country, wave, person_id_factor, weights, category_question, answer_measure) %>% 
+  filter(country == c("Argentina", "Belize", "Brazil", "Chile", "Guyana", "Nicaragua", "Panama", "Paraguay", "Peru", "Suriname", "United States", "Uruguay", "Venezuela")) %>% 
+  pivot_wider(names_from = category_question, values_from = answer_measure)
+
+wide_confirmed_countries
+```
+
+
 
 Going to try adding in a row number
 ```{r}
