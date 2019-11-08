@@ -143,7 +143,7 @@ separate_wide_countries <- list(argentina_uniq, belize_uniq, brazil_uniq, chile_
 ```
 
 ```{r}
-test <- rbind(argentina_uniq, belize_uniq, brazil_uniq, chile_uniq, guyana_uniq, panama_uniq, paraguay_uniq, peru_uniq, suriname_uniq, usa_uniq, uruguay_uniq, venezuela_uniq)
+widened_unique_countries <- rbind(argentina_uniq, belize_uniq, brazil_uniq, chile_uniq, guyana_uniq, panama_uniq, paraguay_uniq, peru_uniq, suriname_uniq, usa_uniq, uruguay_uniq, venezuela_uniq)
 ```
 
 
