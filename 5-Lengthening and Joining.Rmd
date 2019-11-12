@@ -294,12 +294,13 @@ Combining dataframes - outputs data frame with 25 million rows. Going to look in
 make_total_clean <- function(country_df){
   country_df %>% 
     rbind() %>% 
+    ungroup() %>% 
     mutate(person_id = rownames(country_df)) %>% 
     select(-person_id_factor)
 }
 
-combined_clean <- map_dfr(total_clean, make_total_clean)
-combined_clean
+combined_clean1 <- map_dfr(total_clean, make_total_clean)
+assert(combined_clean1, is_uniq)
 ```
 
 ```{r}
@@ -321,10 +322,12 @@ make_total_clean2 <- function(country_df){
   country_df %>% 
     rbind() %>% 
     mutate(person_id = extra_id(country_df)) %>% 
-    select(-person_id_factor)
+    select(-person_id_factor) %>% 
+    ungroup()
 }
 
 combined_clean <- map_dfr(total_clean, make_total_clean2)
+assert(combined_clean, is_uniq)
 combined_clean
 ```
 
