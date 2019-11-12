@@ -11,60 +11,10 @@ library(janitor)
 library(rlang)
 ```
 
-## `clean_names()`
-```{r}
-test_df <- as.data.frame(matrix(ncol = 6))
-names(test_df) <- c("firstName", "ábc@!", "% successful (2009)", "REPEAT VALUE", "REPEAT VALUE")
-```
-
-```{r}
-test_df %>% 
-  clean_names()
-```
-
-## Testing with LAPOP values
-```{r}
-argentina_16_factor %>% 
-  clean_names()
-
-bolivia_16_factor %>% 
-  clean_names()
-```
-
-## `compare_df_cols()`
-
-```{r}
-df1 <- data.frame(a = 1:2, b = c("big", "small")) # a factor by default
-df2 <- data.frame(a = 10:12, b = c("medium", "small", "big"), c = 0, stringsAsFactors = FALSE)
-df3 <- df1 %>%
-  dplyr::mutate(b = as.character(b))
-
-compare_df_cols(df1, df2, df3)
-
-compare_df_cols(df1, df2, df3, return = "mismatch")
-compare_df_cols(df1, df2, df3, return = "mismatch", bind_method = "rbind") # default is dplyr::bind_rows
-```
-
-## Applying with Argentina and Bolivia
-
-```{r}
-compare_df_cols(argentina_16_factor, bolivia_16_factor)
-```
-
-```{r}
-test1 <- argentina_16_factor %>% 
-  select(-q2_factor)
-test <- semi_join(test1, bolivia_16_factor, by = NULL)
-```
-
-```{r}
-compare_df_cols(argentina_clean, bolivia_clean)
-```
-
 ## Alternate approach
 In the long format, try unique() on country name
 
-We need country, wave, and questions to create a new data frame with `unique()`. Then we need to create a function that gets - `group_by()` - these columns, makes them unique, creates a new column with its count - `summarize(n())` - and finally filters down to the ones that occur in all datasets - `filter(x >= total # of countries)`.
+We need country, wave, and questions to create a new data frame with `unique()`. Then we need to create a function that gets - `select()` - these columns, makes them unique, creates a new column with its count - `summarize(n())` - and finally filters down to the ones that occur in all datasets - `filter(x == total # of countries)`.
 
 *Current total number of countries is 23*
 
@@ -142,6 +92,9 @@ find_common <- function(country_dfr, questions_dfr) {
 
 #Applying `map_dfr` to create combined dataframe
 countries_common_only <- map_dfr(countries, find_common, common_questions)
+
+#Trying `map_dfr` on combined_clean
+total_long_common <- find_common(combined_clean, common_questions)
 ```
 
 ## !DO NOT USE REFERENCE ONLY

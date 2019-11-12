@@ -6,7 +6,7 @@ editor_options:
 ---
 
 # Structure
-I am testing to ensure that the person ID is unique. This affects the data later on.
+I am testing to ensure that the person ID is unique. This affects the data later on when using `pivot_wider()`.
 
 ```{r}
 library(assertr)
@@ -32,6 +32,11 @@ check_unique <- function(country) {
     assert(is_uniq, person_id)
 }
 ```
+
+```{r}
+check_unique(total_long_common)
+```
+
 
 ```{r}
 unfactored_countries <- list(argentina_unique_unfactor, belize_unique_unfactor, bolivia_unique_unfactor, brazil_unique_unfactor, canada_unique_unfactor, chile_unique_unfactor, colombia_unique_unfactor, costa_unique_unfactor, ecuador_unique_unfactor, elsalvador_unique_unfactor, guatemala_unique_unfactor, guyana_unique_unfactor, honduras_unique_unfactor, jamaica_unique_unfactor, mexico_unique_unfactor, nicaragua_unique_unfactor, panama_unique_unfactor, paraguay_unique_unfactor, peru_unique_unfactor, suriname_unique_unfactor, usa_unique_unfactor, uruguay_unique_unfactor, venezuela_unique_unfactor)

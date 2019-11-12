@@ -302,3 +302,29 @@ combined_clean <- map_dfr(total_clean, make_total_clean)
 combined_clean
 ```
 
+```{r}
+extra_id <- function(country) {
+  i <- 1
+  #Object column is the length of idnum column
+  column <- length(country$answer_measure)
+  #Repeats NA for length column
+  number_for_dupID <- rep(NA, column)
+  #Loop that adds row number
+  while(i <= column){
+    number_for_dupID[i] <- i
+    i <- i + 1
+  }
+  number_for_dupID
+}
+
+make_total_clean2 <- function(country_df){
+  country_df %>% 
+    rbind() %>% 
+    mutate(person_id = extra_id(country_df)) %>% 
+    select(-person_id_factor)
+}
+
+combined_clean <- map_dfr(total_clean, make_total_clean2)
+combined_clean
+```
+
