@@ -86,7 +86,14 @@ combo_3 <- countries_common_only %>%
          
 combo_3 #Throws length error but produces a lot more values
 ```
-
+```{r}
+argentina_wide <- countries_common_only %>% 
+  select(country, wave, person_id_factor, weights, category_question, answer_measure) %>% 
+  filter(country == "Argentina") %>% 
+  pivot_wider(names_from = category_question, values_from = answer_measure)
+         
+argentina_wide
+```
 
 Going to try adding in a row number
 ```{r}
