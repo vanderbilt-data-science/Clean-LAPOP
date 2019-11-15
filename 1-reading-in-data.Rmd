@@ -198,83 +198,83 @@ argentina_16_unfactor <- read_dta("data/2016_argentina.dta") %>%
   rename(person_id = uniq_id) %>% 
   transform(person_id = as.character(person_id))
 
-bolivia_16_unfactor  <- read_dta("data/142790203Bolivia LAPOP AmericasBarometer 2017 V1.0_W.dta") %>% 
+bolivia_16_unfactor  <- read_dta("data/2016_bolivia.dta") %>% 
   rename(person_id = uniq_id) %>% 
   transform(person_id = as.character(person_id))
 
-brazil_16_unfactor  <- read_dta("data/780314464Brazil LAPOP AmericasBarometer 2017 V1.0_W.dta") %>% 
+brazil_16_unfactor  <- read_dta("data/2016_brazil.dta") %>% 
   rename(person_id = uniq_id) %>% 
   transform(person_id = as.character(person_id))
 
-canada_16_unfactor  <- read_dta("data/576555173Canada LAPOP AmericasBarometer 2017 V1.0_W.dta") %>% 
+canada_16_unfactor  <- read_dta("data/2016_canada.dta") %>% 
   rename(person_id = uniq_id) %>% 
   transform(person_id = as.character(person_id))
 
-chile_16_unfactor  <- read_dta("data/336280178Chile LAPOP AmericasBarometer 2017 V1.0_W.dta") %>% 
+chile_16_unfactor  <- read_dta("data/2016_chile.dta") %>% 
   rename(person_id = uniq_id) %>% 
   transform(person_id = as.character(person_id))
 
-colombia_16_unfactor  <- read_dta("data/1966987763Colombia LAPOP AmericasBarometer 2016 V1.0_W.dta") %>% 
+colombia_16_unfactor  <- read_dta("data/2016_chile.dta") %>% 
   rename(person_id = uniq_id) %>% 
   transform(person_id = as.character(person_id))
 
-costa_16_unfactor  <- read_dta("data/1636511905CostaRica LAPOP AmericasBarometer 2016 V1.0_W.dta") %>% 
+costa_16_unfactor  <- read_dta("data/2016_costa_rica.dta") %>% 
   rename(person_id = uniq_id) %>% 
   transform(person_id = as.character(person_id))
 
-ecuador_16_unfactor  <- read_dta("data/1061044693Ecuador LAPOP AmericasBarometer 2016-17 V1.0_W.dta") %>% 
+ecuador_16_unfactor  <- read_dta("data/2016_ecuador.dta") %>% 
   rename(person_id = uniq_id) %>% 
   transform(person_id = as.character(person_id))
 
-elsalvador_16_unfactor  <- read_dta("data/381267663ElSalvador LAPOP AmericasBarometer 2016 V1.0_W.dta") %>% 
+elsalvador_16_unfactor  <- read_dta("data/2016_el_salvador.dta") %>% 
   rename(person_id = uniq_id) %>% 
   transform(person_id = as.character(person_id))
 
-guatemala_16_unfactor  <- read_dta("data/823416394Guatemala LAPOP AmericasBarometer 2017 V1.0_W.dta") %>%
+guatemala_16_unfactor  <- read_dta("data/2016_guatemala.dta") %>%
   rename(person_id = uniq_id) %>% 
   transform(person_id = as.character(person_id))
 
-guyana_16_unfactor  <- read_dta("data/1740874324Guyana LAPOP AmericasBarometer 2016 V1.0_W.dta") %>% 
+guyana_16_unfactor  <- read_dta("data/2016_guyana.dta") %>% 
   rename(person_id = uniq_id) %>% 
   transform(person_id = as.character(person_id))
 
-honduras_16_unfactor  <- read_dta("data/1252173714Honduras LAPOP AmericasBarometer 2016 V1.0_W.dta") %>% 
+honduras_16_unfactor  <- read_dta("data/2016_honduras.dta") %>% 
   rename(person_id = uniq_id) %>% 
   transform(person_id = as.character(person_id))
 
-jamaica_16_unfactor  <- read_dta("data/428805428Jamaica LAPOP AmericasBarometer 2017 V1.0_W.dta") %>% 
+jamaica_16_unfactor  <- read_dta("data/2016_jamaica.dta") %>% 
   rename(person_id = uniq_id) %>% 
   transform(person_id = as.character(person_id))
 
-mexico_16_unfactor  <- read_dta("data/275973272Mexico LAPOP AmericasBarometer 2017 V1.0_W.dta") %>% 
+mexico_16_unfactor  <- read_dta("data/2016_mexico.dta") %>% 
   rename(person_id = uniq_id) %>% 
   transform(person_id = as.character(person_id))
 
-nicaragua_16_unfactor  <- read_dta("data/1862548546Nicaragua LAPOP AmericasBarometer 2016 V1.0_W.dta") %>% 
+nicaragua_16_unfactor  <- read_dta("data/2016_nicaragua.dta") %>% 
   rename(person_id = uniq_id) %>% 
   transform(person_id = as.character(person_id))
 
-panama_16_unfactor  <- read_dta("data/2078678947Panama LAPOP AmericasBarometer 2017 V1.0_W.dta") %>% 
+panama_16_unfactor  <- read_dta("data/2016_panama.dta") %>% 
   rename(person_id = uniq_id) %>% 
   transform(person_id = as.character(person_id))
 
-paraguay_16_unfactor <- read_dta("data/1311870907Paraguay LAPOP AmericasBarometer 2016 V1.0 W.dta") %>% 
+paraguay_16_unfactor <- read_dta("data/2016_paraguay.dta") %>% 
   rename(person_id = uniq_id) %>% 
   transform(person_id = as.character(person_id))
 
-peru_16_unfactor  <- read_dta("data/83639715Peru_LAPOP_AmericasBarometer_2017_V1.1_W.dta") %>% 
+peru_16_unfactor  <- read_dta("data/2016_peru.dta") %>% 
   rename(person_id = uniq_id) %>% 
   transform(person_id = as.character(person_id))
 
-usa_16_unfactor  <- read_dta("data/2133069031United States LAPOP AmericasBarometer 2017 V1.0_W.dta") %>% 
+usa_16_unfactor  <- read_dta("data/2016_united_states.dta") %>% 
   rename(person_id = uniq_id) %>% 
   transform(person_id = as.character(person_id))
 
-uruguay_16_unfactor  <- read_dta("data/646644681Uruguay LAPOP AmericasBarometer 2017 V1.0_W.dta") %>% 
+uruguay_16_unfactor  <- read_dta("data/2016_uruguay.dta") %>% 
   rename(person_id = uniq_id) %>% 
   transform(person_id = as.character(person_id))
 
-venezuela_16_unfactor  <- read_dta("data/25258094Venezuela LAPOP AmericasBarometer 2016-17 V1.0_W.dta") %>% 
+venezuela_16_unfactor  <- read_dta("data/2016_venezuela.dta") %>% 
   rename(person_id = uniq_id) %>% 
   transform(person_id = as.character(person_id))
 ```
