@@ -175,15 +175,19 @@ argentina_16_factor <- factor16_country("data/2016_argentina.dta")
 bolivia_16_factor  <- factor16_country("data/2016_bolivia.dta")
 brazil_16_factor  <- factor16_country("data/2016_brazil.dta") %>% 
   mutate(pais_factor = recode(pais_factor, Brasil = "Brazil"))
-canada_16_factor  <- factor16_country("data/2016_canada.dta")
+canada_16_factor  <- factor16_country("data/2016_canada.dta") %>% 
+  #Correcting for inconsistencies in accents
+  mutate(pais_factor = recode(pais_factor, Canadá = "Canada"))
 chile_16_factor  <- factor16_country("data/2016_chile.dta")
 colombia_16_factor  <- factor16_country("data/2016_colombia.dta")
 costa_16_factor  <- factor16_country("data/2016_costa_rica.dta")
 ecuador_16_factor  <- factor16_country("data/2016_ecuador.dta")
 elsalvador_16_factor  <- factor16_country("data/2016_el_salvador.dta")
 guatemala_16_factor  <- factor16_country("data/2016_guatemala.dta")
-guyana_16_factor  <- factor16_country("data/2016_guyana.dta")
-haiti_16_factor <- factor16_country("data/2016_haiti.dta")
+guyana_16_factor  <- factor16_country("data/2016_guyana.dta") %>% 
+  transform(pais_factor = as.factor(pais_factor)) %>% 
+  
+#haiti_16_factor <- factor16_country("data/2016_haiti.dta")
 honduras_16_factor  <- factor16_country("data/2016_honduras.dta")
 jamaica_16_factor  <- factor16_country("data/2016_jamaica.dta")
 mexico_16_factor  <- factor16_country("data/2016_mexico.dta") %>% 

@@ -53,7 +53,7 @@ select_questions <- function(country_df){
 #test <- select_questions(belize_clean)
 
 #Creating a list with all the clean data frames
-countries <- list(argentina_clean, belize_clean, bolivia_clean, brazil_clean, canada_clean, chile_clean, colombia_clean, costa_clean, ecuador_clean, elsalvador_clean, guatemala_clean, guyana_clean, honduras_clean, jamaica_clean, mexico_clean, nicaragua_clean, panama_clean, paraguay_clean, peru_clean, suriname_clean, uruguay_clean, usa_clean, venezuela_clean)
+countries <- list(argentina_clean, belize_clean, bolivia_clean, brazil_clean, canada_clean, chile_clean, costa_clean, ecuador_clean, elsalvador_clean, guatemala_clean, guyana_clean, honduras_clean, jamaica_clean, mexico_clean, nicaragua_clean, panama_clean, paraguay_clean, peru_clean, suriname_clean, uruguay_clean, usa_clean, venezuela_clean) #colombia_clean not resolved
 
 length(countries) #There are 23 countries
 
