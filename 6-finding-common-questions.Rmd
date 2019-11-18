@@ -96,7 +96,7 @@ countries_common_only <- map_dfr(countries, find_common, common_questions)
 
 #Trying `map_dfr` on combined_clean
 total_long_common <- find_common(combined_clean, common_questions)
-assert(total_long_common, is_uniq)
+assert(total_long_common, is_uniq, person_id)
 ```
 
 ## !DO NOT USE REFERENCE ONLY
