@@ -77,7 +77,8 @@ str(question_frequency)
 #Isolating common questions
 common_questions <- question_frequency %>% 
   select(n, question) %>% 
-  filter(n == 23) %>% 
+  #Change this back to 23
+  filter(n == 22) %>% 
   select(question)
 
 #str(common_questions)
@@ -95,6 +96,7 @@ countries_common_only <- map_dfr(countries, find_common, common_questions)
 
 #Trying `map_dfr` on combined_clean
 total_long_common <- find_common(combined_clean, common_questions)
+assert(total_long_common, is_uniq)
 ```
 
 ## !DO NOT USE REFERENCE ONLY

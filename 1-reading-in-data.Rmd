@@ -186,7 +186,7 @@ elsalvador_16_factor  <- factor16_country("data/2016_el_salvador.dta")
 guatemala_16_factor  <- factor16_country("data/2016_guatemala.dta")
 guyana_16_factor  <- factor16_country("data/2016_guyana.dta") %>% 
   transform(pais_factor = as.factor(pais_factor)) %>% 
-  
+  mutate(pais_factor = recode(pais_factor, `24` = "Guyana")) 
 #haiti_16_factor <- factor16_country("data/2016_haiti.dta")
 honduras_16_factor  <- factor16_country("data/2016_honduras.dta")
 jamaica_16_factor  <- factor16_country("data/2016_jamaica.dta")

@@ -18,6 +18,29 @@ In order to do this we are going to:
 library(assertr)
 ```
 
+
+## Combining category and question
+```{r}
+total_long_common <- total_long_common %>% 
+  unite(category_question, category, question, sep = ":")
+```
+
+## Pivoting Wider (!Runs error because answer_measure not uniquely identified)
+```{r}
+final_wide <- total_long_common %>% 
+  select(country, wave, person_id, weights, category_question, answer_measure) %>% 
+  pivot_wider(id_cols = person_id,
+              names_from = category_question,
+              values_from = answer_measure,
+              values_fn = list(answer_measure = list))
+```
+
+
+
+
+
+
+
 ## Combining category and question
 ```{r}
 countries_common_only <- countries_common_only %>% 
@@ -28,7 +51,7 @@ countries_common_only <- countries_common_only %>%
 ```{r}
 countries_common_only <- countries_common_only %>% 
   select(country, wave, person_id_factor, weights, category_question, answer_measure) %>% 
-  pivot_wider(names_from = category_question, values_from = answer_measure)
+  pivot_wider(id_cols = person_id, names_from = category_question, values_from = answer_measure)
 ```
 
 Ran into error saying that values are not uniquely identified. Going to try to identify duplicates. 
