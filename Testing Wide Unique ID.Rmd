@@ -1,0 +1,254 @@
+---
+title: "Testing Wide Unique ID"
+output: html_notebook
+editor_options: 
+  chunk_output_type: inline
+---
+
+# Structure
+I am testing to ensure that the person ID is unique. This affects the data later on when using `pivot_wider()`.
+
+```{r}
+library(assertr)
+library(purrr)
+```
+
+
+## Asserts
+Going to check them individually
+```{r}
+#Successful
+argentina_unique_unfactor %>% 
+  assert(is_uniq, person_id)
+#Successful
+belize_unique_unfactor%>% 
+  assert(is_uniq, person_id)
+```
+
+Making a function for it
+```{r}
+check_unique <- function(country) {
+  country %>% 
+    assert(is_uniq, person_id)
+}
+```
+
+```{r}
+check_unique(total_long_common)
+```
+
+
+```{r}
+unfactored_countries <- list(argentina_unique_unfactor, belize_unique_unfactor, bolivia_unique_unfactor, brazil_unique_unfactor, canada_unique_unfactor, chile_unique_unfactor, colombia_unique_unfactor, costa_unique_unfactor, ecuador_unique_unfactor, elsalvador_unique_unfactor, guatemala_unique_unfactor, guyana_unique_unfactor, honduras_unique_unfactor, jamaica_unique_unfactor, mexico_unique_unfactor, nicaragua_unique_unfactor, panama_unique_unfactor, paraguay_unique_unfactor, peru_unique_unfactor, suriname_unique_unfactor, usa_unique_unfactor, uruguay_unique_unfactor, venezuela_unique_unfactor)
+```
+
+```{r}
+map(unfactored_countries, check_unique)
+```
+
+Okay so it says that an issue starts at 1004, but person_id violates the assertion is_uniq 377 times, so we've got to find that. Going to check individually again.
+
+```{r}
+#Failed - 377 times
+check_unique(bolivia_unique_unfactor)
+#Successful!
+check_unique(brazil_unique_unfactor)
+#Failed - 70 times
+check_unique(canada_unique_unfactor)
+#Successful!
+check_unique(chile_unique_unfactor)
+#Failed - 4 times
+check_unique(colombia_unique_unfactor)
+#Failed - 4496 times
+check_unique(costa_unique_unfactor)
+#Failed - 4 times
+check_unique(ecuador_unique_unfactor)
+#Failed - 96 times
+check_unique(elsalvador_unique_unfactor)
+#Failed - 8 times
+check_unique(guatemala_unique_unfactor)
+#Successful!
+check_unique(guyana_unique_unfactor)
+#Failed - 5 times
+check_unique(honduras_unique_unfactor)
+#Failed - 4 times
+check_unique(jamaica_unique_unfactor)
+#Failed - 1134 times
+check_unique(mexico_unique_unfactor)
+#Failed - 2 times
+check_unique(nicaragua_unique_unfactor)
+#Successful!
+check_unique(panama_unique_unfactor)
+#Successful!
+check_unique(paraguay_unique_unfactor)
+#Successful!
+check_unique(peru_unique_unfactor)
+#Successful!
+check_unique(suriname_unique_unfactor)
+#Successful!
+check_unique(usa_unique_unfactor)
+#Successful!
+check_unique(uruguay_unique_unfactor)
+#Successful!
+check_unique(venezuela_unique_unfactor)
+```
+
+Unfactored countries that are verified as unique:
+Argentina, Belize, Brazil, Chile, Guyana, Panama, Paraguay, Peru, Suriname, USA, Uruguay, Venezuela
+
+## Asserting with factored countries
+
+```{r}
+factored_countries <- list(argentina_unique_factor, belize_unique_factor, bolivia_unique_factor, brazil_unique_factor, canada_unique_factor, chile_unique_factor, colombia_unique_factor, costa_unique_factor, ecuador_unique_factor, elsalvador_unique_factor, guatemala_unique_factor, guyana_unique_factor, honduras_unique_factor, jamaica_unique_factor, mexico_unique_factor, nicaragua_unique_factor, panama_unique_factor, paraguay_unique_factor, peru_unique_factor, suriname_unique_factor, usa_unique_factor, uruguay_unique_factor, venezuela_unique_factor)
+```
+
+```{r}
+check_unique_factor <- function(country) {
+  country %>% 
+    assert(is_uniq, person_id_factor)
+}
+```
+
+```{r}
+map(factored_countries, check_unique_factor)
+```
+
+Ran into the same issue as above, so going to check individual countries
+```{r}
+#Successful!
+check_unique_factor(argentina_unique_factor)
+#Successful!
+check_unique_factor(belize_unique_factor)
+#Failed
+check_unique_factor(bolivia_unique_factor)
+#Successful!
+check_unique_factor(brazil_unique_factor)
+#Failed - 70 times
+check_unique_factor(canada_unique_factor)
+#Successful!
+check_unique_factor(chile_unique_factor)
+#Failed - 4 times
+check_unique_factor(colombia_unique_factor)
+#Failed - 4496 times
+check_unique_factor(costa_unique_factor)
+#Failed - 4 times
+check_unique_factor(ecuador_unique_factor)
+#Failed - 96 times
+check_unique_factor(elsalvador_unique_factor)
+#Failed - 8 times
+check_unique_factor(guatemala_unique_factor)
+#Successful!
+check_unique_factor(guyana_unique_factor)
+#Failed - 2 times - DIFFERENT FROM UNFACTORED
+check_unique_factor(honduras_unique_factor)
+#Failed - 4 times
+check_unique_factor(jamaica_unique_factor)
+#Failed - 1134 times
+check_unique_factor(mexico_unique_factor)
+#Failed - 2 times
+check_unique_factor(nicaragua_unique_factor)
+#Successful!
+check_unique_factor(panama_unique_factor)
+#Successful!
+check_unique_factor(paraguay_unique_factor)
+#Successful!
+check_unique_factor(peru_unique_factor)
+#Successful!
+check_unique_factor(suriname_unique_factor)
+#Successful!
+check_unique_factor(usa_unique_factor)
+#Successful!
+check_unique_factor(uruguay_unique_factor)
+#Successful!
+check_unique_factor(venezuela_unique_factor)
+```
+
+These end up pretty much with the same results as aboved except Honduras only has 2 repeats instead of five. Not sure what's up with that.
+
+## Testing the 2016 waves
+All of the datasets from the 2016 waves are unique.
+```{r}
+#Argentina
+check_unique_factor(argentina_16_factor)
+check_unique(argentina_16_unfactor)
+
+#Bolivia
+check_unique_factor(bolivia_16_factor)
+check_unique(bolivia_16_unfactor)
+
+#Brazil
+check_unique_factor(brazil_16_factor)
+check_unique(brazil_16_unfactor)
+
+#Canada
+check_unique_factor(canada_16_factor)
+check_unique(canada_16_unfactor)
+
+#Chile
+check_unique_factor(chile_16_factor)
+check_unique(chile_16_unfactor)
+
+#Colombia
+check_unique_factor(colombia_16_factor)
+check_unique(colombia_16_unfactor)
+
+#Costa Rica
+check_unique_factor(costa_16_factor)
+check_unique(costa_16_unfactor)
+
+#Ecuador
+check_unique_factor(ecuador_16_factor)
+check_unique(ecuador_16_unfactor)
+
+#El Salvador
+check_unique_factor(elsalvador_16_factor)
+check_unique(elsalvador_16_unfactor)
+
+#Guatemala
+check_unique_factor(guatemala_16_factor)
+check_unique(guatemala_16_unfactor) 
+
+#Guyana
+check_unique_factor(guyana_16_factor)
+check_unique(guyana_16_unfactor)
+
+#Honduras
+check_unique_factor(honduras_16_factor)
+check_unique(honduras_16_unfactor)
+
+#Jamaica
+check_unique_factor(jamaica_16_factor) 
+check_unique(jamaica_16_unfactor)
+
+#Mexico
+check_unique_factor(mexico_16_factor)
+check_unique(mexico_16_unfactor)
+
+#Nicaragua
+check_unique_factor(nicaragua_16_factor)
+check_unique(nicaragua_16_unfactor)
+
+#Panama
+check_unique_factor(panama_16_factor)
+check_unique(panama_16_unfactor)
+
+#Paraguay
+check_unique_factor(paraguay_16_factor)
+check_unique(paraguay_16_unfactor)
+
+#Peru
+check_unique_factor(peru_16_factor)
+check_unique(peru_16_unfactor)
+
+#United States
+check_unique_factor(usa_16_factor)
+check_unique(usa_16_unfactor)
+
+#Uruguay
+check_unique_factor(uruguay_16_factor) 
+check_unique(uruguay_16_unfactor)
+
+#Venezuela
+check_unique_factor(venezuela_16_factor) 
+check_unique(venezuela_16_unfactor)
+```

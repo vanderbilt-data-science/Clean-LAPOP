@@ -1,0 +1,29 @@
+---
+title: "7-Multiple Variables"
+output: html_notebook
+editor_options: 
+  chunk_output_type: inline
+---
+
+# Structure
+I am hoping to create a stacked bar graph with multiple variables. I am going to pick a single question and then also select sex or age we can look at responses by those demographics. 
+
+I'm going to use columns uniq_id, sex, age,  question 1 response.
+
+# Shaping data
+
+```{r}
+# arg_multi <- argentina_clean %>% 
+#   filter(wave == 2016) %>% 
+#   filter(question %in% c("Sexo", "Edad", "Seriedad del cambio climático")) %>% 
+#   spread(key = question, value = answer_dimension)
+```
+
+```{r}
+arg_multi <- argentina_16_factor %>% 
+  select(pais_factor, idnum_factor, sex_factor, wave_factor, ocup4a_factor, q2_factor)
+
+write_csv(arg_multi, "Argentina Stacked Bar.csv")
+```
+
+

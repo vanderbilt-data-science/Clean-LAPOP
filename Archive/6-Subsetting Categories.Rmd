@@ -1,0 +1,74 @@
+---
+title: "6-Subsetting Categories"
+output: html_notebook
+editor_options: 
+  chunk_output_type: inline
+---
+
+# Structure of code
+This creates subsets of the categories to hopefully work around the row limit in Tableau Public. We created these groups based on similarities between the kinds of questions asked.
+
+## Groups
+1. Politics
+2. Institutions
+3. Interpersonal
+4. Individual
+
+### Politics
+These categories ask questions related to political beliefs and political leanings.
+```{r}
+politics <- c("The Economy", "Civic and Political Engagement", "Political/Electoral Engagement", "Foreign Relations")
+```
+
+### Institutions
+List of categories that ask about perception of institutions in their country.
+```{r}
+institutions <- c("Local Government", "Evaluation of Institutions, Political System, and Other Persons", "Support for Democracy and Democratic Institutions", "Corruption")
+```
+
+### Interpersonal
+List of categories that deal with interpersonal conflicts.
+```{r}
+interpersonal <- c("Crime, Insecurity, and Policy Preferences", "Political Tolerance", "Migration", "Gender", "Social Media")
+```
+
+### Individual
+These categories ask questions regarding information on the individual level.
+```{r}
+individual <- c("Climate Change/Disaster Risk Reduction", "Political and Religious Orientation", "Sample Identification/Geographic", "Socio-Demographic Characteristics")
+```
+
+
+## Writing .csv
+This is a similar process to the "Writing .csv" portion of step 5, however this makes data frames out of overall topics.
+```{r}
+
+#Makes dataset for politics list
+pol_small <- complete %>%
+  #Filters for the categoires in politics list
+  filter(category %in% politics)
+
+#Makes dataset for institutions list
+inst_small <- complete %>% 
+  #Filters for the categories in institutions list
+  filter(category %in% institutions)
+
+#Makes dataset for interpersonal list
+inter_small <- complete %>% 
+  #Filters for the categories in interpersonal list
+  filter(category %in% interpersonal)
+
+#Makes dataset for individual list
+indiv_small <- complete %>% 
+  #Filters for the categories in individual list
+  filter(category %in% individual)
+
+
+#Writes separate .csv files for each topic
+write_csv(pol_small, 'Politics Subset LAPOP_new.csv')
+write_csv(inst_small, "Institutions Subset LAPOP.csv")
+write_csv(inter_small, "Interpersonal Subset LAPOP.csv")
+write_csv(indiv_small, "Individual Subset LAPOP.csv")
+```
+
+

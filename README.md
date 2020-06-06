@@ -18,8 +18,16 @@ In order to run this code, you will also need to install the following packages 
 * [labelled](https://cran.r-project.org/web/packages/labelled/vignettes/intro_labelled.html)
 * [sjmisc](https://cran.r-project.org/web/packages/sjmisc/sjmisc.pdf)
 * [assertr](https://cran.r-project.org/web/packages/assertr/vignettes/assertr.html)
+* [janitor](https://cran.r-project.org/web/packages/janitor/janitor.pdf)
+* [rlang](https://cran.r-project.org/web/packages/rlang/rlang.pdf)
 
 Finally, you will need the excel files provided by the LAPOP organization that contains the current list of categories and questions to be visualized. The excel file should then be converted to .csv for use in RStudio.
+
+You can find these files above. They are named as follows:
+* "LAPOP categories unfactored.csv"
+* "Lapop Categories factored.csv"
+* "updated factor questions.csv"
+* "updated unfactor questions.csv"
 
 These files will need to be placed into the working directory of your project in RStudio.
 
@@ -32,22 +40,27 @@ Tutorials to Tableau Public can be accessed [here](https://public.tableau.com/en
 1. Reading in Data
     + Reads in the merged country and 2016/17 Stata files downloaded from the [LAPOP Datasets](http://datasets.americasbarometer.org/database/index.php)
     + Creates factored and unfactored versions of all datasets
+ 
+2. Categories and Questions
+    + Loads in the .csv files with appropriate categories and questions
   
-2. Adding Wave Column
+3. Adding Wave Column
     + Creates a column that contains the correct wave for 2016/17 datasets.
 
-3. Creating Unique ID
+4. Creating Unique ID
     + Makes a unique ID for merged country files that follows the unique ID of 2016/17 files.
-    
-4. Loading in Categories and Questions
-    + Brings in the .csv files that will be joined in step 5.
 
 5. Lengthening and Joining
     + Lengthens countries into tidy format
     + Joins the questions and category columns by column_name
+    
+6. Finding Common Questions
+    + Narrows down the data to questions that are asked across all countries
+    
+7. Widening for Tableau Public
+    + Widens the data to fit in the row limit for Tableau Public
 
-6. Writing .csv
-    + Separates datasets by year
+8. Writing .csv
     + Writes .csv files to use in Tableau Public
 
 # Team
